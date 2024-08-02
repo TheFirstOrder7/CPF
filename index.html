@@ -6,7 +6,7 @@
     <title>The First Order - Loan Information</title>
     <!-- Link to Google Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Roboto+Condensed:wght@700&display=swap">
-    
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,9 +23,9 @@
             padding: 1.5rem;
             font-size: 2rem;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
         header img {
             height: 60px;
@@ -33,24 +33,6 @@
         }
         header .title {
             font-family: 'Roboto Condensed', sans-serif;
-        }
-        .info-box {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 1rem;
-            margin-bottom: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 600px;
-            text-align: left;
-            color: #333;
-        }
-        .info-box h2 {
-            font-size: 1.5rem;
-            margin: 0 0 1rem 0;
-        }
-        .info-box p {
-            margin: 0.5rem 0;
         }
         nav {
             background-color: #4a4e69;
@@ -64,8 +46,7 @@
             font-size: 1.1rem;
         }
         .container {
-            width: 90%;
-            max-width: 1200px;
+            width: 80%;
             margin: 2rem auto;
             background-color: rgba(255, 255, 255, 0.9);
             padding: 2rem;
@@ -97,7 +78,7 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            height: 60px; /* Adjust the height as needed */
+            height: 60px;
         }
         .notice-board p {
             color: #f2e9e4;
@@ -106,7 +87,7 @@
             white-space: nowrap;
             overflow: hidden;
             display: inline-block;
-            animation: slide 20s linear infinite; /* Increased duration to slow down */
+            animation: slide 20s linear infinite;
         }
         @keyframes slide {
             0% { transform: translateX(100%); }
@@ -148,10 +129,63 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 999;
         }
+
+        /* Info Box Styles */
+        .info-box {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 300px; /* Adjusted width */
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            padding: 1rem;
+            box-sizing: border-box;
+            margin-right: 20px; /* Added margin to move it slightly to the right */
+        }
+        .info-box.open {
+            transform: translateY(0);
+        }
+        .info-box .info-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        .info-box .info-content {
+            font-size: 0.9rem;
+            max-height: 400px; /* Added max-height to allow scrolling */
+            overflow-y: auto;
+        }
+        .info-box .close-btn {
+            background-color: #4a4e69;
+            color: #f2e9e4;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1rem;
+            margin-top: 1rem;
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+        /* Mobile Styles */
         @media (max-width: 768px) {
-            .container, .info-box {
-                width: 100%;
+            .container {
+                width: 95%;
                 padding: 1rem;
+            }
+            .notice-board p {
+                font-size: 1rem;
+            }
+            .info-box {
+                width: 100%;
+                height: 200px;
+                margin-right: 0; /* Remove margin on mobile */
             }
         }
     </style>
@@ -161,27 +195,7 @@
     <header>
         <img src="logo.png" alt="The First Order Logo">
         <div class="title">The First Order</div>
-        <!-- Information Box -->
-        <div class="info-box">
-            <h2>Receipt of Collective Prosperity Fund, 2024</h2>
-            <p><strong>CPF BALANCE:</strong> ₹6901</p>
-            <p><strong>Advances:</strong> ₹7602</p>
-            <p><strong>Working Loan Capital:</strong> ₹701 (-ve)</p>
-            <p><strong>President Vault Transfers:</strong> ₹0</p>
-            <p><strong>AGGREGATE OPERATING CAPITAL:</strong> ₹6901</p>
-            <p><strong>Net AOC:</strong> ₹6901</p>
-            <p><strong>Realised Profits:</strong> ₹781</p>
-            <p><strong>Mandatory Add-ons:</strong> ₹4900</p>
-            <p><strong>Voluntary Add-ons:</strong> ₹1220</p>
-            <p><strong>NET CAPITAL RESERVES:</strong> ₹6901</p>
-            <p><strong>Retail G-SEC:</strong> ₹500</p>
-            <p><strong>Primary G-SEC:</strong> ₹0</p>
-            <p><strong>Share Holding Pattern:</strong></p>
-            <p>The First Order Government - 92.5%</p>
-            <p>Shubham Goswami - 5%</p>
-            <p>Rahul Goswami - 2.5%</p>
-            <p><strong>PRESIDENT VAULT:</strong> ₹0</p>
-        </div>
+        <button class="info-toggle-btn" onclick="toggleInfoBox()">Info</button>
     </header>
 
     <!-- Navigation Bar -->
@@ -215,9 +229,6 @@
                     <td>285</td>
                     <td>2061</td>
                 </tr>
-                <tr>
-                    <td>126</td>
-                    <td>QD 2 500</
                 <tr>
                     <td>126</td>
                     <td>QD 2 500</td>
@@ -284,16 +295,45 @@
             </tbody>
         </table>
 
-        <!-- Notice Board Slider -->
+
         <div class="notice-board">
-            <p>Notice: President RAHA Scheme is Active./ Revisioning of loans is now available / Presidential Order 01 Dated 22/July/2024
-                 Revision fees on loans stand increased from 5 percent to 75 percent (93% hike) provisionally.
-                 Provisional 200% tax on loans of tenure greater than 30 calendar days.
-                
-                Reason - Fund balance has been overdrawn (113%)</p>
+            <p>Upcoming events and important notices will be displayed here.</p>
         </div>
     </div>
 
+
+    <!-- Info Box -->
+    <div class="info-box" id="infoBox">
+        <div class="info-title">Collective Prosperity Fund - 2024</div>
+        <div class="info-content">
+            <p><strong>CPF Balance:</strong> ₹6901</p>
+            <p><strong>Advances:</strong> ₹7602</p>
+            <p><strong>Working Loan Capital:</strong> ₹701 (-ve)</p>
+            <p><strong>President Vault Transfers:</strong> ₹0</p>
+            <p><strong>Aggregate Operating Capital:</strong> ₹6901</p>
+            <p><strong>Net AOC:</strong> ₹6901</p>
+            <p><strong>Realised Profits:</strong> ₹781</p>
+            <p><strong>Mandatory Add-ons:</strong> ₹4900</p>
+            <p><strong>Voluntary Add-ons:</strong> ₹1220</p>
+            <p><strong>Net Capital Reserves:</strong> ₹6901</p>
+            <p><strong>Retail G-SEC:</strong> ₹500</p>
+            <p><strong>Primary G-SEC:</strong> ₹0</p>
+            <p><strong>Share Holding Pattern:</strong></p>
+            <p>The First Order Government - 92.5%</p>
+            <p>Shubham Goswami - 5%</p>
+            <p>Rahul Goswami - 2.5%</p>
+            <p><strong>President Vault:</strong> ₹0</p>
+        </div>
+        <button class="close-btn" onclick="toggleInfoBox()">Close</button>
+    </div>
+
+    <!-- JavaScript for Info Box Toggle -->
+    <script>
+        function toggleInfoBox() {
+            const infoBox = document.getElementById('infoBox');
+            infoBox.classList.toggle('open');
+        }
+    </script>
     <div class="popup" id="loanReminder" style="display: block; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -40%); background-color: #fff; padding: 1rem; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); border-radius: 8px; z-index: 1000; max-width: 400px; text-align: center;">
         <p>Reminder: Loan repayment date is near for Nitin Goswami. Kindly pay your dues to 7456943225@jupiteraxis</p>
         <img src="upi.jpg" alt="Payment UPI QR Code" width="150" height="auto">
@@ -304,41 +344,15 @@
         <button onclick="closePopup()">Close</button>
     </div>
     <div id="overlay" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>
-
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const currentDate = new Date();
-            const loans = [
-                { date: '2024-12-04', name: 'Shubham Goswami' },
-                { date: '2024-08-03', name: 'Nitin Goswami' },
-                { date: '2024-09-05', name: 'Neeraj Goswami' },
-                { date: '2024-11-07', name: 'Nitin Goswami' },
-                { date: '2024-11-07', name: 'Nitin Goswami' },
-                { date: '2024-11-07', name: 'Nitin Goswami' },
-                { date: '2024-08-12', name: 'Rohit Bora' },
-                { date: '2024-08-22', name: 'Shubham Goswami' }
-            ];
-
-            loans.forEach(loan => {
-                const repaymentDate = new Date(loan.date);
-                const timeDiff = repaymentDate - currentDate;
-                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
-                if (daysDiff <= 5) {
-                    showPopup();
-                }
-            });
-        });
-
-        function showPopup() {
-            document.getElementById('loanReminder').style.display = 'block';
-            document.getElementById('overlay').style.display = 'block';
-        }
-
-        function closePopup() {
-            document.getElementById('loanReminder').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-    </script>
+    function closePopup() {
+        document.getElementById('loanReminder').style.display = 'none';
+        document.getElementById('overlay').style.display = 'none';
+    }
+    
+    // Optional: Automatically close the popup after a certain time
+    setTimeout(closePopup, 10000); // Closes the popup after 10 seconds (10000 milliseconds)
+</script>
 
 </body>
 </html>
