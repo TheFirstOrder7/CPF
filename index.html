@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The First Order - Loan Information</title>
+    <!-- Link to Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Roboto+Condensed:wght@700&display=swap">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.webp') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: rgba(74, 78, 105, 0.9);
+            color: #f2e9e4;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header img {
+            height: 60px;
+            margin-right: 1rem;
+        }
+        header .title {
+            font-family: 'Roboto Condensed', sans-serif;
+        }
+        nav {
+            background-color: #4a4e69;
+            padding: 0.5rem;
+            text-align: center;
+        }
+        nav a {
+            color: #f2e9e4;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+        }
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 2rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.5rem;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 0.75rem;
+            text-align: center;
+        }
+        th {
+            background-color: #22223b;
+            color: #f2e9e4;
+        }
+        td {
+            background-color: #c9ada7;
+            color: #22223b;
+        }
+        .notice-board {
+            margin-top: 2rem;
+            background-color: rgba(74, 78, 105, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            height: 60px; /* Adjust the height as needed */
+        }
+        .notice-board p {
+            color: #f2e9e4;
+            font-size: 1.2rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: slide 20s linear infinite; /* Increased duration to slow down */
+        }
+        @keyframes slide {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 1rem;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+        .popup p {
+            margin: 0;
+        }
+        .popup button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #4a4e69;
+            color: #f2e9e4;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="logo.png" alt="The First Order Logo">
+        <div class="title">The First Order</div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="https://docs.google.com/document/d/1pPuQp9L93onb2Yf_Aiwf5Myiwbc7FmB492PgZqdsrLA/edit?usp=sharing">CPF Constitution</a>
+        <a href="https://docs.google.com/document/d/150uY7G5WbpqI1LA64VP2ler69a0alBGopqORFnaIui4/edit?usp=sharing">Transaction History</a>
+        <a href="https://docs.google.com/document/d/1CwzSNJ10ynXA3uhdkTSP4HtuKdrgnR7UmiG5F-fD-CU/edit?usp=sharing">Interest Rates</a>
+        <a href="https://docs.google.com/document/d/1YW1iRyBLhyCA0f0NBrOROspxMCeQ0z9Bleq_mBANhik/edit?usp=sharing">Tax Policy</a>
+    </nav>
+
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Loan Code</th>
+                    <th>Loan Type</th>
+                    <th>Name</th>
+                    <th>Loan Repayment Date</th>
+                    <th>Amount</th>
+                    <th>Expected Interest</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>74</td>
+                    <td>OY-D 8 1776</td>
+                    <td>Shubham Goswami</td>
+                    <td>04/12/2024</td>
+                    <td>1776</td>
+                    <td>285</td>
+                    <td>2061</td>
+                </tr>
+                <tr>
+                    <td>126</td>
+                    <td>QD 2 500</td>
+                    <td>Nitin Goswami</td>
+                    <td>03/08/2024</td>
+                    <td>500</td>
+                    <td>25</td>
+                    <td>525</td>
+                </tr>
+                <tr>
+                    <td>181</td>
+                    <td>QD 2 1000</td>
+                    <td>Neeraj Goswami</td>
+                    <td>05/09/2024</td>
+                    <td>1000</td>
+                    <td>50</td>
+                    <td>1050</td>
+                </tr>
+                <tr>
+                    <td>186</td>
+                    <td>HY-D 4 500</td>
+                    <td>Nitin Goswami</td>
+                    <td>07/11/2024</td>
+                    <td>500</td>
+                    <td>50</td>
+                    <td>550</td>
+                </tr>
+                <tr>
+                    <td>187</td>
+                    <td>HY-D 4 500</td>
+                    <td>Nitin Goswami</td>
+                    <td>07/11/2024</td>
+                    <td>500</td>
+                    <td>50</td>
+                    <td>550</td>
+                </tr>
+                <tr>
+                    <td>188</td>
+                    <td>HY-D 4 500</td>
+                    <td>Nitin Goswami</td>
+                    <td>07/11/2024</td>
+                    <td>500</td>
+                    <td>50</td>
+                    <td>550</td>
+                </tr>
+                <tr>
+                    <td>189</td>
+                    <td>OML 500</td>
+                    <td>Rohit Bora</td>
+                    <td>12/08/2024</td>
+                    <td>500</td>
+                    <td>32</td>
+                    <td>532</td>
+                </tr>
+                <tr>
+                    <td>195</td>
+                    <td>TM 2326</td>
+                    <td>Shubham Goswami</td>
+                    <td>22/08/2024</td>
+                    <td>2326</td>
+                    <td>60</td>
+                    <td>2386</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Notice Board Slider -->
+        <div class="notice-board">
+            <p>Notice: President RAHA Scheme is Active./ Revisioning of loans is now available / Presidential Order 01 Dated 22/July/2024
+
+
+                 Revision fees on loans stand increased from 5 percent to 75 percent (93% hike) provisionally.
+                 Provisional 200% tax on loans of tenure greater than 30 calendar days.
+                
+                Reason - Fund balance has been overdrawn (113%)</p>
+        </div>
+    </div>
+
+    <div class="popup" id="loanReminder" style="display: block; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -40%); background-color: #fff; padding: 1rem; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); border-radius: 8px; z-index: 1000; max-width: 400px; text-align: center;">
+        <p>Reminder: Loan repayment date is near for Nitin Goswami. Kindly pay your dues to 7456943225@jupiteraxis</p>
+        <img src="upi.jpg" alt="Payment UPI QR Code" width="150" height="auto">
+        <p>Scan the QR code to make your payment.</p>
+        <p>Watch this video for more details:</p>
+        <iframe width="280" height="157" src="https://www.youtube.com/embed/FLQILRlGImc" frameborder="0" allowfullscreen></iframe>
+        <p>Have a great day! 🎉</p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <div id="overlay" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>
+    
+    
+    
+
+
+    
+        
+
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentDate = new Date();
+            const loans = [
+                { date: '2024-12-04', name: 'Shubham Goswami' },
+                { date: '2024-08-03', name: 'Nitin Goswami' },
+                { date: '2024-09-05', name: 'Neeraj Goswami' },
+                { date: '2024-11-07', name: 'Nitin Goswami' },
+                { date: '2024-11-07', name: 'Nitin Goswami' },
+                { date: '2024-11-07', name: 'Nitin Goswami' },
+                { date: '2024-08-12', name: 'Rohit Bora' },
+                { date: '2024-08-22', name: 'Shubham Goswami' }
+            ];
+
+            loans.forEach(loan => {
+                const repaymentDate = new Date(loan.date);
+                const timeDiff = repaymentDate - currentDate;
+                const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                if (daysDiff <= 5) {
+                    showPopup();
+                }
+            });
+        });
+
+        function showPopup() {
+            document.getElementById('loanReminder').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.getElementById('loanReminder').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
