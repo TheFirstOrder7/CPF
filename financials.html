@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Overview</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        header {
+            background-color: #004080;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .container {
+            width: 90%;
+            margin: 40px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .graph-section {
+            margin-bottom: 50px;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .graph-section h2 {
+            width: 100%;
+            text-align: center;
+            color: #004080;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .graph-section div {
+            width: 48%;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .graph-section div:hover {
+            transform: scale(1.05);
+        }
+        .graph-section img {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal img {
+            max-width: 100%;
+            max-height: 60vh;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #004080;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        footer {
+            background-color: #004080;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Financial Overview</h1>
+    </header>
+    <div class="container">
+        <div class="graph-section">
+            <h2>Voluntary Deposits & Loan/Profit</h2>
+            <div>
+                <img src="1.jpg" alt="Voluntary Deposits" onclick="openModal('modal1')">
+            </div>
+            <div>
+                <img src="2.jpg" alt="Loan/Profit" onclick="openModal('modal2')">
+            </div>
+        </div>
+        <div class="graph-section">
+            <h2>Percentage Share of Voluntary Deposits & Shareholding</h2>
+            <div>
+                <img src="3.jpg" alt="Percentage Share of Voluntary Deposits" onclick="openModal('modal3')">
+            </div>
+            <div>
+                <img src="4.jpg" alt="Shareholding" onclick="openModal('modal4')">
+            </div>
+        </div>
+        <div class="graph-section">
+            <h2>Loans Disbursed Each Month</h2>
+            <div>
+                <img src="5.jpg" alt="Loans Disbursed Each Month" onclick="openModal('modal5')">
+            </div>
+            <div>
+                <img src="6.jpg" alt="Loans Disbursed Each Month" onclick="openModal('modal6')">
+            </div>
+        </div>
+        <div class="graph-section">
+            <h2>Loans Disbursed Each Month</h2>
+            <div>
+                <img src="7.jpg" alt="Loans Disbursed Each Month" onclick="openModal('modal7')">
+            </div>
+            <div>
+                <img src="8.jpg" alt="Loans Disbursed Each Month" onclick="openModal('modal8')">
+            </div>
+            <!-- Existing Graph Section Example -->
+<div class="graph-section">
+    <h2>Additional Graphs</h2>
+    <div>
+        <img src="9.jpg" alt="Additional Graph 1" onclick="openModal('modal9')">
+    </div>
+    <div>
+        <img src="10.jpg" alt="Additional Graph 2" onclick="openModal('modal10')">
+    </div>
+</div>
+
+        </div>
+    </div>
+    <footer>
+        &copy; 2024 Financial Overview. All Rights Reserved.
+    </footer>
+
+    <!-- Modal Sections -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal1')">×</button>
+            <img src="1.jpg" alt="Voluntary Deposits">
+            <p>This graph shows the trend of voluntary deposits over time. It illustrates the growth and fluctuations in the amounts deposited by individuals on a voluntary basis.</p>
+        </div>
+    </div>
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal2')">×</button>
+            <img src="2.jpg" alt="Loan/Profit">
+            <p>This graph compares the amount of loans disbursed with the profit earned. It provides insight into the relationship between the institution's lending activities and its profitability.</p>
+        </div>
+    </div>
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal3')">×</button>
+            <img src="3.jpg" alt="Percentage Share of Voluntary Deposits">
+            <p>This graph breaks down the percentage share of voluntary deposits for June 2024. It highlights the distribution of deposits among different categories or sources.</p>
+        </div>
+    </div>
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal4')">×</button>
+            <img src="4.jpg" alt="Shareholding">
+            <p>This graph represents the shareholding structure of the institution. It shows the distribution of shares among different shareholders.</p>
+        </div>
+    </div>
+    <div id="modal5" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal5')">×</button>
+            <img src="5.jpg" alt="Loans Disbursed Each Month">
+            <p>This graph illustrates the number of loans disbursed each month. It provides a monthly breakdown of the lending activities over a specific period.</p>
+        </div>
+    </div>
+    <div id="modal6" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal6')">×</button>
+            <img src="6.jpg" alt="Loans Disbursed Each Month">
+            <p>This graph illustrates the number of loans disbursed each month. It provides a monthly breakdown of the lending activities over a specific period.</p>
+        </div>
+    </div>
+    <div id="modal7" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal7')">×</button>
+            <img src="7.jpg" alt="Loans Disbursed Each Month">
+            <p>This graph illustrates the number of loans disbursed each month. It provides a monthly breakdown of the lending activities over a specific period.</p>
+        </div>
+    </div>
+    <div id="modal8" class="modal">
+        <div class="modal-content">
+            <button class="close" onclick="closeModal('modal8')">×</button>
+            <img src="8.jpg" alt="Loans Disbursed Each Month">
+            <p>This graph illustrates the number of loans disbursed each month. It provides a monthly breakdown of the lending activities over a specific period. </p>
+        </div>
+        <!-- Modal Sections -->
+<div id="modal9" class="modal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('modal9')">×</button>
+        <img src="9.jpg" alt="Additional Graph 1">
+        <p>This graph shows the details of additional graph 1. It provides more insights on the relevant data.</p>
+    </div>
+</div>
+<div id="modal10" class="modal">
+    <div class="modal-content">
+        <button class="close" onclick="closeModal('modal10')">×</button>
+        <img src="10.jpg" alt="Additional Graph 2">
+        <p>This graph shows the details of additional graph 2. It provides more insights on the relevant data.</p>
+    </div>
+</div>
+
+    </div>
+
+    <script>
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
