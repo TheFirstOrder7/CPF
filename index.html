@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +11,15 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('background.webp') no-repeat center center fixed;
+            background-color: #e7e1dc;
             background-size: cover;
-            color: #333;
+            color: #03045E;
             margin: 0;
             padding: 0;
         }
         header {
-            background-color: rgba(74, 78, 105, 0.9);
-            color: #f2e9e4;
+            background-color: #03045E ;
+            color: #ece9e7;
             text-align: center;
             padding: 1.5rem;
             font-size: 2rem;
@@ -35,12 +36,12 @@
             font-family: 'Roboto Condensed', sans-serif;
         }
         nav {
-            background-color: #4a4e69;
+            background-color: #023E8A;
             padding: 0.5rem;
             text-align: center;
         }
         nav a {
-            color: #f2e9e4;
+            color: #f8f8f8;
             text-decoration: none;
             margin: 0 1rem;
             font-size: 1.1rem;
@@ -48,7 +49,7 @@
         .container {
             width: 80%;
             margin: 2rem auto;
-            background-color: rgba(255, 255, 255, 0.9);
+            background-color: #FDFCDC;
             padding: 2rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
@@ -64,16 +65,16 @@
             text-align: center;
         }
         th {
-            background-color: #22223b;
+            background-color: #F07167;
             color: #f2e9e4;
         }
         td {
-            background-color: #c9ada7;
+            background-color: #FED9B7;
             color: #22223b;
         }
         .notice-board {
             margin-top: 2rem;
-            background-color: rgba(74, 78, 105, 0.9);
+            background-color: #0081A7;
             padding: 1rem;
             border-radius: 8px;
             overflow: hidden;
@@ -194,17 +195,17 @@
 
     <header>
         <img src="logo.png" alt="The First Order Logo">
-        <div class="title">The First Order</div>
+        <div class="title"><b>Welcome to The First Order</b></div>
         <button class="info-toggle-btn" onclick="toggleInfoBox()">Info</button>
     </header>
 
     <!-- Navigation Bar -->
     <nav>
-        <a href="https://docs.google.com/document/d/1pPuQp9L93onb2Yf_Aiwf5Myiwbc7FmB492PgZqdsrLA/edit?usp=sharing">CPF Constitution</a>
+        <a href="CPF.html">CPF Constitution</a>
         <a href="https://docs.google.com/document/d/150uY7G5WbpqI1LA64VP2ler69a0alBGopqORFnaIui4/edit?usp=sharing">Transaction History</a>
-        <a href="https://docs.google.com/document/d/1CwzSNJ10ynXA3uhdkTSP4HtuKdrgnR7UmiG5F-fD-CU/edit?usp=sharing">Interest Rates</a>
-        <a href="https://docs.google.com/document/d/1YW1iRyBLhyCA0f0NBrOROspxMCeQ0z9Bleq_mBANhik/edit?usp=sharing">Tax Policy</a>
-        <a href="">Updates</a>
+        <a href="interest.html">Interest Rates</a>
+        <a href="tax.html">Tax Policy</a>
+        <a href="update.html">Updates</a>
     </nav>
 
     <div class="container">
@@ -300,10 +301,14 @@
 
         </div>
         <div class="notice-board">
-            <p>The Revisioning fees on loan stand increased by 10 percent from 5. Previous Provisonal Orders stand redacted</p>
+            <p>The Revisioning fees on loan stand increased by 10 percent from 5.</p>
         </div>
     </div>
-
+    <br>
+    <br>
+    <br> 
+    <br>
+     <br>
 
     <!-- Info Box -->
     <div class="info-box" id="infoBox">
@@ -338,11 +343,10 @@
         }
     </script>
     <div class="popup" id="loanReminder" style="display: block; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -40%); background-color: #fff; padding: 1rem; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); border-radius: 8px; z-index: 1000; max-width: 400px; text-align: center;">
-        <p>Reminder: Loan repayment date is near for Rohit Bora. Kindly pay your dues to 7456943225@jupiteraxis</p>
+        <p>Reminder: <b>Kindly pay your dues to 7456943225@jupiteraxis</b></p>
         <img src="upi.jpg" alt="Payment UPI QR Code" width="150" height="auto">
         <p>Scan the QR code to make your payment.</p>
-        <p>Watch this video for more details:</p>
-        <iframe width="280" height="157" src="https://www.youtube.com/embed/FLQILRlGImc" frameborder="0" allowfullscreen></iframe>
+        
         <p>Have a great day! 🎉</p>
         <button onclick="closePopup()">Close</button>
     </div>
@@ -357,7 +361,7 @@
     setTimeout(closePopup, 10000); // Closes the popup after 10 seconds (10000 milliseconds)
 </script>
  <footer>
-        <p>&copy; 2024 The First Order. All rights reserved.</p>
+        <p>&copy; <b>2024 The First Order. All rights reserved.</b></p>
     </footer>
 </body>
 </html>
