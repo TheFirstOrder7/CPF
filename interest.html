@@ -34,22 +34,7 @@
         ul {
             list-style-type: square;
             padding-left: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        th {
-            background-color: #4CAF50;
-            color: #fff;
+       
         }
         .notice-link {
             color: #4CAF50;
@@ -74,7 +59,7 @@
         <p><strong>Important details about loan:</strong></p>
         <p>Tenure is to be reckoned in calendar days of 24 hours (hereinafter tenure are mentioned in brackets). Early repayment of loans will attract a fine of 80 percent on the interest or charges committed on LAF only if it's done before the completion of 50 percent of the term. Pursuant to provision in Article 7, an additional service charge of 10₹ on all loans extended to Non Members.</p>
         
-        <p><a href="#" class="notice-link">Loan Revisioning - Click here</a></p>
+        <p><a href="revision.html" class="notice-link">Loan Revisioning - Click here</a></p>
 
         <h3>Incentivizing Environmentally Friendly Purchases for Young Adult Consumers</h3>
         <p>To cultivate a robust ethos of environmental responsibility within our membership, borrowers who actively champion climate-friendly measures through their purchases, demonstrating a tangible commitment to carbon sequestration or notable reductions in carbon emissions compared to standard products, shall enjoy a comprehensive array of incentives and rewards.</p>
@@ -94,148 +79,102 @@
 
         <h3>Interest and Charges on Loans</h3>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Loan Type</th>
-                    <th>Variant Code</th>
-                    <th>Duration (In Calendar Days)</th>
-                    <th>Amount Range (₹)</th>
-                    <th>Old Service Charge /Interest Rate (₹) (Green Option)</th>
-                    <th>New Service Charge /Interest Rate (₹) (Effective 01/07/2024)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>HALF DAY</td>
-                    <td>HD</td>
-                    <td>≤ ½ DAY</td>
-                    <td>ANY</td>
-                    <td>0₹</td>
-                    <td>0₹</td>
-                </tr>
-                <tr>
-                    <td>NOTICE MONEY</td>
-                    <td>NM</td>
-                    <td>>½ DAY</td>
-                    <td><1001</td>
-                    <td>3₹</td>
-                    <td>4₹</td>
-                </tr>
-                <tr>
-                    <td>NOTICE MONEY</td>
-                    <td>NM</td>
-                    <td>>½ DAY</td>
-                    <td>>1000</td>
-                    <td>7₹</td>
-                    <td>9₹</td>
-                </tr>
-                <tr>
-                    <td>CASH MANAGEMENT LOANS</td>
-                    <td>CM-L</td>
-                    <td><8 DAYS</td>
-                    <td>30-500</td>
-                    <td>7₹</td>
-                    <td>9₹</td>
-                </tr>
-                <tr>
-                    <td>CASH MANAGEMENT LOANS</td>
-                    <td>CM-L</td>
-                    <td><8 DAYS</td>
-                    <td>501-1000</td>
-                    <td>10₹</td>
-                    <td>13₹</td>
-                </tr>
-                <tr>
-                    <td>CASH MANAGEMENT LOANS</td>
-                    <td>CM-L</td>
-                    <td><8 DAYS</td>
-                    <td>>1000</td>
-                    <td>20₹</td>
-                    <td>27₹</td>
-                </tr>
-                <tr>
-                    <td>TREASURY LOANS</td>
-                    <td>TL</td>
-                    <td><16 DAYS - >7 DAYS</td>
-                    <td>30-500</td>
-                    <td>10₹</td>
-                    <td>13₹</td>
-                </tr>
-                <tr>
-                    <td>TREASURY LOANS</td>
-                    <td>TL</td>
-                    <td><16 DAYS - >7 DAYS</td>
-                    <td>501-1000</td>
-                    <td>20₹</td>
-                    <td>27₹</td>
-                </tr>
-                <tr>
-                    <td>TREASURY LOANS</td>
-                    <td>TL</td>
-                    <td><16 DAYS - >7 DAYS</td>
-                    <td>>1000</td>
-                    <td>40₹</td>
-                    <td>53₹</td>
-                </tr>
-                <tr>
-                    <td>TERM MONEY</td>
-                    <td>TM</td>
-                    <td><30 DAYS - >15 DAYS</td>
-                    <td>30-500</td>
-                    <td>15₹</td>
-                    <td>20₹</td>
-                </tr>
-                <tr>
-                    <td>TERM MONEY</td>
-                    <td>TM</td>
-                    <td><30 DAYS - >15 DAYS</td>
-                    <td>501-1000</td>
-                    <td>30₹</td>
-                    <td>40₹</td>
-                </tr>
-                <tr>
-                    <td>TERM MONEY</td>
-                    <td>TM</td>
-                    <td><30 DAYS - >15 DAYS</td>
-                    <td>>1000</td>
-                    <td>60₹</td>
-                    <td>80₹</td>
-                </tr>
-                <tr>
-                    <td>ONE MONTH LOAN</td>
-                    <td>OML</td>
-                    <td>30 DAYS</td>
-                    <td>Any</td>
-                    <td>3%/30 DAYS</td>
-                    <td>4%/30 DAYS</td>
-                </tr>
-                <tr>
-                    <td>QUARTERLY DEBT</td>
-                    <td>QD</td>
-                    <td><91 DAYS - >30 DAYS</td>
-                    <td>Any</td>
-                    <td>2.5%/30 DAYS</td>
-                    <td>3.5%/30 DAYS</td>
-                </tr>
-                <tr>
-                    <td>HALF YEARLY DEBT</td>
-                    <td>HY-D</td>
-                    <td><181 DAYS - >90 DAYS</td>
-                    <td>Any</td>
-                    <td>2.5%/30 DAYS</td>
-                    <td>3.5%/30 DAYS</td>
-                </tr>
-                <tr>
-                    <td>YEARLY DEBT</td>
-                    <td>OY-D</td>
-                    <td><YEAR+1 - >180 DAYS</td>
-                    <td>Any</td>
-                    <td>2.5%/30 DAYS</td>
-                    <td>3.5%/30 DAYS</td>
-                </tr>
-            </tbody>
-        </table>
+       <style type="text/css">
+.tg  {border-collapse:collapse;border-color:#bbb;border-spacing:0;border-style:solid;border-width:1px;}
+.tg td{background-color:#E0FFEB;border-color:#bbb;border-style:solid;border-width:0px;color:#594F4F;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#9DE0AD;border-color:#bbb;border-style:solid;border-width:0px;color:#493F3F;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-m416{font-family:Impact, Charcoal, sans-serif !important;font-size:22px;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-zd42{font-family:"Times New Roman", Times, serif !important;text-align:left;vertical-align:top}
+.tg .tg-9fyu{background-color:#C2FFD6;font-family:Georgia, serif !important;text-align:left;vertical-align:top}
+.tg .tg-bu6v{background-color:#C2FFD6;font-family:"Times New Roman", Times, serif !important;text-align:left;vertical-align:top}
+.tg .tg-ilgv{font-family:Georgia, serif !important;text-align:left;vertical-align:top}
+</style>
+<table class="tg"><thead>
+  <tr>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Loan  Type</span></th>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Variant Code</span></th>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Duration (In Calendar Days)</span></th>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Amount Range(₹)</span></th>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Old Service Charge /Interest Rate (₹)</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">(Green Option)</span></th>
+    <th class="tg-m416"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">New Service Charge /Interest Rate (₹)</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">(Effective 01/07/2024)</span></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-9fyu"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">HALF DAY</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">HD</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">≤ ½ DAY</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">ANY</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">0₹</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">0₹</span></td>
+  </tr>
+  <tr>
+    <td class="tg-ilgv"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">NOTICE MONEY </span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">NM</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&gt;½  DAY</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;1001</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&gt;1000</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">3</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">7</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">4</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">9</span></td>
+  </tr>
+  <tr>
+    <td class="tg-9fyu"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">CASH MANAGEMENT LOANS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">CM-L</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;8 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">30-500</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">501-1000</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&gt;1000</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">7</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">10</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">20</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">9</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">13</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">27</span></td>
+  </tr>
+  <tr>
+    <td class="tg-ilgv"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">TREASURY LOANS </span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">TL</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;16 DAYS - &gt;7 DAYS</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">30-500</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">501-1000</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&gt;1000</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">10</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">20</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">40</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">13</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">27</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">53</span></td>
+  </tr>
+  <tr>
+    <td class="tg-9fyu"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">TERM MONEY </span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">TM</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;30 DAYS - &gt;15 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">30-500</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">501-1000</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&gt;1000</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">15</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">30</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">60</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">20</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">40</span><br><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">80</span></td>
+  </tr>
+  <tr>
+    <td class="tg-ilgv"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">ONE MONTH LOAN</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">OML</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">30 DAYS</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Any</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">3%/30 DAYS</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">4%/30 DAYS</span></td>
+  </tr>
+  <tr>
+    <td class="tg-9fyu"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">QUARTERLY DEBT</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">QD</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;91 DAYS - &gt;30 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Any</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">2.5%/30 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">3.5%/30 DAYS</span></td>
+  </tr>
+  <tr>
+    <td class="tg-ilgv"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">HALF YEARLY DEBT</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">HY-D</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;181 DAYS - &gt;90 DAYS</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Any</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">2.5%/30 DAYS</span></td>
+    <td class="tg-zd42"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">3.5%/30 DAYS</span></td>
+  </tr>
+  <tr>
+    <td class="tg-9fyu"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">YEARLY DEBT</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">OY-D</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">&lt;YEAR+1 - &gt;180 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">Any</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">2.5%/30 DAYS</span></td>
+    <td class="tg-bu6v"><span style="font-weight:400;font-style:normal;text-decoration:none;color:#000;background-color:transparent">3.5%/30 DAYS</span></td>
+  </tr>
+</tbody></table>
 
         <h3>Additional Information</h3>
         <p>B. One Month Loan (30 calendar day) (OML): 4 percent interest on principal sum / 30 calendar days + if applicable adjusted service charge (25 percent of accrued charges only) on non-monthly component of tenure. Interest rate charged could be altered on a case-to-case basis, if the President intervenes.</p>
@@ -246,7 +185,7 @@
 
         <div class="signature">
             <p>Regards,</p>
-            <p>Tr. Krish Goswami</p>
+            <p>Tr. Rahul Goswami</p>
         </div>
     </div>
 </body>
