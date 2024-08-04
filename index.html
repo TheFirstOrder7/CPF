@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +9,16 @@
 
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #e7e1dc;
-            background-size: cover;
-            color: #03045E;
             margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F5EFFF;
+            color: #1e1e2d;
+            padding-bottom: 80px; /* Ensure space for footer */
         }
+
         header {
-            background-color: #03045E ;
-            color: #ece9e7;
+            background-color: #A594F9;
+            color: #1e1e2d;
             text-align: center;
             padding: 1.5rem;
             font-size: 2rem;
@@ -28,61 +27,99 @@
             justify-content: center;
             position: relative;
         }
+
         header img {
             height: 60px;
             margin-right: 1rem;
         }
+
         header .title {
             font-family: 'Roboto Condensed', sans-serif;
         }
+
         nav {
-            background-color: #023E8A;
+            background-color: #CDC1FF;
             padding: 0.5rem;
             text-align: center;
         }
+
         nav a {
-            color: #f8f8f8;
+            color: #1e1e2d;
             text-decoration: none;
             margin: 0 1rem;
             font-size: 1.1rem;
+            transition: color 0.3s;
         }
-        .container {
-            width: 80%;
+
+        nav a:hover {
+            color: #7371FC;
+        }
+
+        .slideshow-container {
+            position: relative;
+            max-width: 60%;
             margin: 2rem auto;
-            background-color: #FDFCDC;
-            padding: 2rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        table {
+
+        .slide-wrapper {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slides {
+            min-width: 100%;
+        }
+
+        .slides img {
             width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 1.5rem;
+            display: block;
+            border-radius: 10px;
         }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 0.75rem;
-            text-align: center;
+
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -22px;
+            color: #7371FC;
+            font-weight: bold;
+            font-size: 18px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 3px;
+            user-select: none;
+            z-index: 100;
         }
-        th {
-            background-color: #F07167;
-            color: #f2e9e4;
+
+        .prev {
+            left: 0;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
-        td {
-            background-color: #FED9B7;
-            color: #22223b;
+
+        .next {
+            right: 0;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
         }
+
         .notice-board {
             margin-top: 2rem;
-            background-color: #0081A7;
+            background-color: #7371FC;
             padding: 1rem;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
             height: 60px;
         }
+
         .notice-board p {
-            color: #f2e9e4;
+            color: #F5EFFF;
             font-size: 1.2rem;
             margin: 0;
             white-space: nowrap;
@@ -90,17 +127,19 @@
             display: inline-block;
             animation: slide 20s linear infinite;
         }
+
         @keyframes slide {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
+
         .popup {
             display: none;
             position: fixed;
             top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #fff;
+            background-color: #F5EFFF;
             padding: 1rem;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             border-radius: 8px;
@@ -108,18 +147,22 @@
             max-width: 400px;
             text-align: center;
         }
+
         .popup p {
             margin: 0;
+            color: #1e1e2d;
         }
+
         .popup button {
             margin-top: 1rem;
             padding: 0.5rem 1rem;
-            background-color: #4a4e69;
-            color: #f2e9e4;
+            background-color: #A594F9;
+            color: #1e1e2d;
             border: none;
             cursor: pointer;
             border-radius: 4px;
         }
+
         .overlay {
             display: none;
             position: fixed;
@@ -131,13 +174,12 @@
             z-index: 999;
         }
 
-        /* Info Box Styles */
         .info-box {
             position: fixed;
             top: 0;
             right: 0;
-            width: 300px; /* Adjusted width */
-            background-color: rgba(255, 255, 255, 0.9);
+            width: 300px;
+            background-color: rgba(229, 217, 242, 0.9);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
@@ -146,24 +188,28 @@
             z-index: 1000;
             padding: 1rem;
             box-sizing: border-box;
-            margin-right: 20px; /* Added margin to move it slightly to the right */
+            margin-right: 20px;
         }
+
         .info-box.open {
             transform: translateY(0);
         }
+
         .info-box .info-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             font-weight: bold;
         }
+
         .info-box .info-content {
             font-size: 0.9rem;
-            max-height: 400px; /* Added max-height to allow scrolling */
+            max-height: 400px;
             overflow-y: auto;
         }
+
         .info-box .close-btn {
-            background-color: #4a4e69;
-            color: #f2e9e4;
+            background-color: #2521e9;
+            color: #1e1e2d;
             border: none;
             padding: 0.5rem 1rem;
             cursor: pointer;
@@ -174,7 +220,7 @@
             width: 100%;
             text-align: center;
         }
-        /* Mobile Styles */
+
         @media (max-width: 768px) {
             .container {
                 width: 95%;
@@ -186,132 +232,55 @@
             .info-box {
                 width: 100%;
                 height: 200px;
-                margin-right: 0; /* Remove margin on mobile */
+                margin-right: 0;
             }
+        }
+
+        footer {
+            background-color: #CDC1FF;
+            color: #1e1e2d;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-
     <header>
         <img src="logo.png" alt="The First Order Logo">
         <div class="title"><b>Welcome to The First Order</b></div>
-        <button class="info-toggle-btn" onclick="toggleInfoBox()">Info</button>
+        <button class="info-toggle-btn" onclick="toggleInfoBox()" aria-label="Toggle Info Box">Info</button>
     </header>
 
-    <!-- Navigation Bar -->
-    <nav>
-        <a href="CPF.html">CPF Constitution</a>
+    <nav aria-label="Main Navigation">
+      <b>  <a href="CPF.html">CPF Constitution</a>
+        <a href="Loans.html">Active Loans</a>
         <a href="transaction.html">Transaction History</a>
         <a href="financials.html">Financial</a>
         <a href="interest.html">Interest Rates</a>
         <a href="tax.html">Tax Policy</a>
-        <a href="update.html">Updates</a>
+        <a href="update.html">Updates</a></b>
     </nav>
 
-    <div class="container">
-       
-       
-        <table>
-            <thead>
-                <tr>
-                    <th>Loan Code</th>
-                    <th>Loan Type</th>
-                    <th>Name</th>
-                    <th>Loan Repayment Date</th>
-                    <th>Amount</th>
-                    <th>Expected Interest</th>
-                    
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>74</td>
-                    <td>OY-D 8 1776</td>
-                    <td>Shubham Goswami</td>
-                    <td>04/12/2024</td>
-                    <td>1776</td>
-                    <td>285</td>
-                    
-                </tr>
-                <tr>
-                    <td>207</td>
-                    <td>OML 500</td>
-                    <td>Nitin Goswami</td>
-                    <td>02/09/2024</td>
-                    <td>500</td>
-                    <td>44</td>
-                  
-                </tr>
-                <tr>
-                    <td>181</td>
-                    <td>QD 2 1000</td>
-                    <td>Neeraj Goswami</td>
-                    <td>05/09/2024</td>
-                    <td>1000</td>
-                    <td>50</td>
-                  
-                </tr>
-                <tr>
-                    <td>186</td>
-                    <td>HY-D 4 500</td>
-                    <td>Nitin Goswami</td>
-                    <td>07/11/2024</td>
-                    <td>500</td>
-                    <td>50</td>
-                  
-                </tr>
-                <tr>
-                    <td>187</td>
-                    <td>HY-D 4 500</td>
-                    <td>Nitin Goswami</td>
-                    <td>07/11/2024</td>
-                    <td>500</td>
-                    <td>50</td>
-                   
-                </tr>
-                <tr>
-                    <td>188</td>
-                    <td>HY-D 4 500</td>
-                    <td>Nitin Goswami</td>
-                    <td>07/11/2024</td>
-                    <td>500</td>
-                    <td>50</td>
-                   
-                </tr>
-                <tr>
-                    <td>189</td>
-                    <td>OML 500</td>
-                    <td>Rohit Bora</td>
-                    <td>12/08/2024</td>
-                    <td>500</td>
-                    <td>32</td>
-                 
-                </tr>
-                <tr>
-                    <td>195</td>
-                    <td>TM 2326</td>
-                    <td>Shubham Goswami</td>
-                    <td>22/08/2024</td>
-                    <td>2326</td>
-                    <td>60</td>
-                   
-                </tr>
-            </tbody>
-        </table>
-
+    <div class="slideshow-container">
+        <div class="slide-wrapper">
+            <div class="slides"><img src="A.jpg" alt="Image 1"></div>
+            <div class="slides"><img src="B.jpg" alt="Image 2"></div>
+            <div class="slides"><img src="C.jpg" alt="Image 3"></div>
+            <div class="slides"><img src="D.jpg" alt="Image 4"></div>
+            <div class="slides"><img src="E.jpg" alt="Image 5"></div>
+            <div class="slides"><img src="F.jpg" alt="Image 6"></div>
+            <div class="slides"><img src="G.jpg" alt="Image 7"></div>
+            <div class="slides"><img src="H.jpg" alt="Image 8"></div>
         </div>
-        <div class="notice-board">
-            <p>The Revisioning fees on loan stand increased by 10 percent from 5.</p>
-        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
     </div>
-    <br>
-    <br>
-    <br> 
-    <br>
-     <br>
 
-    <!-- Info Box -->
+    <div class="notice-board">
+        <p>The Revisioning fees on loan stand increased by 10 percent from 5.</p>
+    </div>
+
     <div class="info-box" id="infoBox">
         <div class="info-title">Collective Prosperity Fund - 2024</div>
         <div class="info-content">
@@ -331,38 +300,48 @@
             <p>The First Order Government - 92.5%</p>
             <p>Shubham Goswami - 5%</p>
             <p>Rahul Goswami - 2.5%</p>
-            <p><strong>President Vault:</strong> ₹0</p>
+            <p><strong>President Vault:</strong> ₹0</p></p>
         </div>
         <button class="close-btn" onclick="toggleInfoBox()">Close</button>
     </div>
 
-    <!-- JavaScript for Info Box Toggle -->
+    <div class="overlay" id="overlay" onclick="toggleInfoBox()"></div>
+
+    <footer>
+        <p>&copy; 2024 The First Order. All rights reserved.</p>
+    </footer>
+
     <script>
+        let slideIndex = 0;
+        showSlides();
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        }
+
+        function plusSlides(n) {
+            slideIndex += n - 1;
+            showSlides();
+        }
+
         function toggleInfoBox() {
-            const infoBox = document.getElementById('infoBox');
-            infoBox.classList.toggle('open');
+            let infoBox = document.getElementById("infoBox");
+            let overlay = document.getElementById("overlay");
+            if (infoBox.classList.contains("open")) {
+                infoBox.classList.remove("open");
+                overlay.style.display = "none";
+            } else {
+                infoBox.classList.add("open");
+                overlay.style.display = "block";
+            }
         }
     </script>
-    <div class="popup" id="loanReminder" style="display: block; position: fixed; top: 40%; left: 50%; transform: translate(-50%, -40%); background-color: #fff; padding: 1rem; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); border-radius: 8px; z-index: 1000; max-width: 400px; text-align: center;">
-        <p>Reminder: <b>Kindly pay your dues to 7456943225@jupiteraxis</b></p>
-        <img src="upi.jpg" alt="Payment UPI QR Code" width="150" height="auto">
-        <p>Scan the QR code to make your payment.</p>
-        
-        <p>Have a great day! 🎉</p>
-        <button onclick="closePopup()">Close</button>
-    </div>
-    <div id="overlay" style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); z-index: 999;" onclick="closePopup()"></div>
-    <script>
-    function closePopup() {
-        document.getElementById('loanReminder').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
-    }
-    
-    // Optional: Automatically close the popup after a certain time
-    setTimeout(closePopup, 10000); // Closes the popup after 10 seconds (10000 milliseconds)
-</script>
- <footer>
-        <p>&copy; <b>2024 The First Order. All rights reserved.</b></p>
-    </footer>
 </body>
 </html>
