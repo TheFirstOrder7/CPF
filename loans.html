@@ -128,9 +128,13 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        .totals {
+            font-weight: bold;
+            background-color: #e0e0e0;
+        }
     </style>
 </head>
-<body>
+<body onload="calculateTotals()">
     <div class="header">
         <h1>Loan Information</h1>
     </div>
@@ -138,7 +142,7 @@
         <marquee>Important Notice: Please check the repayment dates and amounts carefully.</marquee>
     </div>
     <div class="container">
-        <table>
+        <table id="loanTable">
             <thead>
                 <tr>
                     <th>Loan Code</th>
@@ -150,7 +154,6 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Table rows go here -->
                 <tr>
                     <td>74</td>
                     <td>OY-D 8 1776</td>
@@ -232,6 +235,13 @@
                     <td>15</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr class="totals">
+                    <td colspan="4">Total</td>
+                    <td id="totalAmount"></td>
+                    <td id="totalInterest"></td>
+                </tr>
+            </tfoot>
         </table>
     </div>
     <button class="pay-button" onclick="openPopup()">Pay Your Dues</button>
@@ -246,10 +256,25 @@
     </div>
 
     <script>
+        function calculateTotals() {
+            let table = document.getElementById('loanTable');
+            let totalAmount = 0;
+            let totalInterest = 0;
+
+            for (let i = 1; i < table.rows.length - 1; i++) { // Start at 1 to skip the header and stop before the last row (footer)
+                totalAmount += parseFloat(table.rows[i].cells[4].innerHTML);
+                totalInterest += parseFloat(table.rows[i].cells[5].innerHTML);
+            }
+
+            document.getElementById('totalAmount').innerHTML = totalAmount;
+            document.getElementById('totalInterest').innerHTML = totalInterest;
+        }
+
         function openPopup() {
             document.getElementById('popup').classList.add('active');
             document.getElementById('popup-overlay').classList.add('active');
         }
+
         function closePopup() {
             document.getElementById('popup').classList.remove('active');
             document.getElementById('popup-overlay').classList.remove('active');
