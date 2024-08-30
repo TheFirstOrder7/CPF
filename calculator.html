@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Your Interest Rate</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('calc.jpg');
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 90vh; /* This limits the height of the container and allows scrolling */
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        label {
+            width: 100px;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            flex: 1;
+            border: 1px solid #CCC;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        textarea {
+            height: 80px;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .erase-button {
+            background-color: #FF3B30;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .flex-container .section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .format-example {
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .calculate-button {
+            padding: 15px 25px;
+            background-color: #28A745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .calculate-button:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+        }
+
+        .loader {
+            border: 6px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 6px solid #3498db;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            display: none;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .expand-button {
+            display: block;
+            background-color: #007AFF;
+            color: white;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .expand-button:hover {
+            background-color: #0056b3;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .input-group.hidden {
+            display: none;
+        }
+
+        .input-group.visible {
+            display: flex;
+        }
+
+        /* New styles for the modal */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            width: 300px; /* Fixed width for the modal */
+        }
+
+        .close-button {
+            background-color: #FF3B30;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .close-button:hover {
+            background-color: #C62828;
+        }
+
+        /* Spiral loader */
+        .spiral-loader {
+            border: 6px solid transparent;
+            border-top: 6px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spiral 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spiral {
+            0% {
+                transform: rotate(0deg);
+                border-color: #3498db transparent transparent transparent;
+            }
+            25% {
+                border-color: transparent #3498db transparent transparent;
+            }
+            50% {
+                transform: rotate(180deg);
+                border-color: transparent transparent #3498db transparent;
+            }
+            75% {
+                border-color: transparent transparent transparent #3498db;
+            }
+            100% {
+                transform: rotate(360deg);
+                border-color: #3498db transparent transparent transparent;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Interest Calculator</h1>
+
+        <div class="flex-container">
+            <div class="section">
+                <h2>Mandatory Deposits (5%)</h2>
+                <textarea id="mandatory-paste-area" placeholder="Paste your mandatory deposit data..."></textarea>
+                <div class="format-example">Example: from 2024-01-01 to 2024-01-31 +100</div>
+                <button onclick="parseAndAddEntries('mandatory')">Add Mandatory</button>
+                <button class="expand-button" onclick="toggleExpand('mandatory')">Expand Mandatory</button>
+                <div id="mandatory-entries"></div>
+                <button onclick="addMandatoryEntry()">Add Entry</button>
+                <button class="erase-button" onclick="eraseEntries('mandatory')">Erase Mandatory</button>
+            </div>
+
+            <div class="section">
+                <h2>Voluntary Deposits (7.5%)</h2>
+                <textarea id="voluntary-paste-area" placeholder="Paste your voluntary deposit data..."></textarea>
+                <div class="format-example">Example: from 2024-01-01 to 2024-01-31 +100</div>
+                <button onclick="parseAndAddEntries('voluntary')">Add Voluntary</button>
+                <button class="expand-button" onclick="toggleExpand('voluntary')">Expand Voluntary</button>
+                <div id="voluntary-entries"></div>
+                <button onclick="addVoluntaryEntry()">Add Entry</button>
+                <button class="erase-button" onclick="eraseEntries('voluntary')">Erase Voluntary</button>
+            </div>
+        </div>
+
+        <div class="button-container">
+            <button class="calculate-button" onclick="calculateInterest()">Calculate Interest</button>
+            <div class="loader" id="loader"></div>
+            <div class="result" id="result"></div>
+        </div>
+    </div>
+
+    <!-- Modal for loading -->
+    <div id="loadingModal" class="modal">
+        <div class="modal-content">
+            <div class="spiral-loader"></div>
+            <p id="loadingText">Calculating...</p>
+            <div id="modalResult" class="result"></div>
+            <button class="close-button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Function to add mandatory entry
+        function addMandatoryEntry(date1 = '', date2 = '', amount = '') {
+            const container = document.getElementById('mandatory-entries');
+            const entry = document.createElement('div');
+            entry.classList.add('input-group', 'hidden'); // Default to hidden
+            entry.innerHTML = `
+                <label>From:</label>
+                <input type="date" name="mandatory-date1" value="${date1}">
+                <label>To:</label>
+                <input type="date" name="mandatory-date2" value="${date2}">
+                <label>Amount:</label>
+                <input type="number" name="mandatory-amount" step="0.01" value="${amount}">
+                <button class="erase-button" onclick="this.parentElement.remove()">Erase</button>
+            `;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Function to add voluntary entry
+        function addVoluntaryEntry(date1 = '', date2 = '', amount = '') {
+            const container = document.getElementById('voluntary-entries');
+            const entry = document.createElement('div');
+            entry.classList.add('input-group', 'hidden'); // Default to hidden
+            entry.innerHTML = `
+                <label>From:</label>
+                <input type="date" name="voluntary-date1" value="${date1}">
+                <label>To:</label>
+                <input type="date" name="voluntary-date2" value="${date2}">
+                <label>Amount:</label>
+                <input type="number" name="voluntary-amount" step="0.01" value="${amount}">
+                <button class="erase-button" onclick="this.parentElement.remove()">Erase</button>
+            `;
+            container.appendChild(entry);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Function to parse and add entries from pasted data
+        function parseAndAddEntries(type) {
+            const pasteArea = document.getElementById(`${type}-paste-area`).value;
+            const lines = pasteArea.split('\n');
+
+            lines.forEach(line => {
+                const match = line.match(/from (\d{4}-\d{2}-\d{2}) to (\d{4}-\d{2}-\d{2}) ([+-]\d+(\.\d+)?)/);
+                if (match) {
+                    const date1 = match[1];
+                    const date2 = match[2];
+                    const amount = parseFloat(match[3]);
+
+                    if (type === 'mandatory') {
+                        addMandatoryEntry(date1, date2, amount);
+                    } else {
+                        addVoluntaryEntry(date1, date2, amount);
+                    }
+                }
+            });
+        }
+
+        // Function to erase all entries of a type
+        function eraseEntries(type) {
+            const container = document.getElementById(`${type}-entries`);
+            container.innerHTML = '';
+        }
+
+        // Function to toggle expand/collapse
+        function toggleExpand(type) {
+            const container = document.getElementById(`${type}-entries`);
+            const entries = container.getElementsByClassName('input-group');
+
+            let isAnyHidden = Array.from(entries).some(entry => entry.classList.contains('hidden'));
+
+            for (let i = 0; i < entries.length; i++) {
+                if (isAnyHidden) {
+                    entries[i].classList.remove('hidden');
+                    entries[i].classList.add('visible');
+                } else {
+                    entries[i].classList.remove('visible');
+                    entries[i].classList.add('hidden');
+                }
+            }
+
+            const button = document.querySelector(`.expand-button[onclick="toggleExpand('${type}')"]`);
+            button.textContent = isAnyHidden ? `Collapse ${type.charAt(0).toUpperCase() + type.slice(1)}` : `Expand ${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        }
+
+        // Function to calculate interest
+        function calculateInterest() {
+            const modal = document.getElementById('loadingModal');
+            modal.style.display = 'flex'; // Show the modal
+            document.getElementById('modalResult').innerText = ''; // Clear previous result
+
+            setTimeout(() => {
+                const mandatoryContainer = document.getElementById('mandatory-entries');
+                const voluntaryContainer = document.getElementById('voluntary-entries');
+
+                const mandatoryEntries = mandatoryContainer.getElementsByClassName('input-group');
+                const voluntaryEntries = voluntaryContainer.getElementsByClassName('input-group');
+
+                let totalInterest = 0;
+
+                Array.from(mandatoryEntries).forEach(entry => {
+                    const date1 = entry.querySelector('input[name="mandatory-date1"]').value;
+                    const date2 = entry.querySelector('input[name="mandatory-date2"]').value;
+                    const amount = parseFloat(entry.querySelector('input[name="mandatory-amount"]').value);
+
+                    const days = (new Date(date2) - new Date(date1)) / (1000 * 60 * 60 * 24);
+                    totalInterest += amount * 0.05 * (days / 365);
+                });
+
+                Array.from(voluntaryEntries).forEach(entry => {
+                    const date1 = entry.querySelector('input[name="voluntary-date1"]').value;
+                    const date2 = entry.querySelector('input[name="voluntary-date2"]').value;
+                    const amount = parseFloat(entry.querySelector('input[name="voluntary-amount"]').value);
+
+                    const days = (new Date(date2) - new Date(date1)) / (1000 * 60 * 60 * 24);
+                    totalInterest += amount * 0.075 * (days / 365);
+                });
+
+                document.getElementById('modalResult').innerText = `Total Interest: ₹${totalInterest.toFixed(2)}`;
+            }, 1000); // Show for 1 second
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.getElementById('loadingModal');
+            modal.style.display = 'none'; // Hide the modal
+        }
+    </script>
+
+</body>
+
+</html>
