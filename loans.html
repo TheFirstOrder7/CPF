@@ -132,6 +132,11 @@
             font-weight: bold;
             background-color: #e0e0e0;
         }
+        .warning {
+            background-color: #ffcccb !important;
+            color: #d32f2f;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body onload="calculateTotals()">
@@ -254,9 +259,9 @@
                     <td>223</td>
                     <td>OML 1000</td>
                     <td>Bhagwati Goswami</td>
-                    <td>28/09/2024</td>
+                    <td>27/09/2024</td>
                     <td>1000</td>
-                    <td>15</td>
+                    <td>12</td>
                 </tr>
             </tbody>
             <tfoot>
@@ -267,41 +272,55 @@
                 </tr>
             </tfoot>
         </table>
+        <button class="pay-button" onclick="openPopup()">Pay Now</button>
     </div>
-    <button class="pay-button" onclick="openPopup()">Pay Your Dues</button>
 
-    <!-- Popup -->
-    <div class="overlay" id="popup-overlay"></div>
+    <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
-        <button class="close-btn" onclick="closePopup()">×</button>
-        <h2>Pay Your Dues</h2>
-        <p>Please pay your dues through the QR code below:</p>
-        <img src="upi.jpg" alt="QR Code">
+        <button class="close-btn" onclick="closePopup()">X</button>
+        <h2>Payment Portal</h2>
+        <img src="https://i.imgur.com/OA8Rous.png" alt="Payment Image">
+        <p>Click the button below to proceed with the payment.</p>
+        <button class="pay-button">Proceed to Pay</button>
     </div>
 
     <script>
         function calculateTotals() {
-            let table = document.getElementById('loanTable');
             let totalAmount = 0;
             let totalInterest = 0;
+            const today = new Date();
+            const rows = document.querySelectorAll('#loanTable tbody tr');
 
-            for (let i = 1; i < table.rows.length - 1; i++) { // Start at 1 to skip the header and stop before the last row (footer)
-                totalAmount += parseFloat(table.rows[i].cells[4].innerHTML);
-                totalInterest += parseFloat(table.rows[i].cells[5].innerHTML);
-            }
+            rows.forEach(row => {
+                const amount = parseFloat(row.cells[4].textContent);
+                const interest = parseFloat(row.cells[5].textContent);
+                const repaymentDate = new Date(row.cells[3].textContent.split('/').reverse().join('-'));
 
-            document.getElementById('totalAmount').innerHTML = totalAmount;
-            document.getElementById('totalInterest').innerHTML = totalInterest;
+                // Calculate the total amount and interest
+                totalAmount += amount;
+                totalInterest += interest;
+
+                // Check if the repayment date is within the next 5 days
+                const diffTime = repaymentDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (diffDays <= 5 && diffDays >= 0) {
+                    row.classList.add('warning');
+                }
+            });
+
+            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+            document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
         }
 
         function openPopup() {
             document.getElementById('popup').classList.add('active');
-            document.getElementById('popup-overlay').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
         }
 
         function closePopup() {
             document.getElementById('popup').classList.remove('active');
-            document.getElementById('popup-overlay').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
         }
     </script>
 </body>
