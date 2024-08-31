@@ -58,7 +58,6 @@
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        /* Button Styles */
         .pay-button {
             display: inline-block;
             padding: 15px 30px;
@@ -76,7 +75,6 @@
             background-color: #E64A19;
             transform: scale(1.05);
         }
-        /* Popup Styles */
         .popup {
             display: none;
             position: fixed;
@@ -132,10 +130,13 @@
             font-weight: bold;
             background-color: #e0e0e0;
         }
+        .days-left {
+            font-size: 0.9em;
+            color: red;
+            margin-left: 10px;
+        }
         .warning {
-            background-color: #ffcccb !important;
-            color: #d32f2f;
-            font-weight: bold;
+            background-color: #ffcccc !important;
         }
     </style>
 </head>
@@ -159,6 +160,7 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- Sample data; add new rows here as needed -->
                 <tr>
                     <td>74</td>
                     <td>OY-D 8 1776</td>
@@ -263,6 +265,7 @@
                     <td>1000</td>
                     <td>12</td>
                 </tr>
+                <!-- Add more rows as needed -->
             </tbody>
             <tfoot>
                 <tr class="totals">
@@ -300,10 +303,17 @@
                 totalAmount += amount;
                 totalInterest += interest;
 
-                // Check if the repayment date is within the next 5 days
+                // Calculate days left
                 const diffTime = repaymentDate - today;
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+                // Display days left
+                const daysLeftElement = document.createElement('span');
+                daysLeftElement.className = 'days-left';
+                daysLeftElement.textContent = `(${diffDays} days left)`;
+                row.cells[3].appendChild(daysLeftElement);
+
+                // Highlight row in red if repayment date is within the next 5 days
                 if (diffDays <= 5 && diffDays >= 0) {
                     row.classList.add('warning');
                 }
