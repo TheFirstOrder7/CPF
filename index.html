@@ -4,28 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The First Order - Loan Information</title>
-    <!-- Link to Google Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&family=Roboto+Condensed:wght@700&display=swap">
+    <!-- Link to Apple-like Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;700&display=swap">
 
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #F5EFFF;
-            color: #1e1e2d;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #F5F5F7;
+            color: #1D1D1F;
             padding-bottom: 80px; /* Ensure space for footer */
         }
 
         header {
-            background-color: #A594F9;
-            color: #1e1e2d;
+            background-color: #eeebeb;
+            color: #1D1D1F;
             text-align: center;
             padding: 1.5rem;
             font-size: 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-bottom: 1px solid #E5E5E7;
             position: relative;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
         header img {
@@ -34,17 +36,20 @@
         }
 
         header .title {
-            font-family: 'Roboto Condensed', sans-serif;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: bold;
         }
 
         nav {
-            background-color: #CDC1FF;
+            background-color: #FFFFFF;
             padding: 0.5rem;
             text-align: center;
+            border-top: 1px solid #E5E5E7;
+            border-bottom: 1px solid #E5E5E7;
         }
 
         nav a {
-            color: #1e1e2d;
+            color: #0071E3;
             text-decoration: none;
             margin: 0 1rem;
             font-size: 1.1rem;
@@ -52,16 +57,16 @@
         }
 
         nav a:hover {
-            color: #7371FC;
+            color: #005BB5;
         }
 
         .slideshow-container {
             position: relative;
-            max-width: 60%;
+            max-width: 80%;
             margin: 2rem auto;
             overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .slide-wrapper {
@@ -76,7 +81,7 @@
         .slides img {
             width: 100%;
             display: block;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .prev, .next {
@@ -86,40 +91,42 @@
             width: auto;
             padding: 16px;
             margin-top: -22px;
-            color: #7371FC;
+            color: #0071E3;
             font-weight: bold;
             font-size: 18px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(255, 255, 255, 0.8);
             border: none;
-            border-radius: 3px;
+            border-radius: 50%;
             user-select: none;
             z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(255, 255, 255, 1);
         }
 
         .prev {
-            left: 0;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
+            left: 10px;
         }
 
         .next {
-            right: 0;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
+            right: 10px;
         }
 
         .notice-board {
             margin-top: 2rem;
-            background-color: #7371FC;
+            background-color: #F5F5F7;
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             height: 60px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
 
         .notice-board p {
-            color: #F5EFFF;
+            color: #1D1D1F;
             font-size: 1.2rem;
             margin: 0;
             white-space: nowrap;
@@ -139,10 +146,10 @@
             top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #F5EFFF;
+            background-color: #FFFFFF;
             padding: 1rem;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
             z-index: 1000;
             max-width: 400px;
             text-align: center;
@@ -150,17 +157,22 @@
 
         .popup p {
             margin: 0;
-            color: #1e1e2d;
+            color: #1D1D1F;
         }
 
         .popup button {
             margin-top: 1rem;
             padding: 0.5rem 1rem;
-            background-color: #A594F9;
-            color: #1e1e2d;
+            background-color: #0071E3;
+            color: #FFFFFF;
             border: none;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .popup button:hover {
+            background-color: #005BB5;
         }
 
         .overlay {
@@ -179,9 +191,9 @@
             top: 0;
             right: 0;
             width: 300px;
-            background-color: rgba(229, 217, 242, 0.9);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
             overflow: hidden;
             transform: translateY(-100%);
             transition: transform 0.3s ease;
@@ -208,17 +220,22 @@
         }
 
         .info-box .close-btn {
-            background-color: #2521e9;
-            color: #1e1e2d;
+            background-color: #0280fd;
+            color: #FFFFFF;
             border: none;
             padding: 0.5rem 1rem;
             cursor: pointer;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1rem;
             margin-top: 1rem;
             display: block;
             width: 100%;
             text-align: center;
+            transition: background-color 0.3s;
+        }
+
+        .info-box .close-btn:hover {
+            background-color: #005BB5;
         }
 
         @media (max-width: 768px) {
@@ -237,31 +254,30 @@
         }
 
         footer {
-            background-color: #CDC1FF;
-            color: #1e1e2d;
+            background-color: #FFFFFF;
+            color: #1D1D1F;
             text-align: center;
             padding: 1rem;
             width: 100%;
+            border-top: 1px solid #E5E5E7;
         }
     </style>
 </head>
 <body>
     <header>
         <img src="logo.png" alt="The First Order Logo">
-        <div class="title"><b><h1>Welcome to The First Order</b></h1></div>
+        <div class="title"><b>The First Order</b></div>
         <button class="info-toggle-btn" onclick="toggleInfoBox()" aria-label="Toggle Info Box">Info</button>
     </header>
 
     <nav aria-label="Main Navigation">
-      <b>  <a href="CPF.html">Constitution</a>
+        <a href="CPF.html">Constitution</a>
         <a href="loans.html">Active Loans</a>
         <a href="transaction.html">Transactions</a>
-        
         <a href="interest.html">Interests</a>
         <a href="tax.html">Taxation</a>
         <a href="update.html">Updates</a>
-      <a href="document.html">Download</a>
-     
+        <a href="document.html">Download</a>
     </nav>
 
     <div class="slideshow-container">
@@ -271,71 +287,66 @@
             <div class="slides"><img src="C.jpg" alt="Image 3"></div>
             <div class="slides"><img src="D.jpg" alt="Image 4"></div>
             <div class="slides"><img src="E.jpg" alt="Image 5"></div>
-            <div class="slides"><img src="F.jpg" alt="Image 6"></div>
-            <div class="slides"><img src="G.jpg" alt="Image 7"></div>
-            <div class="slides"><img src="H.jpg" alt="Image 8"></div>
         </div>
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <button class="prev" aria-label="Previous Slide" onclick="plusSlides(-1)">&#10094;</button>
+        <button class="next" aria-label="Next Slide" onclick="plusSlides(1)">&#10095;</button>
     </div>
 
     <div class="notice-board">
-        <p><a href="table.html"> Check out the new interest Rates </a> </p>
+        <p>Important: Please note the changed interest rate are effective from September 1st, 2024.</p>
     </div>
 
+    <div class="popup" id="popup">
+        <p>Check Out the new <a href="table.html">interest rates!</a></p>
+        <button onclick="closePopup()">Close</button>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <footer>
+        &copy; 2024 The First Order. All rights reserved.
+    </footer>
+
     <div class="info-box" id="infoBox">
-        <div class="info-title">Collective Prosperity Fund </div>
+        <div class="info-title">Information</div>
         <div class="info-content">
-           <p>
-               <p><b>The Collective Prosperity Fund (CPF) is a financial initiative aimed at providing loans to individuals and entities who are typically excluded from traditional banking systems. By offering accessible credit and interest rate subvention, including up to 100% of accrued interest through schemes like President RAHA, CPF helps bridge the gap for underserved borrowers, fostering economic empowerment and financial inclusion.
-
-</b></p>
-
-            <p> <b>Share Holding</b> </p>
-            <p><b>The First Order Government - 92.5%</b></p>
-            <p><b>Shubham Goswami - 5%</b></p>
-            <p><b>Rahul Goswami - 2.5%</b></p>
-          </p>
+            <p>Welcome to The First Order, your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
         </div>
         <button class="close-btn" onclick="toggleInfoBox()">Close</button>
     </div>
 
-    <div class="overlay" id="overlay" onclick="toggleInfoBox()"></div>
-
-    <footer>
-        <p>&copy; 2024 The First Order. All rights reserved.</p>
-    </footer>
-
     <script>
-        let slideIndex = 0;
-        showSlides();
+        var currentSlide = 0;
 
-        function showSlides() {
-            let slides = document.getElementsByClassName("slides");
-            for (let i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            slideIndex++;
-            if (slideIndex > slides.length) {slideIndex = 1}
-            slides[slideIndex-1].style.display = "block";
-            setTimeout(showSlides, 3000); // Change image every 3 seconds
+        function showSlides(slideIndex) {
+            var slides = document.querySelectorAll('.slides');
+            if (slideIndex >= slides.length) currentSlide = 0;
+            if (slideIndex < 0) currentSlide = slides.length - 1;
+
+            document.querySelector('.slide-wrapper').style.transform = `translateX(-${currentSlide * 100}%)`;
         }
 
         function plusSlides(n) {
-            slideIndex += n - 1;
-            showSlides();
+            currentSlide += n;
+            showSlides(currentSlide);
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            showSlides(currentSlide);
+
+            setTimeout(function () {
+                document.getElementById('popup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }, 3000); // Show popup after 3 seconds
+        });
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
         }
 
         function toggleInfoBox() {
-            let infoBox = document.getElementById("infoBox");
-            let overlay = document.getElementById("overlay");
-            if (infoBox.classList.contains("open")) {
-                infoBox.classList.remove("open");
-                overlay.style.display = "none";
-            } else {
-                infoBox.classList.add("open");
-                overlay.style.display = "block";
-            }
+            var infoBox = document.getElementById('infoBox');
+            infoBox.classList.toggle('open');
         }
     </script>
 </body>
