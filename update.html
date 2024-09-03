@@ -5,21 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Updates | Your Company Name</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+    margin: 0;
+    padding: 0;
+    background: #e0e0e0 url('D.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Increased opacity */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
         .update-section {
             padding: 20px;
-            background-color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             margin-bottom: 20px;
@@ -28,12 +37,34 @@
         .update-section:hover {
             transform: scale(1.02);
         }
+        .apple-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(to bottom right, #ff0000, #1900ff);
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition:  0.3s ease, box-shadow 0.3s ease;
+}
+
+.apple-button:hover {
+    background: linear-gradient(to bottom right, #e00000, #1600e1);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
         h1 {
-            text-align: center;
-            color: #333;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #ff0000, #1900ff); /* Bluish gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Makes the gradient visible on the text */
+}
+
         .update {
             border-bottom: 1px solid #ddd;
             padding: 20px 0;
@@ -42,10 +73,13 @@
             border-bottom: none;
         }
         .update h2 {
-            color: #007BFF;
-            margin-top: 0;
-            font-size: 1.8em;
-        }
+    margin-top: 0;
+    font-size: 1.8em;
+    background: linear-gradient(to right, #1900ff, #ff0000); /* Add your gradient colors here */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* This makes the gradient visible */
+}
+
         .update p {
             color: #555;
             font-size: 1.1em;
@@ -80,24 +114,25 @@
 
         <div class="update-section">
             <div class="update">
-                <h2>📢July 2024: President RAHA Scheme Rollout</h2>
-                <p>We are pleased to announce the launch of the President RAHA Scheme, a flagship initiative from the Government of The First Order, designed to boost financial inclusion and credit creation::</p>
+                <h2 aria-label="Announcement: President RAHA Scheme Rollout">📢 July 2024: President RAHA Scheme Rollout</h2>
+
+                <p>We are pleased to announce the launch of the President RAHA Scheme, a flagship initiative from the Government of The First Order, designed to boost financial inclusion and credit creation:</p>
                 <ul>
-                    <li><strong>💰 100% Interest Rate Subvention:</strong>:  Enjoy zero interest on loans up to 60 rupees, with the subvented interest credited directly back to your voluntary account.</li>
-                    <li><strong>💸 Fund Quantum:</strong>: The scheme is backed by a 500 INR fund, which will support this initiative until the funds are fully utilized.</li>
-                    <li><strong>📈 Credit Creation Boost:</strong>: The President RAHA Scheme is strategically designed to increase credit creation, fostering economic growth and financial stability across communities.</li>
+                    <li><strong>💰 100% Interest Rate Subvention:</strong> Enjoy zero interest on loans up to 60 rupees, with the subvented interest credited directly back to your voluntary account.</li>
+                    <li><strong>💸 Fund Quantum:</strong> The scheme is backed by a 500 INR fund, which will support this initiative until the funds are fully utilized.</li>
+                    <li><strong>📈 Credit Creation Boost:</strong> The President RAHA Scheme is strategically designed to increase credit creation, fostering economic growth and financial stability across communities.</li>
                 </ul>
             </div>
         </div>
 
         <div class="update-section">
             <div class="update">
-                <h2>June 2024: Successful Launch of THE FIRST ORDER WEBSITE</h2>
-                <p>Our website is now live! Access it via any smart device . Features include:</p>
+                <h2>🌐 June 2024: Successful Launch of THE FIRST ORDER WEBSITE</h2>
+                <p>Our website is now live! Access it via any smart device. Features include:</p>
                 <ul>
-                    <li><strong>Info about Active Loans</strong>: Stay updated with instant alerts.</li>
-                    <li><strong>Seamless accessibility</strong>: Access information about the fund instantly.</li>
-                    <li><strong>Remote Access</strong>: Use key features even without being a group member.</li>
+                    <li><strong>🔔 Info about Active Loans:</strong> Stay updated with instant alerts.</li>
+                    <li><strong>📱 Seamless Accessibility:</strong> Access information about the fund instantly.</li>
+                    <li><strong>🌍 Remote Access:</strong> Use key features even without being a group member.</li>
                 </ul>
             </div>
         </div>
@@ -105,40 +140,38 @@
         <div class="update-section">
             <div class="update">
                 <h2>📢 Important Update: President RAHA Scheme Applications</h2>
-                <p> <strong>Attention! If you are eligible for the President RAHA Scheme, here’s what you need to know:</strong> </p>
+                <p><strong>Attention! If you are eligible for the President RAHA Scheme, here’s what you need to know:</strong></p>
                 <ul>
-                    <li><strong>📝 Eligibility & Application </strong>: Anyone who has taken a loan before June 5, 2024, qualifies for this scheme. A Google Form will be available shortly for eligible participants to apply. Don’t miss the opportunity to benefit from 100% interest rate subvention on loans up to 60 rupees.</li>
-                    <li><strong>💸 Interest Rate Cashback</strong>: Please note that the interest cashback will only be transferred once the borrower has fully repaid both the loan and interest. The scheme will continue until the 500 INR fund is fully utilized.
-
-.</li>
-                    <li><strong>🚀 Act Now</strong>: This is your chance to leverage a government initiative aimed at boosting credit creation and providing significant financial relief.</li>
-                    <li><strong><a href="scheme.html">APPLY NOW!</a>
-</strong></li>
+                    <li><strong>📝 Eligibility & Application:</strong> Anyone who has taken a loan before June 5, 2024, qualifies for this scheme. A Google Form will be available shortly for eligible participants to apply. Don’t miss the opportunity to benefit from 100% interest rate subvention on loans up to 60 rupees.</li>
+                    <li><strong>💸 Interest Rate Cashback:</strong> Please note that the interest cashback will only be transferred once the borrower has fully repaid both the loan and interest. The scheme will continue until the 500 INR fund is fully utilized.</li>
+                    <li><strong>🚀 Act Now:</strong> This is your chance to leverage a government initiative aimed at boosting credit creation and providing significant financial relief.</li>
+                    <li><strong><a href="scheme.html" class="apple-button">📝 APPLY NOW!</a>
+                    </strong></li>
                 </ul>
             </div>
         </div>
 
         <div class="update-section">
             <div class="update">
-                <h2>April 2024: Community Engagement Initiatives</h2>
+                <h2>🌍 April 2024: Community Engagement Initiatives</h2>
                 <p>As part of our commitment to social responsibility, we have launched several community engagement initiatives:</p>
                 <ul>
-                    <li><strong>Volunteer Programs</strong>: Encouraging our team to contribute to local communities.</li>
-                    <li><strong>Educational Workshops</strong>: Providing free workshops to enhance skills and knowledge.</li>
-                    <li><strong>Environmental Campaigns</strong>: Initiatives aimed at promoting sustainability and eco-friendliness.</li>
+                    <li><strong>💪 Volunteer Programs:</strong> Encouraging our team to contribute to local communities.</li>
+                    <li><strong>📚 Educational Workshops:</strong> Providing free workshops to enhance skills and knowledge.</li>
+                    <li><strong>🌱 Environmental Campaigns:</strong> Initiatives aimed at promoting sustainability and eco-friendliness.</li>
                 </ul>
             </div>
         </div>
 
         <div class="update-section">
             <div class="update">
-                <h2>August 2024</h2>
-                <p>The First Order Government has decided to honour the hardwork of Mr. Rahul Goswami as President and former Treasurer</strong> for innovation and enhancing customer satisfaction. This recognition underscores an attempt to acknowledge and incentivise his dedication to the work:</p>
+                <h2>🏆 August 2024: Honoring Excellence</h2>
+                <p>The First Order Government has decided to honour the hard work of Mr. Rahul Goswami as President and former Treasurer for innovation and enhancing customer satisfaction. This recognition underscores an attempt to acknowledge and incentivize his dedication to the work:</p>
                 <ul>
-                    <li><strong>Excellent Service</strong>: Delivering top-notch services to our clients.</li>
-                    <li><strong>Customer-Centric Approach</strong>: Prioritizing the needs and feedback of our users.</li>
-                    <li><strong>Continuous Improvement</strong>: Striving for excellence in all aspects of our business.</li>
-                    <li><strong>He'll be awarded 60 stocks as compensation for his hardwork.</strong></li>
+                    <li><strong>⭐ Excellent Service:</strong> Delivering top-notch services to our clients.</li>
+                    <li><strong>💼 Customer-Centric Approach:</strong> Prioritizing the needs and feedback of our users.</li>
+                    <li><strong>📈 Continuous Improvement:</strong> Striving for excellence in all aspects of our business.</li>
+                    <li><strong>🎖️ Awarded 60 stocks as compensation for his hard work.</strong></li>
                 </ul>
             </div>
         </div>
