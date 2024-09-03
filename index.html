@@ -16,32 +16,60 @@
             padding-bottom: 80px; /* Ensure space for footer */
         }
 
+        /* Update header to better align the button with the title */
         header {
-            background-color: #eeebeb;
-            color: #1D1D1F;
-            text-align: center;
-            padding: 1.5rem;
-            font-size: 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-bottom: 1px solid #E5E5E7;
-            position: relative;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
+    
+    background-color: #ffffff;
+    color: #1D1D1F;
+    padding: 1.5rem;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
 
-        header img {
-            height: 60px;
-            margin-right: 1rem;
-        }
+header .logo-title-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-        header .title {
-            font-family: 'Helvetica Neue', sans-serif;
-            font-weight: bold;
-        }
+header img {
+    height: 100px;
+    margin-right: 1rem;
+}
+
+header .title {
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+}
+
+header .info-toggle-btn {
+    background-color: #0071E3;
+    color: #FFFFFF;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    position: absolute;
+    right: 1rem; /* Ensure the button stays at the right edge */
+}
+
+header .info-toggle-btn:hover {
+    background-color: #005BB5;
+}
+
+
+
 
         nav {
-            background-color: #FFFFFF;
+            background-color: #e9e6e6;
             padding: 0.5rem;
             text-align: center;
             border-top: 1px solid #E5E5E7;
@@ -57,66 +85,22 @@
         }
 
         nav a:hover {
-            color: #005BB5;
+            color: #000000;
         }
 
-        .slideshow-container {
-            position: relative;
-            max-width: 80%;
-            margin: 2rem auto;
-            overflow: hidden;
-            border-radius: 12px;
+        .central-div {
+            max-width: 100%;
+            margin: 0rem auto;
+            height: 1100px; /* Increased height */
+            background-size: cover;
+            background-position: center;
+            border-radius: 0px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .slide-wrapper {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slides {
-            min-width: 100%;
-        }
-
-        .slides img {
-            width: 100%;
-            display: block;
-            border-radius: 12px;
-        }
-
-        .prev, .next {
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            width: auto;
-            padding: 16px;
-            margin-top: -22px;
-            color: #0071E3;
-            font-weight: bold;
-            font-size: 18px;
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            border-radius: 50%;
-            user-select: none;
-            z-index: 100;
-            transition: background-color 0.3s;
-        }
-
-        .prev:hover, .next:hover {
-            background-color: rgba(255, 255, 255, 1);
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
         }
 
         .notice-board {
             margin-top: 2rem;
-            background-color: #F5F5F7;
+            background-color: #e9e6e6;
             padding: 1rem;
             border-radius: 12px;
             overflow: hidden;
@@ -126,18 +110,12 @@
         }
 
         .notice-board p {
-            color: #1D1D1F;
+            color: #0071E3;
             font-size: 1.2rem;
             margin: 0;
             white-space: nowrap;
             overflow: hidden;
             display: inline-block;
-            animation: slide 20s linear infinite;
-        }
-
-        @keyframes slide {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
         }
 
         .popup {
@@ -191,7 +169,7 @@
             top: 0;
             right: 0;
             width: 300px;
-            background-color: rgba(255, 255, 255, 0.95);
+            background-color: rgb(255, 255, 255);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             overflow: hidden;
@@ -215,7 +193,7 @@
 
         .info-box .info-content {
             font-size: 0.9rem;
-            max-height: 400px;
+            max-height: 900px;
             overflow-y: auto;
         }
 
@@ -266,7 +244,7 @@
 <body>
     <header>
         <img src="logo.png" alt="The First Order Logo">
-        <div class="title"><b>The First Order</b></div>
+        <div class="title"><b><h1><I>THE FIRST ORDER</I></h1></b></div>
         <button class="info-toggle-btn" onclick="toggleInfoBox()" aria-label="Toggle Info Box">Info</button>
     </header>
 
@@ -280,19 +258,10 @@
         <a href="document.html">Download</a>
     </nav>
 
-    <div class="slideshow-container">
-        <div class="slide-wrapper">
-          
-            <div class="slides"><img src="C.jpg" alt="Image 3"></div>
-            <div class="slides"><img src="D.jpg" alt="Image 4"></div>
-            
-        </div>
-        <button class="prev" aria-label="Previous Slide" onclick="plusSlides(-1)">&#10094;</button>
-        <button class="next" aria-label="Next Slide" onclick="plusSlides(1)">&#10095;</button>
-    </div>
+    <div class="central-div" id="centralDiv"></div> <!-- Central div with background image -->
 
     <div class="notice-board">
-        <p>Important: Please note the changed interest rate are effective from September 1st, 2024.</p>
+       <marquee> <p><B>Important:</B>   Please note the changed interest rate are effective from September 1st, 2024.</p></marquee>
     </div>
 
     <div class="popup" id="popup">
@@ -302,7 +271,7 @@
     <div class="overlay" id="overlay"></div>
 
     <footer>
-        &copy; 2024 The First Order. All rights reserved.
+        &copy;<I> 2024 <b>The First Order.</b></I> All rights reserved.
     </footer>
 
     <div class="info-box" id="infoBox">
@@ -314,28 +283,26 @@
     </div>
 
     <script>
-        var currentSlide = 0;
-
-        function showSlides(slideIndex) {
-            var slides = document.querySelectorAll('.slides');
-            if (slideIndex >= slides.length) currentSlide = 0;
-            if (slideIndex < 0) currentSlide = slides.length - 1;
-
-            document.querySelector('.slide-wrapper').style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-
-        function plusSlides(n) {
-            currentSlide += n;
-            showSlides(currentSlide);
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
-            showSlides(currentSlide);
-
             setTimeout(function () {
                 document.getElementById('popup').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
-            }, 3000); // Show popup after 3 seconds
+            }, 5000); // Show popup after 5 seconds
+
+            // Slideshow functionality
+            const images = ['B.jpg' , 'C.jpg', 'E.jpg', 'D.jpg']; // Array of image URLs
+            let currentIndex = 0;
+            const centralDiv = document.getElementById('centralDiv');
+
+            function changeBackgroundImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                centralDiv.style.backgroundImage = `url(${images[currentIndex]})`;
+            }
+
+            setInterval(changeBackgroundImage, 20000); // Change image every 20 seconds
+
+            // Initialize with the first image
+            centralDiv.style.backgroundImage = `url(${images[currentIndex]})`;
         });
 
         function closePopup() {
@@ -344,7 +311,7 @@
         }
 
         function toggleInfoBox() {
-            var infoBox = document.getElementById('infoBox');
+            const infoBox = document.getElementById('infoBox');
             infoBox.classList.toggle('open');
         }
     </script>
