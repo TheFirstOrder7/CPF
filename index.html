@@ -9,11 +9,13 @@
 
     <style>
         body {
-            margin: 0;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #F5F5F7;
-            color: #1D1D1F;
-            padding-bottom: 80px; /* Ensure space for footer */
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F5F5F7;
+    color: #1D1D1F;
+    padding-bottom: 80px; /* Ensure space for footer */
+    width: 100%;
+    box-sizing: border-box; /* Make sure padding and borders are included in the element's width and height */
         }
 
         /* Update header to better align the title */
@@ -61,14 +63,15 @@
         }
 
         .central-div {
-            max-width: 100%;
-            margin: 0rem auto;
-            height: 1000px; /* Increased height */
-            background-size: cover;
-            background-position: center;
-            border-radius: 0px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            position: relative;
+    max-width: 100%;
+    width: 100%; /* Ensure it spans the full width of the page */
+    margin: 0 auto;
+    height: 1000px; /* Increased height */
+    background-size: cover;
+    background-position: center;
+    border-radius: 0px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
         }
 
         .notice-board {
