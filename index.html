@@ -16,57 +16,29 @@
             padding-bottom: 80px; /* Ensure space for footer */
         }
 
-        /* Update header to better align the button with the title */
+        /* Update header to better align the title */
         header {
-    
-    background-color: #ffffff;
-    color: #1D1D1F;
-    padding: 1.5rem;
-    font-size: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+            background-color: #ffffff;
+            color: #1D1D1F;
+            padding: 1.5rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
 
-header .logo-title-container {
-    display: flex;
-    align-items: center;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
+        header img {
+            height: 100px;
+            margin-right: 1rem;
+        }
 
-header img {
-    height: 100px;
-    margin-right: 1rem;
-}
-
-header .title {
-    font-family: 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-}
-
-header .info-toggle-btn {
-    background-color: #0071E3;
-    color: #FFFFFF;
-    border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-    position: absolute;
-    right: 1rem; /* Ensure the button stays at the right edge */
-}
-
-header .info-toggle-btn:hover {
-    background-color: #005BB5;
-}
-
-
-
+        header .title {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
 
         nav {
             background-color: #e9e6e6;
@@ -96,6 +68,7 @@ header .info-toggle-btn:hover {
             background-position: center;
             border-radius: 0px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .notice-board {
@@ -120,22 +93,28 @@ header .info-toggle-btn:hover {
 
         .popup {
             display: none;
-            position: fixed;
+            position: absolute;
             top: 20%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #FFFFFF;
             padding: 1rem;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             z-index: 1000;
-            max-width: 400px;
+            max-width: 500px;
             text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         .popup p {
-            margin: 0;
-            color: #1D1D1F;
+    margin: 0;
+    font-size: 1.3rem; /* Adjust as needed */
+    background: linear-gradient(135deg, #ff0000, #3700ff)
+    ;
+ /*  */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
         }
 
         .popup button {
@@ -160,60 +139,8 @@ header .info-toggle-btn:hover {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.94);
             z-index: 999;
-        }
-
-        .info-box {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 300px;
-            background-color: rgb(255, 255, 255);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            transform: translateY(-100%);
-            transition: transform 0.3s ease;
-            z-index: 1000;
-            padding: 1rem;
-            box-sizing: border-box;
-            margin-right: 20px;
-        }
-
-        .info-box.open {
-            transform: translateY(0);
-        }
-
-        .info-box .info-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-
-        .info-box .info-content {
-            font-size: 0.9rem;
-            max-height: 900px;
-            overflow-y: auto;
-        }
-
-        .info-box .close-btn {
-            background-color: #0280fd;
-            color: #FFFFFF;
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-top: 1rem;
-            display: block;
-            width: 100%;
-            text-align: center;
-            transition: background-color 0.3s;
-        }
-
-        .info-box .close-btn:hover {
-            background-color: #005BB5;
         }
 
         @media (max-width: 768px) {
@@ -223,11 +150,6 @@ header .info-toggle-btn:hover {
             }
             .notice-board p {
                 font-size: 1rem;
-            }
-            .info-box {
-                width: 100%;
-                height: 200px;
-                margin-right: 0;
             }
         }
 
@@ -245,52 +167,68 @@ header .info-toggle-btn:hover {
     <header>
         <img src="logo.png" alt="The First Order Logo">
         <div class="title"><b><h1><I>THE FIRST ORDER</I></h1></b></div>
-        <button class="info-toggle-btn" onclick="toggleInfoBox()" aria-label="Toggle Info Box">Info</button>
     </header>
 
     <nav aria-label="Main Navigation">
-        <a href="CPF.html">Constitution</a>
+        <b>  <a href="CPF.html">Constitution</a>
         <a href="loans.html">Active Loans</a>
         <a href="transaction.html">Transactions</a>
         <a href="interest.html">Interests</a>
         <a href="tax.html">Taxation</a>
         <a href="update.html">Updates</a>
-        <a href="document.html">Download</a>
+        <a href="document.html">Download</a></b>
     </nav>
 
-    <div class="central-div" id="centralDiv"></div> <!-- Central div with background image -->
+    <div class="central-div" id="centralDiv">
+        <div class="popup" id="welcomePopup">
+            <h1><b><p>  Welcome to The First Order  </p></b></h1><p> Your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
+            <button onclick="closeWelcomePopup()">Close</button>
+        </div>
+
+        <div class="popup" id="interestPopup">
+            <p>Check Out the new <a href="table.html">interest rates!</a></p>
+            <button onclick="closeInterestPopup()">Close</button>
+        </div>
+    </div>
 
     <div class="notice-board">
-       <marquee> <p><B>Important:</B>   Please note the changed interest rate are effective from September 1st, 2024.</p></marquee>
+       <marquee> <p><B>Important:</B> Please note the changed interest rate is effective from September 1st, 2024.</p></marquee>
     </div>
 
-    <div class="popup" id="popup">
-        <p>Check Out the new <a href="table.html">interest rates!</a></p>
-        <button onclick="closePopup()">Close</button>
-    </div>
     <div class="overlay" id="overlay"></div>
 
     <footer>
         &copy;<I> 2024 <b>The First Order.</b></I> All rights reserved.
     </footer>
 
-    <div class="info-box" id="infoBox">
-        <div class="info-title">Information</div>
-        <div class="info-content">
-            <p>Welcome to The First Order, your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
-        </div>
-        <button class="close-btn" onclick="toggleInfoBox()">Close</button>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Show the welcome popup after 1 seconds
             setTimeout(function () {
-                document.getElementById('popup').style.display = 'block';
+                document.getElementById('welcomePopup').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
-            }, 5000); // Show popup after 5 seconds
+            }, 1000);
+
+            // Function to handle closing the welcome popup
+            function closeWelcomePopup() {
+                document.getElementById('welcomePopup').style.display = 'none';
+                setTimeout(function () {
+                    document.getElementById('interestPopup').style.display = 'block';
+                }, 500); // Short delay to ensure the welcome popup is fully hidden
+            }
+
+            // Function to handle closing the interest popup
+            function closeInterestPopup() {
+                document.getElementById('interestPopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+
+            // Attach event handlers to buttons
+            document.querySelector('#welcomePopup button').addEventListener('click', closeWelcomePopup);
+            document.querySelector('#interestPopup button').addEventListener('click', closeInterestPopup);
 
             // Slideshow functionality
-            const images = ['B.jpg' , 'C.jpg', 'E.jpg', 'D.jpg']; // Array of image URLs
+            const images = ['B.jpg', 'C.jpg',  'D.jpg']; // Array of image URLs
             let currentIndex = 0;
             const centralDiv = document.getElementById('centralDiv');
 
@@ -304,16 +242,6 @@ header .info-toggle-btn:hover {
             // Initialize with the first image
             centralDiv.style.backgroundImage = `url(${images[currentIndex]})`;
         });
-
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-            document.getElementById('overlay').style.display = 'none';
-        }
-
-        function toggleInfoBox() {
-            const infoBox = document.getElementById('infoBox');
-            infoBox.classList.toggle('open');
-        }
     </script>
 </body>
 </html>
