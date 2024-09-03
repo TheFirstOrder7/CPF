@@ -70,7 +70,7 @@
             display: inline-block;
             padding: 10px 20px;
             margin: 20px 0;
-            background-color: #0071e3;
+            background-color: #043cf5;
             color: white;
             font-size: 1em;
             font-weight: 600;
@@ -82,7 +82,7 @@
         }
 
         .pay-button:hover {
-            background-color: #005bb5;
+            background-color: #73b1f0;
             transform: translateY(-2px);
         }
 
@@ -203,6 +203,56 @@
                 font-size: 1.4em;
             }
         }
+        /* Circular Progress Indicator */
+.progress-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 30px auto;
+}
+
+.progress-ring {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.progress-ring-circle {
+    fill: none;
+    stroke-width: 15;
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
+
+.progress-ring-bg {
+    stroke: #e9e6e6;
+    stroke-width: 15;
+}
+
+.progress-ring-fg {
+    stroke: #64bcf7;
+    stroke-dasharray: 628; /* Circumference of the circle (2 * Math.PI * 100) */
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.3s;
+}
+
+.progress-text {
+    text-align: center;
+    color: #1D1D1F;
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.progress-number {
+    font-size: 2rem;
+    margin-top: 0.5rem;
+}
+
     </style>
 </head>
 <body onload="calculateTotals()">
@@ -211,7 +261,7 @@
             <h1><b>ACTIVE LOANS</b></h1>
         </div>
         <div class="notice">
-         <marquee>Important Notice: Please check the repayment dates and amounts carefully.</marquee>  
+            <marquee>Important Notice: Please check the repayment dates and amounts carefully.</marquee>  
         </div>
         <table id="loanTable">
             <thead>
@@ -341,9 +391,21 @@
                 </tr>
             </tfoot>
             <!-- The rest of your table content remains the same -->
+            <!-- Table content remains unchanged -->
         </table>
+        <div class="progress-container">
+            <svg class="progress-ring" width="250" height="250">
+                <circle class="progress-ring-circle progress-ring-bg" cx="125" cy="125" r="100"></circle>
+                <circle class="progress-ring-circle progress-ring-fg" cx="125" cy="125" r="100"></circle>
+            </svg>
+            <div class="progress-text">
+                LOAN DISBURSED
+                <div class="progress-number" id="loanAmount">0</div>
+            </div>
+        </div>
         <button class="pay-button" onclick="openPopup()">Pay Now</button>
     </div>
+    
 
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
@@ -395,6 +457,17 @@
             document.getElementById('popup').classList.remove('active');
             document.getElementById('overlay').classList.remove('active');
         }
+
+        function updateProgressCircle(value, maxValue) {
+    const circumference = 2 * Math.PI * 100;
+    const progress = (1 - (value / maxValue)) * circumference;
+    document.querySelector('.progress-ring-fg').style.strokeDashoffset = progress;
+    document.getElementById('loanAmount').textContent = `₹${value}`;
+}
+
+// Example usage: Update the circle to show progress
+updateProgressCircle(47698, 100000); // Set this to the total amount disbursed
+
     </script>
 </body>
 </html>
