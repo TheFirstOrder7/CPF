@@ -7,8 +7,11 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-           background: rgb(2,0,36);
-background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,34,125,1) 36%, rgba(0,212,255,0.9332107843137255) 92%);
+           background: rgb(180,58,58);
+background: -moz-radial-gradient(circle, rgba(180,58,58,1) 0%, rgba(205,193,76,1) 50%, rgba(252,69,202,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(180,58,58,1) 0%, rgba(205,193,76,1) 50%, rgba(252,69,202,1) 100%);
+background: radial-gradient(circle, rgba(180,58,58,1) 0%, rgba(205,193,76,1) 50%, rgba(252,69,202,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#b43a3a",endColorstr="#fc45ca",GradientType=1);
             color: #333;
             margin: 0;
             padding: 0;
@@ -17,14 +20,16 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,34,125,1) 36%, rgb
             align-items: center;
             flex-direction: column;
         }
-        .container {
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            max-width: 800px;
-            width: 100%;
-            margin-top: 20px;
+       .container {
+    background: rgba(255, 255, 255, 0.5); /* 50% transparency */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    max-width: 800px;
+    width: 100%;
+    margin-top: 20px;
+}
+
         }
         h1 {
             margin-bottom: 20px;
