@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Form</title>
+    <style>
+       body {
+    background-image: url('E.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+        .form-container {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #000000;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #d1d1d6;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #007aff, #5ac8fa);
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #ffffff, #0077ff);
+        }
+        .result {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+        .calculation {
+            margin-top: 15px;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form id="loanForm">
+            <label for="name"><b>Name:</b></label>
+            <input type="text" id="name" name="name" required><br>
+            
+            <label for="amount"><b>Amount of Loan (in Rupees):</b></label>
+            <input type="number" id="amount" name="amount" required><br>
+            
+            <label for="loanCode"><b>Loan Code:</b></label>
+            <select id="loanCode" name="loanCode" required>
+                <option value="">Select Loan Code</option>
+                <option value="HD">HD</option>
+                <option value="NM">NM</option>
+                <option value="CM-L">CM-L</option>
+                <option value="TL">TL</option>
+                <option value="TM">TM</option>
+                <option value="OML">OML</option>
+                <option value="QD">QD</option>
+                <option value="HY-D">HY-D</option>
+                <option value="OY-D">OY-D</option>
+            </select><br>
+            
+            <div id="additionalOptions" style="display: none;">
+                <label for="subCode">Select Option:</label>
+                <select id="subCode" name="subCode">
+                    <!-- Options will be populated by JavaScript -->
+                </select><br>
+            </div>
+            
+            <!-- Display Calculation Result Here -->
+            <div id="calculation" class="calculation" style="display: none;"></div>
+            <button type="button" onclick="submitForm()">Apply</button>
+            <!-- Prewritten WhatsApp Message -->
+            <div id="prewrittenMessage" class="result" style="display: none;"></div>
+            
+           
+        </form>
+    </div>
+
+    <script>
+        const loanCodeSelect = document.getElementById('loanCode');
+        const additionalOptionsDiv = document.getElementById('additionalOptions');
+        const subCodeSelect = document.getElementById('subCode');
+        const calculationDiv = document.getElementById('calculation');
+        const prewrittenMessageDiv = document.getElementById('prewrittenMessage');
+        const amountInput = document.getElementById('amount');
+
+        loanCodeSelect.addEventListener('change', function() {
+            const selectedValue = this.value;
+            let options = '';
+
+            switch (selectedValue) {
+                case 'QD':
+                    options = '<option value="2">2</option><option value="3">3</option>';
+                    break;
+                case 'HY-D':
+                    options = '<option value="4">4</option><option value="5">5</option><option value="6">6</option>';
+                    break;
+                case 'OY-D':
+                    options = '<option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11">11</option><option value="12">12</option>';
+                    break;
+                default:
+                    options = '';
+            }
+
+            if (options) {
+                additionalOptionsDiv.style.display = 'block';
+                subCodeSelect.innerHTML = options;
+            } else {
+                additionalOptionsDiv.style.display = 'none';
+                subCodeSelect.innerHTML = '';
+            }
+
+            calculateInterest();
+        });
+
+        amountInput.addEventListener('input', calculateInterest);
+        subCodeSelect.addEventListener('change', calculateInterest);
+
+        function calculateInterest() {
+            const amount = parseFloat(amountInput.value);
+            const loanCode = loanCodeSelect.value;
+            const subCode = subCodeSelect.value;
+
+            if (!amount || !loanCode) return;
+
+            let message = `Hello there! I want a loan of Rs ${amount}.`;
+            let serviceCharge = 0;
+            let interestRate = 0;
+            let months = 0;
+            let totalInterest = 0;
+
+            // Calculate interest or service charge
+            if (['HD', 'NM', 'CM-L', 'TL', 'TM'].includes(loanCode)) {
+                serviceCharge = 0;
+                message += ' with zero service charge.';
+                calculationDiv.innerHTML = `Service Charge: Rs 0`;
+            } else if (loanCode === 'OML' || subCode) {
+                interestRate = 1.5;
+                months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
+                totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
+                message += ` The interest rate is 1.5% per month for ${months} months. Total interest is Rs ${totalInterest}.`;
+                calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
+            } else {
+                calculationDiv.innerHTML = '';
+            }
+
+            calculationDiv.style.display = 'block';
+            prewrittenMessageDiv.innerHTML = message;
+            prewrittenMessageDiv.style.display = 'block';
+        }
+
+        function submitForm() {
+            calculateInterest(); // Ensure the interest is calculated
+
+            const phoneNumber = '7456943225';
+            const message = prewrittenMessageDiv.innerHTML;
+            const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+</body>
+</html>
