@@ -24,7 +24,7 @@
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 350px;
+            width: 450px;
             text-align: left;
         }
         label {
@@ -169,7 +169,7 @@
                 interestRate = 1.5;
                 months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
                 totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
-                message += ` The interest rate is 1.5% per month for ${months} months. Total interest is Rs ${totalInterest}.`;
+                message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
                 calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
             } else {
                 calculationDiv.innerHTML = '';
