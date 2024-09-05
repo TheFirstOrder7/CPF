@@ -109,6 +109,34 @@
         .update ul li strong {
             color: #333;
         }
+        .popup {
+            display: none; /* Hidden by default */
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 500px;
+            background: rgba(231, 228, 228, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            z-index: 1000;
+            text-align: center;
+            background: radial-gradient(circle, rgba(255,255,255,0.9), rgba(255,255,255,0.7));
+        }
+
+        .popup.active {
+            display: block;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -134,7 +162,8 @@
                     <li><strong>🤑 Tax Benefits:</strong> Enjoy indexation benefits and standard deductions!</li>
                 </ul>
         
-                <strong><a href="document.html" class="apple-button">📝 READ MORE!</a></strong>
+                <strong><a href=".html" class="apple-button">📝 READ MORE!</a></strong>
+                <strong><a href="#" class="apple-button" onclick="showPopup()">📝 MAKE INQUIRY!</a></strong>
             </div>
         </div>
         
@@ -203,7 +232,24 @@
                 </ul>
             </div>
         </div>
-        
+        <div id="popup" class="popup">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <h2>Send Your Inquiry</h2>
+            <p>Click the send button below to send a inquiry email. Our executives will contact for more information.</p>
+            <a href="mailto:rahulgoswami7009@gmail.com?subject=Inquiry&body=Hello, I would like to inquire about the FD." class="apple-button">Send Inquiry</a>
+        </div>
+
+    </div>
+
+    <script>
+        function showPopup() {
+            document.getElementById('popup').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('popup').classList.remove('active');
+        }
+    </script>
         <!-- Add more update divs as needed -->
         
     </div>
