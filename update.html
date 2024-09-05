@@ -28,8 +28,8 @@
 
         .update-section {
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0);
             border-radius: 10px;
             margin-bottom: 20px;
             transition: transform 0.3s;
@@ -76,9 +76,10 @@
         .update h2 {
     margin-top: 0;
     font-size: 1.8em;
-    background: linear-gradient(to right, #1900ff, #ff0000); /* Add your gradient colors here */
+    background: linear-gradient(to right, #1900ff, #ff0000);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; /* This makes the gradient visible */
+    -webkit-text-fill-color: transparent;
+    font-weight: 700; /* Set the heading weight to 700 for more boldness */
 }
 
         .update p {
@@ -90,12 +91,13 @@
             padding: 0;
         }
         .update ul li {
-            padding-left: 25px;
-            margin-bottom: 10px;
-            position: relative;
-            font-size: 1.1em;
-            color: #555;
-        }
+    padding-left: 25px;
+    margin-bottom: 10px;
+    position: relative;
+    font-size: 1.1em;
+    color: #555;
+    font-weight: 500; /* Make the detailed content less bold than the heading */
+}
         .update ul li::before {
             content: "✔";
             color: #007BFF;
@@ -112,6 +114,31 @@
 <body>
     <div class="container">
         <h1>Latest Updates</h1>
+
+        <div class="update-section">
+            <div class="update">
+                <h2>📈 Discover Our Top Fixed Deposit Schemes!</h2>
+                <p>Maximize your savings with our Fixed Deposit options designed to secure your future and offer great returns. Explore our featured schemes:</p>
+                
+                <strong>🚀 High Growth FD:</strong>
+                <ul>
+                    <li><strong>✨ Stellar Returns:</strong> 20% annual interest, compounded yearly!</li>
+                    <li><strong>📅 Flexible Terms:</strong> Choose from 1 to 3 years.</li>
+                    <li><strong>💰 Start with Just ₹1,000:</strong> Minimum deposit to get started.</li>
+                </ul>
+        
+                <strong>🌟 Tax Saver FD:</strong>
+                <ul>
+                    <li><strong>💸 Attractive Interest:</strong> 14% annual return, compounded annually.</li>
+                    <li><strong>📅 Choose Your Term:</strong> From 1 to 3 years, as you prefer.</li>
+                    <li><strong>🤑 Tax Benefits:</strong> Enjoy indexation benefits and standard deductions!</li>
+                </ul>
+        
+                <strong><a href="https://raw.github.com/TheFirstOrder7/CPF/blob/main/FD.pdf" download>Read Now</a></strong>
+            </div>
+        </div>
+        
+        
 
         <div class="update-section">
             <div class="update">
