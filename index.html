@@ -9,13 +9,11 @@
 
     <style>
         body {
-    margin: 0;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #F5F5F7;
-    color: #1D1D1F;
-    padding-bottom: 80px; /* Ensure space for footer */
-    width: 100%;
-    box-sizing: border-box; /* Make sure padding and borders are included in the element's width and height */
+            margin: 0;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #F5F5F7;
+            color: #1D1D1F;
+            padding-bottom: 80px; /* Ensure space for footer */
         }
 
         /* Update header to better align the title */
@@ -63,15 +61,14 @@
         }
 
         .central-div {
-    max-width: 100%;
-    width: 100%; /* Ensure it spans the full width of the page */
-    margin: 0 auto;
-    height: 1100px; /* Increased height */
-    background-size: cover;
-    background-position: center;
-    border-radius: 0px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    position: relative;
+            max-width: 100%;
+            margin: 0rem auto;
+            height: 1100px; /* Increased height */
+            background-size: cover;
+            background-position: center;
+            border-radius: 0px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
         }
 
         .notice-board {
@@ -82,7 +79,7 @@
             overflow: hidden;
             position: relative;
             height: 60px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
         }
 
         .notice-board p {
@@ -101,7 +98,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             padding: 1rem;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
             border-radius: 12px;
             z-index: 1000;
             max-width: 500px;
@@ -112,8 +109,11 @@
         .popup p {
     margin: 0;
     font-size: 1.3rem; /* Adjust as needed */
-    background: linear-gradient(135deg, #ff0000, #3700ff)
-    ;
+    background: rgb(63,94,251);
+background: -moz-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endColorstr="#fc466b",GradientType=1);
  /*  */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -123,7 +123,7 @@
         .popup button {
             margin-top: 1rem;
             padding: 0.5rem 1rem;
-            background-color: #0071E3;
+            background-color: #4a98e6;
             color: #FFFFFF;
             border: none;
             cursor: pointer;
@@ -132,7 +132,7 @@
         }
 
         .popup button:hover {
-            background-color: #005BB5;
+            background-color: #0011ff;
         }
 
         .overlay {
@@ -142,7 +142,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.92);
+            background-color: rgba(0, 0, 0, 0.9);
             z-index: 999;
         }
 
@@ -189,7 +189,10 @@
         </div>
 
         <div class="popup" id="interestPopup">
-            <p>Check Out the new <a href="table.html">interest rates!</a></p>
+           <a href="update.html"style="text-decoration:none;"> <p><strong>🌟 Check out our Fixed Deposit Products! 🌟</strong></p>
+            <p>💰 <strong>High Growth FD:</strong> 20% annual return, no lock-in!</p>
+            <p>📈 <strong>Tax Saver FD:</strong> 14% return, tax benefits included!</p></a>
+           
             <button onclick="closeInterestPopup()">Close</button>
         </div>
     </div>
