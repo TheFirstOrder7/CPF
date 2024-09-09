@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Code Search</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+        }
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.6);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            width: 400px;
+        }
+        h2, h3 {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        #loanInfo {
+            margin-top: 20px;
+            display: none;
+        }
+        select, label {
+            margin: 10px;
+            font-size: 16px;
+            text-transform: uppercase;
+        }
+        .dropdown-options {
+            display: none;
+            margin-top: 20px;
+        }
+        .message-button {
+            margin-top: 20px;
+            background-color: #34d399;
+            cursor: pointer;
+            font-size: 16px;
+            text-transform: uppercase;
+            transition: background-color 0.3s ease;
+        }
+        .message-button:hover {
+            background-color: #059669;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Enter Loan Code</h2>
+        <input type="text" id="loanCode" placeholder="Enter loan code..." />
+        <button onclick="searchLoan()">Search</button>
+
+        <div id="loanInfo">
+            <h3>Loan Details:</h3>
+            <p><strong>Loan Code:</strong> <span id="loanCodeResult"></span></p>
+            <p><strong>Loan Type:</strong> <span id="loanTypeResult"></span></p>
+            <p><strong>Name:</strong> <span id="nameResult"></span></p>
+            <p><strong>Due Date:</strong> <span id="dueDateResult"></span></p>
+            <p><strong>Amount:</strong> <span id="amountResult"></span></p>
+            <p><strong>Expected Interest:</strong> <span id="interestResult"></span></p>
+
+            <label>Loan Term:</label>
+            <select id="loanTerm" onchange="updateInterest()">
+                <option value="">Select Loan Term</option>
+                <option value="HD">HD</option>
+                <option value="NM">NM</option>
+                <option value="CM-L">CM-L</option>
+                <option value="TL">TL</option>
+                <option value="TM">TM</option>
+                <option value="OML">OML</option>
+                <option value="QD">QD</option>
+                <option value="HY-D">HY-D</option>
+                <option value="OY-D">OY-D</option>
+            </select>
+
+            <div id="dynamicDropdown" class="dropdown-options">
+                <label>Options:</label>
+                <select id="additionalOptions"></select>
+            </div>
+
+            <p><strong>New Interest Rate:</strong> <span id="newInterest"></span></p>
+
+            <button class="message-button" onclick="sendMessage()">Revise Loan</button>
+        </div>
+    </div>
+
+    <table id="loanTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>Loan Code</th>
+                <th>Loan Type</th>
+                <th>Name</th>
+                <th>Due Date</th>
+                <th>Amount</th>
+                <th>Expected Interest</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Sample data; add new rows here as needed -->
+            <tr>
+                <td>74</td>
+                <td>OY-D8 1776</td>
+                <td>Shubham Goswami</td>
+                <td>10/09/2024</td>
+                <td>1776</td>
+                <td>285</td>
+                
+            </tr>
+            <tr>
+                <td>228</td>
+                <td>QD 2 500</td>
+                <td>Nitin Goswami</td>
+                <td>01/11/2024</td>
+                <td>500</td>
+                <td>65</td>
+            </tr>
+            
+            <tr>
+                <td>186</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>187</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>188</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>217</td>
+                <td>OML 1000</td>
+                <td>Deepak Goswami</td>
+                <td>17/09/2024</td>
+                <td>1000</td>
+                <td>30</td>
+            </tr>
+             <tr>
+                <td>224</td>
+                <td>OML 450</td>
+                <td>Deepak Goswami</td>
+                <td>30/09/2024</td>
+                <td>450</td>
+                <td>7</td>
+            </tr>
+            <tr>
+                <td>234</td>
+                <td>TL 786</td>
+                <td>Shubham Goswami</td>
+                <td>08/10/2024</td>
+                <td>786</td>
+                <td>35</td>
+            </tr>
+          
+            <tr>
+                <td>221</td>
+                <td>QY D3 333</td>
+                <td>Rahul Goswami</td>
+                <td>24/11/2024</td>
+                <td>333</td>
+                <td>15</td>
+            </tr>
+             <tr>
+                <td>222</td>
+                <td>OML 50</td>
+                <td>Krish Goswami</td>
+                <td>27/09/2024</td>
+                <td>50</td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>230</td>
+                <td>OML 250</td>
+                <td>Krish Goswami</td>
+                <td>02/10/2024</td>
+                <td>250</td>
+                <td>4</td>
+            </tr>
+             <tr>
+                <td>223</td>
+                <td>OML 1000</td>
+                <td>Bhagwati Goswami</td>
+                <td>27/09/2024</td>
+                <td>1000</td>
+                <td>15</td>
+            </tr>
+            <!-- Add more rows as needed -->
+        </tbody>
+        <tfoot>
+            
+        </tfoot>
+        <!-- The rest of your table content remains the same -->
+        <!-- Table content remains unchanged -->
+   
+        <!-- The rest of your table content remains unchanged -->
+    </table>
+
+    <script>
+        // Same JavaScript logic remains
+        function searchLoan() {
+            let loanCode = document.getElementById('loanCode').value;
+            let table = document.getElementById('loanTable');
+            let rows = table.getElementsByTagName('tr');
+            let found = false;
+
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].getElementsByTagName('td');
+                if (cells[0].innerText === loanCode) {
+                    document.getElementById('loanCodeResult').innerText = cells[0].innerText;
+                    document.getElementById('loanTypeResult').innerText = cells[1].innerText;
+                    document.getElementById('nameResult').innerText = cells[2].innerText;
+                    document.getElementById('dueDateResult').innerText = cells[3].innerText;
+                    document.getElementById('amountResult').innerText = cells[4].innerText;
+                    document.getElementById('interestResult').innerText = cells[5].innerText;
+                    document.getElementById('loanInfo').style.display = 'block';
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('Loan Code not found!');
+            }
+        }
+
+        function updateInterest() {
+            let loanTerm = document.getElementById('loanTerm').value;
+            let amount = parseFloat(document.getElementById('amountResult').innerText);
+            let interest = parseFloat(document.getElementById('interestResult').innerText);
+            let principal = amount;
+            let total = amount + interest;
+            let newInterest = 0;
+
+            document.getElementById('dynamicDropdown').style.display = 'none';
+
+            if (loanTerm === 'OML') {
+                newInterest = Math.round(principal * 0.015 + interest + 0.10 * (principal * 0.015 + interest));
+            } else if (loanTerm === 'QD') {
+                document.getElementById('dynamicDropdown').style.display = 'block';
+                let options = `<option value="" disabled selected>Select tenure</option><option value="2">2</option><option value="3">3</option>`;
+                document.getElementById('additionalOptions').innerHTML = options;
+                document.getElementById('additionalOptions').onchange = function () {
+                    let multiplier = parseFloat(this.value);
+                    newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
+                    document.getElementById('newInterest').innerText = newInterest.toFixed(2);
+                };
+            } else if (loanTerm === 'HY-D') {
+                document.getElementById('dynamicDropdown').style.display = 'block';
+                let options = `<option value="" disabled selected>Select tenure</option><option value="4">4</option><option value="5">5</option><option value="6">6</option>`;
+                document.getElementById('additionalOptions').innerHTML = options;
+                document.getElementById('additionalOptions').onchange = function () {
+                    let multiplier = parseFloat(this.value);
+                    newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
+                    document.getElementById('newInterest').innerText = newInterest.toFixed(2);
+                };
+            } else if (loanTerm === 'OY-D') {
+                document.getElementById('dynamicDropdown').style.display = 'block';
+                let options = `<option value="" disabled selected>Select tenure</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11">11</option><option value="12">12</option>`;
+                document.getElementById('additionalOptions').innerHTML = options;
+                document.getElementById('additionalOptions').onchange = function () {
+                    let multiplier = parseFloat(this.value);
+                    newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
+                    document.getElementById('newInterest').innerText = newInterest.toFixed(2);
+                };
+            } else {
+                newInterest = Math.round(interest * 0.10 + interest);
+            }
+
+            document.getElementById('newInterest').innerText = newInterest.toFixed(2);
+        }
+
+        function sendMessage() {
+            let loanCode = document.getElementById('loanCodeResult').innerText;
+            let loanType = document.getElementById('loanTypeResult').innerText;
+            let amount = document.getElementById('amountResult').innerText;
+            let newInterest = document.getElementById('newInterest').innerText;
+
+            let message = `Hello there! I want to revise my loan of amount ${amount} with loan code ${loanCode} at a new interest rate of ${newInterest} for the selected option ${loanType}.`;
+
+            let phoneNumber = "7456943225";  // Change phone number if necessary
+            let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+            // Open WhatsApp with the pre-filled message
+            window.open(whatsappURL, '_blank');
+        }
+    </script>
+</body>
+</html>
