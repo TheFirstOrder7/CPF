@@ -42,15 +42,17 @@
             justify-content: space-between;
         }
         button {
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: linear-gradient(45deg, #007aff, #5ac8fa);
-            color: #ffffff;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            width: 48%;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(to bottom right, #ff0000, #1900ff);
+    border-radius: 12px;
+    text-decoration: none;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition:  0.3s ease, box-shadow 0.3s ease;
+        }
         }
         button:hover {
             background: linear-gradient(45deg, #ffffff, #0077ff);
@@ -103,7 +105,7 @@
 
             <div class="button-container">
                 <button type="button" onclick="submitForm()">Apply</button>
-                <button type="button" onclick="reviseForm()"><a href="restructure.html" ; style="text-decoration: none";>Revise</a></button>
+                <button type="button" onclick="reviseForm()"><a href="restructure.html";>Revise</a></button>
             </div>
 
             <!-- Prewritten WhatsApp Message -->
