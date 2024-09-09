@@ -6,14 +6,14 @@
     <title>Loan Form</title>
     <style>
        body {
-    background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%););
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-}
+            background-image: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
 
         .form-container {
             background: rgba(0, 0, 0, 0.1);
@@ -37,8 +37,11 @@
             margin-bottom: 10px;
             font-size: 16px;
         }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
         button {
-            width: 100%;
             padding: 10px;
             border: none;
             border-radius: 8px;
@@ -47,6 +50,7 @@
             font-size: 16px;
             cursor: pointer;
             transition: background 0.3s ease;
+            width: 48%;
         }
         button:hover {
             background: linear-gradient(45deg, #ffffff, #0077ff);
@@ -70,7 +74,8 @@
             <input type="text" id="name" name="name" required><br>
             
             <label for="amount"><b>Amount of Loan (in Rupees):</b></label>
-            <input type="number" id="amount" name="amount" required><br>
+<input type="number" id="amount" name="amount" min="50" required><br>
+
             
             <label for="loanCode"><b>Loan Code:</b></label>
             <select id="loanCode" name="loanCode" required>
@@ -95,10 +100,14 @@
             
             <!-- Display Calculation Result Here -->
             <div id="calculation" class="calculation" style="display: none;"></div>
-            <button type="button" onclick="submitForm()">Apply</button>
+
+            <div class="button-container">
+                <button type="button" onclick="submitForm()">Apply</button>
+                <button type="button" onclick="reviseForm()"><a href="restructure.html" ; style="text-decoration: none";>Revise</a></button>
+            </div>
+
             <!-- Prewritten WhatsApp Message -->
             <div id="prewrittenMessage" class="result" style="display: none;"></div>
-            
            
         </form>
     </div>
@@ -136,6 +145,7 @@
                 additionalOptionsDiv.style.display = 'none';
                 subCodeSelect.innerHTML = '';
             }
+            
 
             calculateInterest();
         });
@@ -183,6 +193,12 @@
             const message = prewrittenMessageDiv.innerHTML;
             const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
             window.open(url, '_blank');
+        }
+
+        function reviseForm() {
+            document.getElementById('loanForm').reset();
+            calculationDiv.style.display = 'none';
+            prewrittenMessageDiv.style.display = 'none';
         }
     </script>
 </body>
