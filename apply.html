@@ -15,14 +15,40 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
+        .banner {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .banner img {
+            margin-right: 10px;
+            height: 40px;
+        }
+
         .form-container {
             background: rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             padding: 20px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 450px;
+            width: 500px;
             text-align: left;
+            margin-top: 100px; /* Add margin to avoid overlap with the banner */
         }
+
         label {
             display: block;
             margin: 10px 0 5px;
@@ -37,10 +63,12 @@
             margin-bottom: 10px;
             font-size: 16px;
         }
+
         .button-container {
             display: flex;
             justify-content: space-between;
         }
+
         button {
             padding: 12px 24px;
             background-color: #007aff;
@@ -52,24 +80,30 @@
             text-transform: uppercase;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #005bb5;
         }
+
         .result {
             margin-top: 15px;
             font-size: 16px;
             color: #333;
         }
+
         .calculation {
             margin-top: 15px;
             font-size: 16px;
             color: #333;
         }
-        
     </style>
 </head>
 <body>
-    
+
+    <div class="banner">
+        <img src="logo.png" alt="Logo">
+        THE FIRST ORDER
+    </div>
     
     <div class="form-container">
         <form id="loanForm">
@@ -77,9 +111,8 @@
             <input type="text" id="name" name="name" required><br>
             
             <label for="amount"><b>Amount of Loan (in Rupees):</b></label>
-<input type="number" id="amount" name="amount" min="50" required><br>
+            <input type="number" id="amount" name="amount" min="50" required><br>
 
-            
             <label for="loanCode"><b>Loan Code:</b></label>
             <select id="loanCode" name="loanCode" required>
                 <option value="">Select Loan Code</option>
@@ -107,7 +140,7 @@
             <div class="button-container">
                 <button type="button" onclick="submitForm()">Apply</button>
                 <button type="button" onclick="reviseForm()">
-    <a href="restructure.html" style="text-decoration:none; color:#FFFFFF;">Revise Existing Loan</a>
+                    <a href="restructure.html" style="text-decoration:none; color:#FFFFFF;">Revise Existing Loan</a>
                 </button>
             </div>
 
