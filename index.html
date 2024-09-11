@@ -219,11 +219,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Show the welcome popup after 1 second
+            // Show the welcome popup after 1 seconds
             setTimeout(function () {
                 document.getElementById('welcomePopup').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
-            }, 1000);
+            }, 100);
 
             // Function to handle closing the welcome popup
             function closeWelcomePopup() {
@@ -234,7 +234,6 @@
             }
 
             // Function to handle closing the interest popup
-  // Function to handle closing the interest popup
             function closeInterestPopup() {
                 document.getElementById('interestPopup').style.display = 'none';
                 document.getElementById('overlay').style.display = 'none';
@@ -245,7 +244,7 @@
             document.querySelector('#interestPopup button').addEventListener('click', closeInterestPopup);
 
             // Slideshow functionality
-            const images = ['B.jpg', 'C.jpg', 'D.jpg']; // Array of image URLs
+            const images = ['B.jpg', 'C.jpg',  'D.jpg']; // Array of image URLs
             let currentIndex = 0;
             const centralDiv = document.getElementById('centralDiv');
 
