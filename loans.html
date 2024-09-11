@@ -252,6 +252,25 @@
     font-size: 2rem;
     margin-top: 0.5rem;
 }
+.revise-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #f5821f;
+    color: white;
+    font-size: 1em;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.revise-button:hover {
+    background-color: #f5a142;
+    transform: translateY(-2px);
+}
 
     </style>
 </head>
@@ -397,7 +416,11 @@
             </div>
         </div>
         <button class="pay-button" onclick="openPopup()">Pay Now</button>
-    </div>
+       <P> <B><H2>OR</H2></B></P>
+        <div> <button class="revise-button"><a href="restructure.html" style="color:white;text-decoration:none;">Revise Loan</a></button></div>
+ </div>
+ 
+
     
 
     <div class="overlay" id="overlay"></div>
