@@ -14,6 +14,29 @@
             margin: 0;
             background: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
         }
+        .banner {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.2);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-size: 30px;
+            font-weight: bold;
+            font-style: italic;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+        }
+
+        .banner img {
+            margin-right: 10px;
+            height: 40px;
+        }
         .form-container {
             background-color: rgba(255, 255, 255, 0.6);
             padding: 40px;
@@ -79,6 +102,9 @@
     </style>
 </head>
 <body>
+        <div class="banner">
+        <img src="logo.png" alt="Logo"> <!-- Replace 'your-logo-url.png' with the actual logo URL -->
+    <B><I>THE FIRST ORDER</I></B></div>
     <div class="form-container">
         <h2>Enter Loan Code</h2>
         <input type="text" id="loanCode" placeholder="Enter loan code..." />
