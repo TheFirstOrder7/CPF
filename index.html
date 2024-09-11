@@ -16,7 +16,6 @@
             padding-bottom: 80px; /* Ensure space for footer */
         }
 
-        /* Update header to better align the title */
         header {
             background-color: #ffffff;
             color: #1D1D1F;
@@ -30,7 +29,7 @@
         }
 
         header img {
-            height: 100px;
+            height: 80px; /* Adjusted size for mobile */
             margin-right: 1rem;
         }
 
@@ -51,9 +50,10 @@
         nav a {
             color: #0071E3;
             text-decoration: none;
-            margin: 0 1rem;
-            font-size: 1.1rem;
+            margin: 0.5rem 0.5rem; /* Adjusted for spacing on mobile */
+            font-size: 1rem;
             transition: color 0.3s;
+            display: inline-block;
         }
 
         nav a:hover {
@@ -62,8 +62,8 @@
 
         .central-div {
             max-width: 100%;
-            margin: 0rem auto;
-            height: 1100px; /* Increased height */
+            margin: 0 auto;
+            height: auto; /* Adjust height for mobile screens */
             background-size: cover;
             background-position: center;
             border-radius: 0px;
@@ -72,19 +72,18 @@
         }
 
         .notice-board {
-            margin-top: 2rem;
+            margin-top: 1rem;
             background-color: #e9e6e6;
             padding: 1rem;
             border-radius: 12px;
             overflow: hidden;
             position: relative;
-            height: 60px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
         }
 
         .notice-board p {
             color: #0071E3;
-            font-size: 1.2rem;
+            font-size: 1rem;
             margin: 0;
             white-space: nowrap;
             overflow: hidden;
@@ -101,23 +100,18 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
             border-radius: 12px;
             z-index: 1000;
-            max-width: 500px;
+            max-width: 95%;
             text-align: center;
             background-color: rgba(255, 255, 255, 0.1);
         }
 
         .popup p {
-    margin: 0;
-    font-size: 1.3rem; /* Adjust as needed */
-    background: rgb(63,94,251);
-background: -moz-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-background: -webkit-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endColorstr="#fc466b",GradientType=1);
- /*  */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+            margin: 0;
+            font-size: 1.1rem; /* Adjust as needed */
+            background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .popup button {
@@ -146,16 +140,6 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
             z-index: 999;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                padding: 1rem;
-            }
-            .notice-board p {
-                font-size: 1rem;
-            }
-        }
-
         footer {
             background-color: #FFFFFF;
             color: #1D1D1F;
@@ -163,6 +147,31 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
             padding: 1rem;
             width: 100%;
             border-top: 1px solid #E5E5E7;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            header img {
+                height: 60px; /* Reduce logo size on mobile */
+            }
+
+            nav a {
+                display: block; /* Stack navigation links for better readability */
+                margin: 0.5rem 0;
+                font-size: 0.9rem; /* Slightly reduce font size */
+            }
+
+            .popup {
+                max-width: 90%; /* Adjust popup width for mobile */
+            }
+
+            .notice-board p {
+                font-size: 0.9rem; /* Slightly reduce text size */
+            }
+
+            .popup p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
@@ -173,24 +182,24 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
     </header>
 
     <nav aria-label="Main Navigation">
-        <b>  <a href="CPF.html">Constitution</a>
-            <a href="apply.html">Apply Loan</a>
-        <a href="loans.html">Active Loans</a>
-        <a href="transaction.html">Transactions</a>
-        <a href="interest.html">Interests</a>
-        <a href="tax.html">Taxation</a>
-        <a href="update.html">Updates</a>
-        <a href="document.html">Download</a></b>
+        <b><a href="CPF.html">Constitution</a>
+           <a href="apply.html">Apply Loan</a>
+           <a href="loans.html">Active Loans</a>
+           <a href="transaction.html">Transactions</a>
+           <a href="interest.html">Interests</a>
+           <a href="tax.html">Taxation</a>
+           <a href="update.html">Updates</a>
+           <a href="document.html">Download</a></b>
     </nav>
 
     <div class="central-div" id="centralDiv">
         <div class="popup" id="welcomePopup">
-            <h1><b><p>  Welcome to The First Order  </p></b></h1><p> Your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
+            <h1><b><p>  Welcome to The First Order  </p></b></h1><p>Your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
             <button onclick="closeWelcomePopup()">Close</button>
         </div>
 
         <div class="popup" id="interestPopup">
-           <a href="update.html"style="text-decoration:none;"> <p><strong>🌟 Check out our Fixed Deposit Products! 🌟</strong></p>
+           <a href="update.html" style="text-decoration:none;"><p><strong>🌟 Check out our Fixed Deposit Products! 🌟</strong></p>
             <p>💰 <strong>High Growth FD:</strong> 20% annual return, no lock-in!</p>
             <p>📈 <strong>Tax Saver FD:</strong> 14% return, tax benefits included!</p></a>
            
@@ -199,7 +208,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
     </div>
 
     <div class="notice-board">
-       <marquee> <p><B>Important:</B> Please note the changed interest rate is effective from September 1st, 2024.</p></marquee>
+        <marquee><p><B>Important:</B> Please note the changed interest rate is effective from September 1st, 2024.</p></marquee>
     </div>
 
     <div class="overlay" id="overlay"></div>
@@ -210,11 +219,11 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Show the welcome popup after 1 seconds
+            // Show the welcome popup after 1 second
             setTimeout(function () {
                 document.getElementById('welcomePopup').style.display = 'block';
                 document.getElementById('overlay').style.display = 'block';
-            }, 100);
+            }, 1000);
 
             // Function to handle closing the welcome popup
             function closeWelcomePopup() {
@@ -225,6 +234,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
             }
 
             // Function to handle closing the interest popup
+  // Function to handle closing the interest popup
             function closeInterestPopup() {
                 document.getElementById('interestPopup').style.display = 'none';
                 document.getElementById('overlay').style.display = 'none';
@@ -235,7 +245,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endCo
             document.querySelector('#interestPopup button').addEventListener('click', closeInterestPopup);
 
             // Slideshow functionality
-            const images = ['B.jpg', 'C.jpg',  'D.jpg']; // Array of image URLs
+            const images = ['B.jpg', 'C.jpg', 'D.jpg']; // Array of image URLs
             let currentIndex = 0;
             const centralDiv = document.getElementById('centralDiv');
 
