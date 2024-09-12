@@ -288,30 +288,34 @@
         // Same JavaScript logic as before for loan search and interest calculation
 
         function searchLoan() {
-            let loanCode = document.getElementById('loanCode').value;
-            let table = document.getElementById('loanTable');
-            let rows = table.getElementsByTagName('tr');
-            let found = false;
+    let loanCode = document.getElementById('loanCode').value;
+    let table = document.getElementById('loanTable');
+    let rows = table.getElementsByTagName('tr');
+    let found = false;
 
-            for (let i = 1; i < rows.length; i++) {
-                let cells = rows[i].getElementsByTagName('td');
-                if (cells[0].innerText === loanCode) {
-                    document.getElementById('loanCodeResult').innerText = cells[0].innerText;
-                    document.getElementById('loanTypeResult').innerText = cells[1].innerText;
-                    document.getElementById('nameResult').innerText = cells[2].innerText;
-                    document.getElementById('dueDateResult').innerText = cells[3].innerText;
-                    document.getElementById('amountResult').innerText = cells[4].innerText;
-                    document.getElementById('interestResult').innerText = cells[5].innerText;
-                    document.getElementById('loanInfo').style.display = 'block';
-                    found = true;
-                    break;
-                }
+    for (let i = 1; i < rows.length; i++) {
+        let cells = rows[i].getElementsByTagName('td');
+        if (cells[0].innerText === loanCode) {
+            if (loanCode === '238') {
+                alert('This loan cannot be revised in accordance with Presidential order.');
+                return;
             }
-
-            if (!found) {
-                alert('Loan Code not found!');
-            }
+            document.getElementById('loanCodeResult').innerText = cells[0].innerText;
+            document.getElementById('loanTypeResult').innerText = cells[1].innerText;
+            document.getElementById('nameResult').innerText = cells[2].innerText;
+            document.getElementById('dueDateResult').innerText = cells[3].innerText;
+            document.getElementById('amountResult').innerText = cells[4].innerText;
+            document.getElementById('interestResult').innerText = cells[5].innerText;
+            document.getElementById('loanInfo').style.display = 'block';
+            found = true;
+            break;
         }
+    }
+
+    if (!found) {
+        alert('Loan Code not found!');
+    }
+}
 
         function updateInterest() {
     let loanTerm = document.getElementById('loanTerm').value;
