@@ -184,45 +184,51 @@
                 subCodeSelect.innerHTML = '';
             }
             
-
-            calculateInterest();
+ calculateInterest();
         });
 
         amountInput.addEventListener('input', calculateInterest);
         subCodeSelect.addEventListener('change', calculateInterest);
 
         function calculateInterest() {
-            const amount = parseFloat(amountInput.value);
-            const loanCode = loanCodeSelect.value;
-            const subCode = subCodeSelect.value;
+    const amount = parseFloat(amountInput.value);
+    const loanCode = loanCodeSelect.value;
+    const subCode = subCodeSelect.value;
 
-            if (!amount || !loanCode) return;
+    // Add validation for the loan amount
+    if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid loan amount.");
+        return;
+    }
 
-            let message = `Hello there! I want a loan of Rs ${amount}.`;
-            let serviceCharge = 0;
-            let interestRate = 0;
-            let months = 0;
-            let totalInterest = 0;
+    if (!loanCode) return;
 
-            // Calculate interest or service charge
-            if (['HD', 'NM', 'CM-L', 'TL', 'TM'].includes(loanCode)) {
-                serviceCharge = 0;
-                message += ' with zero service charge.';
-                calculationDiv.innerHTML = `Service Charge: Rs 0`;
-            } else if (loanCode === 'OML' || subCode) {
-                interestRate = 1.5;
-                months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
-                totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
-                message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
-                calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
-            } else {
-                calculationDiv.innerHTML = '';
-            }
+    let message = `Hello there! I want a loan of Rs ${amount}`;
+    let serviceCharge = 0;
+    let interestRate = 0;
+    let months = 0;
+    let totalInterest = 0;
 
-            calculationDiv.style.display = 'block';
-            prewrittenMessageDiv.innerHTML = message;
-            prewrittenMessageDiv.style.display = 'block';
-        }
+    // Calculate interest or service charge
+    if (['HD', 'NM', 'CM-L', 'TL', 'TM'].includes(loanCode)) {
+        serviceCharge = 0;
+        message += ` with zero service charge under the ${loanCode} code.`;
+        calculationDiv.innerHTML = `Service Charge: Rs 0`;
+    } else if (loanCode === 'OML' || subCode) {
+        interestRate = 1.5;
+        months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
+        totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
+        message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
+        calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
+    } else {
+        calculationDiv.innerHTML = '';
+    }
+
+    calculationDiv.style.display = 'block';
+    prewrittenMessageDiv.innerHTML = message;
+    prewrittenMessageDiv.style.display = 'block';
+}
+
 
         function submitForm() {
             calculateInterest(); // Ensure the interest is calculated
