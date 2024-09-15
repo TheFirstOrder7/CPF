@@ -12,6 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            animation: gradientAnimation 10s ease infinite;
             background: linear-gradient(to top, #5ee7df 0%, #b490ca 100%);
         }
         .banner {
@@ -38,7 +39,7 @@
             height: 40px;
         }
         .form-container {
-            background-color: rgba(255, 255, 255, 0.6);
+            background-color: rgba(255, 255, 255, 0.2);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
@@ -51,29 +52,35 @@
             font-weight: bold;
             text-transform: uppercase;
             color: #333;
+            animation: fadeInUp 0.5s ease forwards;
         }
         input[type="text"] {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ccc;
+            
+            border: 1px solid #ffffff;
             border-radius: 10px;
             margin-bottom: 20px;
             font-size: 16px;
         }
         button {
-            padding: 12px 24px;
-            background-color: #007aff;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 16px;
-            text-transform: uppercase;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #005bb5;
-        }
+    padding: 12px 24px;
+    background-color: #0A84FF;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+   
+    transform: translateY(-5px);
+}
+
         #loanInfo {
             margin-top: 20px;
             display: none;
@@ -85,7 +92,7 @@
         }
         .dropdown-options {
             display: none;
-            margin-top: 20px;
+            margin-top: 30px;
         }
         .message-button {
             margin-top: 20px;
@@ -98,6 +105,84 @@
         .message-button:hover {
             background-color: #059669;
         }
+        
+        .form-container {
+            position: relative; /* So that the info button is positioned relative to this container */
+        }
+        @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+        /* Info button styles */
+        .info-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: rgba(240, 238, 238, 0.01);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
+            color: rgb(0, 0, 0);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Popup overlay styles */
+        .popup-overlay {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            z-index: 999; /* To be on top of all other content */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        .popup-box h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .popup-box p {
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .popup-box button {
+            background-color: #045fe7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup-box button:hover {
+            background-color: #f01111;
+        }
+       
         /* Same CSS as before */
     </style>
 </head>
@@ -105,11 +190,31 @@
         <div class="banner">
         <img src="logo.png" alt="Logo"> <!-- Replace 'your-logo-url.png' with the actual logo URL -->
     <B><I>THE FIRST ORDER</I></B></div>
+    
     <div class="form-container">
+        <button class="info-button" onclick="togglePopup()"><b>?</b></button> <!-- Info button -->
         <h2>Enter Loan Code</h2>
-        <input type="text" id="loanCode" placeholder="Enter loan code..." />
+        <input type="text" id="loanCode" placeholder="Enter loan code..." list="loanCodeSuggestions"/>
+        <datalist id="loanCodeSuggestions">
+            <option value="74">
+            <option value="228">
+            <option value="186">
+            <option value="187">
+            <option value="217">
+            <option value="224">
+            <option value="234">
+            <option value="221">
+            <option value="222">
+            <option value="230">
+            <option value="223">
+            <option value="237">
+            <option value="240">
+            <option value="239">
+            <option value="238">
+            <!-- Add other loan codes as options here -->
+        </datalist>
         <button onclick="searchLoan()">Search</button>
-
+        
         <div id="loanInfo">
             <h3>Loan Details:</h3>
             <p><strong>Loan Code:</strong> <span id="loanCodeResult"></span></p>
@@ -124,7 +229,7 @@
                 <option value="">Select Loan Term</option>
                 <option value="HD">HALF DAY (HD) ≤ ½ DAY </option>
                 <option value="NM">NOTICE MONEY (NM) >½ DAY</option>
-                <option value="CM-L">CASH MANAGEMENT LOANS (CM-L) <8 DAYS</option>
+                <option value="CM-L">CASH MANAGEMENT LOANS (CM-L) <8 DAYS </option>
                 <option value="TL">TREASURY LOANS (TL) <16 DAYS - >7 DAYS</option>
                 <option value="TM">TERM MONEY (TM) <30 DAYS - >15 DAYS</option>
                 <option value="OML">ONE MONTH LOAN (OML) 30 DAYS</option>
@@ -143,7 +248,17 @@
             <button class="message-button" onclick="sendMessage()">Revise Loan</button>
         </div>
     </div>
-
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <h2>Executive Order</h2>
+            <p><strong>Loan revisioning and restructuring scheme</strong> </p>
+            <p>Pursuant to the powers vested in me under Article 21 and Article 23 of the First Order Constitution, I, in my capacity as the President, do hereby promulgate this executive order to establish a comprehensive framework for the restructuring of impending loans within our jurisdiction. Henceforth, individuals facing imminent loan maturities may, upon submission of a restructuring proposal no later than five days preceding the scheduled maturity, seek an extension of the maturity period. However, the acceptance of such proposals shall be solely at the discretion of the President, contingent upon prevailing economic exigencies and the financial soundness of the First Order. In furtherance of our commitment to fiscal prudence and developmental imperatives, a supplementary development cess, equivalent to ten percent of the accrued interest, shall be imposed on all transactions pertaining to loan restructuring under this scheme. Furthermore, it is mandated that during the extended period, interest and/or service charges, as applicable, shall continue to accrue in accordance with the original terms of the loan agreement. Additionally, any loan restructuring where the service charge is currently zero shall not be eligible for restructuring unless the proposed extended maturity period exceeds 29 days. This executive order shall take immediate effect upon its promulgation and shall be enforceable as of the 5th day of May,</p>
+            <p><strong>Signed,</strong></p>
+            
+            <button onclick="togglePopup()">Close</button>
+        </div>
+    </div>
+</div>
     <table id="loanTable" style="display: none;">
       
                 <thead><tr>
@@ -298,21 +413,34 @@
         
         <!-- Your loan table data -->
     </table>
-
+    
     <script>
         // Same JavaScript logic as before for loan search and interest calculation
-
-        function searchLoan() {
+function searchLoan() {
     let loanCode = document.getElementById('loanCode').value;
     let table = document.getElementById('loanTable');
     let rows = table.getElementsByTagName('tr');
     let found = false;
 
+    // Clear previous results
+    document.getElementById('loanCodeResult').innerText = '';
+    document.getElementById('loanTypeResult').innerText = '';
+    document.getElementById('nameResult').innerText = '';
+    document.getElementById('dueDateResult').innerText = '';
+    document.getElementById('amountResult').innerText = '';
+    document.getElementById('interestResult').innerText = '';
+    document.getElementById('newInterest').innerText = '';
+
+    // Hide dropdown and reset selection
+    document.getElementById('dynamicDropdown').style.display = 'none';
+    document.getElementById('additionalOptions').innerHTML = '<option value="" disabled selected>Select tenure</option>';
+    document.getElementById('loanTerm').selectedIndex = 0;
+
     for (let i = 1; i < rows.length; i++) {
         let cells = rows[i].getElementsByTagName('td');
         if (cells[0].innerText === loanCode) {
             if (loanCode === '238') {
-                alert('This loan cannot be revised in accordance with Presidential order.Try revising manually.');
+                alert('This loan cannot be revised in accordance with Presidential order. Try revising manually.');
                 return;
             }
             document.getElementById('loanCodeResult').innerText = cells[0].innerText;
@@ -332,7 +460,7 @@
     }
 }
 
-        function updateInterest() {
+function updateInterest() {
     let loanTerm = document.getElementById('loanTerm').value;
     let amount = parseFloat(document.getElementById('amountResult').innerText);
     let interest = parseFloat(document.getElementById('interestResult').innerText);
@@ -386,7 +514,7 @@ function sendMessage() {
     let selectedAdditionalOption = document.getElementById('additionalOptions').value || "not selected";
 
     // Updated message to include the selected loan term and additional options
-    let message = `Hello there! I want to revise my loan of amount ${amount} with loan code ${loanCode} at a new interest rate of ${newInterest} for the selected option ${selectedLoanTerm}  ${selectedAdditionalOption}.`;
+    let message = `Hello there! I want to revise my loan of amount ${amount} with loan code ${loanCode} at a new interest rate of ${newInterest} for the selected option ${selectedLoanTerm} ${selectedAdditionalOption}.`;
 
     let phoneNumber = "7456943225";  // Change phone number if necessary
     let whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -395,8 +523,17 @@ function sendMessage() {
     window.open(whatsappURL, '_blank');
 }
 
-
+// JavaScript to toggle the popup visibility
+function togglePopup() {
+    var popup = document.getElementById('popupOverlay');
+    if (popup.style.display === 'flex') {
+        popup.style.display = 'none';
+    } else {
+        popup.style.display = 'flex';
+    }
+}
 
     </script>
 </body>
 </html>
+
