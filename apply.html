@@ -151,7 +151,7 @@
     </div>
 
     <script>
-        const loanCodeSelect = document.getElementById('loanCode');
+       const loanCodeSelect = document.getElementById('loanCode');
         const additionalOptionsDiv = document.getElementById('additionalOptions');
         const subCodeSelect = document.getElementById('subCode');
         const calculationDiv = document.getElementById('calculation');
@@ -184,7 +184,8 @@
                 subCodeSelect.innerHTML = '';
             }
             
- calculateInterest();
+
+            calculateInterest();
         });
 
         amountInput.addEventListener('input', calculateInterest);
@@ -203,7 +204,7 @@
 
     if (!loanCode) return;
 
-    let message = `Hello there! I want a loan of Rs ${amount}`.;
+    let message = `Hello there! I want a loan of Rs ${amount}`;
     let serviceCharge = 0;
     let interestRate = 0;
     let months = 0;
@@ -218,7 +219,7 @@
         interestRate = 1.5;
         months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
         totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
-        message += ` for interest rate  (1.5% per 30 calendar days for ${months} months)  Rs ${totalInterest}.`;
+        message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
         calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
     } else {
         calculationDiv.innerHTML = '';
