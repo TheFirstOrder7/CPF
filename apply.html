@@ -124,7 +124,7 @@
                 <option value="OML">ONE MONTH LOAN (OML) 30 DAYS</option>
                 <option value="QD">QUARTERLY DEBT (QD) <91 DAYS - >30 DAYS</option>
                 <option value="HY-D">HALF YEARLY DEBT (HY-D) <181 DAYS - >90 DAYS</option>
-                <option value="OY-D">YEARLY DEBT (OY-D) <YEAR+1 - >180 DAYS</option>
+                <option value="OY-D">YEARLY DEBT (OY-D) <366 DAYS - >180 DAYS</option>
             </select><br>
             
             <div id="additionalOptions" style="display: none;">
@@ -203,7 +203,7 @@
 
     if (!loanCode) return;
 
-    let message = `Hello there! I want a loan of Rs ${amount}`;
+    let message = `Hello there! I want a loan of Rs ${amount}`.;
     let serviceCharge = 0;
     let interestRate = 0;
     let months = 0;
@@ -218,7 +218,7 @@
         interestRate = 1.5;
         months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
         totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
-        message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
+        message += ` for interest rate  (1.5% per 30 calendar days for ${months} months)  Rs ${totalInterest}.`;
         calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
     } else {
         calculationDiv.innerHTML = '';
