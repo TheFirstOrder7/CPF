@@ -130,7 +130,7 @@
                 <option value="OML">ONE MONTH LOAN (OML) 30 DAYS</option>
                 <option value="QD">QUARTERLY DEBT (QD) <91 DAYS - >30 DAYS</option>
                 <option value="HY-D">HALF YEARLY DEBT (HY-D) <181 DAYS - >90 DAYS</option>
-                <option value="OY-D">YEARLY DEBT (OY-D) <YEAR+1 - >180 DAYS</option>
+                <option value="OY-D">YEARLY DEBT (OY-D) <366 DAYS - >180 DAYS</option>
             </select>
 
             <div id="dynamicDropdown" class="dropdown-options">
@@ -273,6 +273,21 @@
                     <td>100</td>
                     <td>0</td>
                 </tr>
+                  <td>239</td>
+                    <td>OY-D12 25</td>
+                    <td>Rahul Goswami</td>
+                    <td>14/10/2025</td>
+                    <td>25</td>
+                    <td>5</td>
+                </tr>
+                 <tr>
+                  <td>240</td>
+                    <td>HY-D4 350</td>
+                    <td>Krish Goswami</td>
+                    <td>12/1/2025</td>
+                    <td>350</td>
+                    <td>21</td>
+                </tr>
                 <!-- Add more rows as needed -->
             </tbody>
             <tfoot>
@@ -297,7 +312,7 @@
         let cells = rows[i].getElementsByTagName('td');
         if (cells[0].innerText === loanCode) {
             if (loanCode === '238') {
-                alert('This loan cannot be revised in accordance with Presidential order.');
+                alert('This loan cannot be revised in accordance with Presidential order.Try revising manually.');
                 return;
             }
             document.getElementById('loanCodeResult').innerText = cells[0].innerText;
