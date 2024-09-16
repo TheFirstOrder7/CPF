@@ -271,7 +271,15 @@
     background-color: #f5a142;
     transform: translateY(-2px);
 }
+.arrow-up {
+    color: green;
+    margin-left: 5px;
+}
 
+.arrow-down {
+    color: red;
+    margin-left: 5px;
+}
     </style>
 </head>
 <body onload="calculateTotals()">
@@ -433,13 +441,17 @@
                     <td>400</td>
                     <td>72</td>
                 </tr>
+                
+                  
                 <!-- Add more rows as needed -->
             </tbody>
             <tfoot>
                 <tr class="totals">
-                    <td colspan="4">Total</td>
+                    <td colspan="3">Total</td>
+                    <td id="averageDaysLeft"></td>
                     <td id="totalAmount"></td>
                     <td id="totalInterest"></td>
+                    <td id="returnInfo"></td>
                 </tr>
             </tfoot>
             <!-- The rest of your table content remains the same -->
@@ -473,36 +485,60 @@
     </div>
 
     <script>
+        
         function calculateTotals() {
-            let totalAmount = 0;
-            let totalInterest = 0;
-            const today = new Date();
-            const rows = document.querySelectorAll('#loanTable tbody tr');
+    let totalAmount = 0;
+    let totalInterest = 0;
+    let totalDaysLeft = 0; // To store the sum of days left
+    let countDueDates = 0; // To count the number of due dates
+    const today = new Date();
+    const rows = document.querySelectorAll('#loanTable tbody tr');
 
-            rows.forEach(row => {
-                const amount = parseFloat(row.cells[4].textContent);
-                const interest = parseFloat(row.cells[5].textContent);
-                const repaymentDate = new Date(row.cells[3].textContent.split('/').reverse().join('-'));
+    rows.forEach(row => {
+        const amount = parseFloat(row.cells[4].textContent);
+        const interest = parseFloat(row.cells[5].textContent);
+        const dueDateString = row.cells[3].textContent;
+        const repaymentDate = new Date(dueDateString.split('/').reverse().join('-'));
 
-                totalAmount += amount;
-                totalInterest += interest;
+        totalAmount += amount;
+        totalInterest += interest;
 
-                const diffTime = repaymentDate - today;
-                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        const diffTime = repaymentDate - today;
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                const daysLeftElement = document.createElement('span');
-                daysLeftElement.className = 'days-left';
-                daysLeftElement.textContent = `(${diffDays} days left)`;
-                row.cells[3].appendChild(daysLeftElement);
+        totalDaysLeft += diffDays;
+        countDueDates++;
 
-                if (diffDays <= 5 && diffDays >= 0) {
-                    row.classList.add('warning');
-                }
-            });
+        const daysLeftElement = document.createElement('span');
+        daysLeftElement.className = 'days-left';
+        daysLeftElement.textContent = `(${diffDays} days left)`;
+        row.cells[3].appendChild(daysLeftElement);
 
-            document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
-            document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
+        if (diffDays <= 5 && diffDays >= 0) {
+            row.classList.add('warning');
         }
+    });
+
+    const returnOnInterest = (totalInterest / totalAmount) * 100;
+    const averageDaysLeft = countDueDates ? (totalDaysLeft / countDueDates) : 0;
+
+    const returnInfo = document.getElementById('returnInfo');
+    returnInfo.textContent = ` ${returnOnInterest.toFixed(2)}%`;
+
+    if (returnOnInterest > 0) {
+        returnInfo.style.color = 'green';
+        returnInfo.innerHTML += ' <span class="arrow-up">&#9650;</span>'; // Up arrow
+    } else {
+        returnInfo.style.color = 'red';
+        returnInfo.innerHTML += ' <span class="arrow-down">&#9660;</span>'; // Down arrow
+    }
+
+    document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
+    document.getElementById('averageDaysLeft').textContent = ` ${averageDaysLeft.toFixed(2)} Days`;
+}
+
+
 
         function openPopup() {
             document.getElementById('popup').classList.add('active');
