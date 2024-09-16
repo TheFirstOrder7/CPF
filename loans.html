@@ -271,15 +271,46 @@
     background-color: #f5a142;
     transform: translateY(-2px);
 }
+#infoContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 50px;
+    width: 100%;
+    max-width: 60%; /* Ensure it doesn't overflow */
+    padding: 0; /* Remove any padding */
+    box-sizing: border-box;
+}
+
+#totalInterest, #returnInfo {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth transitions */
+    visibility: hidden;
+    opacity: 0;
+}
+
+#totalInterest.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#returnInfo.show {
+    visibility: visible;
+    opacity: 1;
+}
+
 .arrow-up {
-    color: green;
-    margin-left: 5px;
+    color: rgb(11, 201, 96);
 }
 
 .arrow-down {
     color: red;
-    margin-left: 5px;
 }
+
+
     </style>
 </head>
 <body onload="calculateTotals()">
@@ -450,10 +481,16 @@
                     <td colspan="3">Total</td>
                     <td id="averageDaysLeft"></td>
                     <td id="totalAmount"></td>
-                    <td id="totalInterest"></td>
-                    <td id="returnInfo"></td>
+                    <td id="infoContainer">
+                        <div id="totalInterest"> <span id="totalInterestValue"></span></div>
+                        <div id="returnInfo"> <span id="returnInfoValue"></span></div>
+                    </td>
                 </tr>
             </tfoot>
+            
+            
+            
+            
             <!-- The rest of your table content remains the same -->
             <!-- Table content remains unchanged -->
         </table>
@@ -485,12 +522,11 @@
     </div>
 
     <script>
-        
-        function calculateTotals() {
+       function calculateTotals() {
     let totalAmount = 0;
     let totalInterest = 0;
-    let totalDaysLeft = 0; // To store the sum of days left
-    let countDueDates = 0; // To count the number of due dates
+    let totalDaysLeft = 0;
+    let countDueDates = 0;
     const today = new Date();
     const rows = document.querySelectorAll('#loanTable tbody tr');
 
@@ -522,22 +558,53 @@
     const returnOnInterest = (totalInterest / totalAmount) * 100;
     const averageDaysLeft = countDueDates ? (totalDaysLeft / countDueDates) : 0;
 
-    const returnInfo = document.getElementById('returnInfo');
-    returnInfo.textContent = ` ${returnOnInterest.toFixed(2)}%`;
+    document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    document.getElementById('totalInterestValue').textContent = totalInterest.toFixed(2);
+    document.getElementById('averageDaysLeft').textContent = `${averageDaysLeft.toFixed(2)} Days`;
+
+    const returnInfo = document.getElementById('returnInfoValue');
+    returnInfo.textContent = `${returnOnInterest.toFixed(2)}%`;
 
     if (returnOnInterest > 0) {
         returnInfo.style.color = 'green';
-        returnInfo.innerHTML += ' <span class="arrow-up">&#9650;</span>'; // Up arrow
+        returnInfo.innerHTML += ' <span class="arrow-up">&#9650;</span>';
     } else {
         returnInfo.style.color = 'red';
-        returnInfo.innerHTML += ' <span class="arrow-down">&#9660;</span>'; // Down arrow
+        returnInfo.innerHTML += ' <span class="arrow-down">&#9660;</span>';
     }
 
-    document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
-    document.getElementById('totalInterest').textContent = totalInterest.toFixed(2);
-    document.getElementById('averageDaysLeft').textContent = ` ${averageDaysLeft.toFixed(2)} Days`;
+    // Call the function to show info
+    showInfo();
 }
 
+function showInfo() {
+    const totalInterest = document.getElementById('totalInterest');
+    const returnInfo = document.getElementById('returnInfo');
+    let showingInterest = true;
+
+    // Initially show Total Interest
+    totalInterest.classList.add('show');
+    returnInfo.classList.remove('show');
+
+    // Toggle between the interest and return info every 3 seconds
+    setInterval(() => {
+        if (showingInterest) {
+            totalInterest.classList.remove('show');
+            totalInterest.style.visibility = 'hidden'; // Ensure it's hidden completely
+            returnInfo.classList.add('show');
+            returnInfo.style.visibility = 'visible'; // Show return info
+        } else {
+            returnInfo.classList.remove('show');
+            returnInfo.style.visibility = 'hidden'; // Hide return info
+            totalInterest.classList.add('show');
+            totalInterest.style.visibility = 'visible'; // Show interest
+        }
+        showingInterest = !showingInterest;
+    }, 3000); // Adjust the timing as needed
+}
+
+// Ensure calculateTotals is called after the table is fully populated
+window.onload = calculateTotals;
 
 
         function openPopup() {
