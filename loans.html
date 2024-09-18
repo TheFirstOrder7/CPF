@@ -310,7 +310,39 @@
     color: red;
 }
 
+#confettiCanvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 9999;
+    }
 
+    .flash-message {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: yellow;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        font-weight: bold;
+        animation: flash-animation 1s infinite alternate;
+        z-index: 9999;
+    }
+
+    @keyframes flash-animation {
+        from {
+            opacity: 1;
+        }
+        to {
+            opacity: 0.5;
+        }
+    }
     </style>
 </head>
 <body onload="calculateTotals()">
@@ -517,7 +549,11 @@
         <div> <button class="revise-button"><a href="restructure.html" style="color:white;text-decoration:none;">Revise Loan</a></button></div>
  </div>
  
+<!-- Confetti Canvas -->
+<canvas id="confettiCanvas"></canvas>
 
+<!-- Flash Message -->
+<div id="flashMessage" class="flash-message">We're halfway through to 100K!</div>
     
 
     <div class="overlay" id="overlay"></div>
@@ -528,7 +564,7 @@
         <button class="pay-button"><a href="scheme.html" style="color:white;text-decoration:none;">APPLY</a></button>
         <p>Click "APPLY" to avail benefits under President RAHA scheme</p>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
        function calculateTotals() {
     let totalAmount = 0;
@@ -635,6 +671,63 @@ window.onload = calculateTotals;
 // Example usage: Update the circle to show progress
 updateProgressCircle(51758, 100000); // Set this to the total amount disbursed
 
+
+
+document.addEventListener("DOMContentLoaded", function () {
+        const progressContainer = document.querySelector('.progress-container');
+        const flashMessage = document.getElementById('flashMessage');
+        let confettiTriggered = false;
+
+        // Function to launch confetti
+        function launchConfetti() {
+            const confettiDuration = 2 * 1000; // 2 seconds
+            const end = Date.now() + confettiDuration;
+
+            const colors = ['#bb0000', '#ffffff'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 15,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 15,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Function to show and animate the flash message
+        function showFlashMessage() {
+            flashMessage.style.display = 'block';
+            setTimeout(() => {
+                flashMessage.style.display = 'none';
+            }, 5000); // Disappear after 5 seconds
+        }
+
+        // Intersection Observer to detect when the progress bar comes into view
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !confettiTriggered) {
+                    launchConfetti();
+                    showFlashMessage();
+                    confettiTriggered = true; // Prevents triggering multiple times
+                }
+            });
+        });
+
+        observer.observe(progressContainer);
+    });
     </script>
 </body>
 </html>
