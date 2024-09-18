@@ -6,7 +6,7 @@
     <title>Loan Information</title>
     <style>
         body {
-            background-image: url('calc.jpg');
+            background-image: url('E.jpg');
             background-size: cover;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             color: #1d1d1f;
@@ -17,12 +17,12 @@
 
         .container {
             width: 90%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 20px auto;
             padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.49);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
             text-align: center;
         }
 
@@ -277,7 +277,7 @@
     display: inline-block;
     padding: 10px 20px;
     margin: 20px 0;
-    background-color: #f5821f;
+    background-color: #08530e;
     color: white;
     font-size: 1em;
     font-weight: 600;
@@ -289,47 +289,45 @@
 }
 
 .revise-button:hover {
-    background-color: #f5a142;
+    background-color: #ff0000;
     transform: translateY(-2px);
 }
-#infoContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    height: 50px;
-    width: 100%;
-    max-width: 60%; /* Ensure it doesn't overflow */
-    padding: 0; /* Remove any padding */
-    box-sizing: border-box;
+
+
+
+/* Container for total amount and average amount */
+#totalAmountValue, #averageAmountValue {
+    display: none; /* Hide by default, shown when toggled */
+    margin: 5px 0;
+    font-weight: normal;
 }
 
+/* Container for interest and return info */
 #totalInterest, #returnInfo {
-    position: absolute;
-    width: 100%;
-    text-align: center;
-    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth transitions */
-    visibility: hidden;
-    opacity: 0;
+    color: rgb(1, 68, 1);
+    display: none; /* Hidden by default, toggled on */
+    margin: 5px 0;
+    font-size: 14px;
+    font-weight: normal;
 }
 
-#totalInterest.show {
-    visibility: visible;
-    opacity: 1;
-}
-
-#returnInfo.show {
-    visibility: visible;
-    opacity: 1;
+/* When toggled, show elements */
+#totalAmountValue.show, #averageAmountValue.show,
+#totalInterest.show, #returnInfo.show {
+    display: block;
 }
 
 .arrow-up {
-    color: rgb(11, 201, 96);
+    color: rgb(11, 201, 96); /* Green arrow for positive change */
 }
 
 .arrow-down {
-    color: red;
+    color: red; /* Red arrow for negative change */
 }
+
+
+
+
 
 #confettiCanvas {
         position: fixed;
@@ -344,13 +342,14 @@
     .flash-message {
         display: none;
         position: fixed;
-        bottom: 20px;
+        bottom: 60%;
         left: 50%;
+        color: rgb(235, 109, 109);
         transform: translateX(-50%);
-        background-color: rgb(255, 255, 255,0.01);
+        background-color: rgb(210, 217, 224 ,0.01);
         padding: 10px 20px;
-        border-radius: 5px;
-        font-size: 1.2em;
+        border-radius: 12px;
+        font-size: 2.5em;
         font-weight: bold;
         animation: flash-animation 1s infinite alternate;
         z-index: 9999;
@@ -361,10 +360,11 @@
             opacity: 1;
         }
         to {
-            opacity: 0.5;
+            opacity: 1;
         }
     }
    
+
 
     </style>
 </head>
@@ -538,18 +538,21 @@
                 
                   
                 <!-- Add more rows as needed -->
-            </tbody>
-            <tfoot>
-                <tr class="totals">
-                    <td colspan="3">Total</td>
-                    <td id="averageDaysLeft"></td>
-                    <td id="totalAmount"></td>
-                    <td id="infoContainer">
-                        <div id="totalInterest"> <span id="totalInterestValue"></span></div>
-                        <div id="returnInfo"> <span id="returnInfoValue"></span></div>
-                    </td>
-                </tr>
-            </tfoot>
+                <tfoot>
+                    <tr class="totals">
+                        <td colspan="3">Total</td>
+                        <td id="averageDaysLeft"></td>
+                        <td id="totalAmount">
+                            <div id="totalAmountValue"><span id="totalAmountText"></span></div>
+                            <div id="averageAmountValue"><span id="averageAmountText"></span></div>
+                        </td>
+                        <td id="infoContainer">
+                            <div id="totalInterest"><span id="totalInterestValue"></span></div>
+                            <div id="returnInfo"><span id="returnInfoValue"></span></div>
+                        </td>
+                    </tr>
+                </tfoot>
+                
             
             
             
@@ -576,7 +579,7 @@
 <canvas id="confettiCanvas"></canvas>
 
 <!-- Flash Message -->
-<div id="flashMessage" class="flash-message">We're halfway through to 100K!</div>
+<div id="flashMessage" class="flash-message">100K soon!</div>
     
 
     <div class="overlay" id="overlay"></div>
@@ -589,7 +592,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script>
-       function calculateTotals() {
+       function calculateTotals() { 
     let totalAmount = 0;
     let totalInterest = 0;
     let totalDaysLeft = 0;
@@ -624,8 +627,10 @@
 
     const returnOnInterest = (totalInterest / totalAmount) * 100;
     const averageDaysLeft = countDueDates ? (totalDaysLeft / countDueDates) : 0;
+    const averageAmount = countDueDates ? (totalAmount / countDueDates) : 0;
 
-    document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
+    document.getElementById('totalAmountText').textContent = ` ${totalAmount.toFixed(2)}`;
+    document.getElementById('averageAmountText').textContent = ` ${averageAmount.toFixed(2)}`;
     document.getElementById('totalInterestValue').textContent = totalInterest.toFixed(2);
     document.getElementById('averageDaysLeft').textContent = `${averageDaysLeft.toFixed(2)} Days`;
 
@@ -642,6 +647,7 @@
 
     // Call the function to show info
     showInfo();
+    showAmountInfo();  // Add this line to toggle total/average amounts
 }
 
 function showInfo() {
@@ -667,6 +673,32 @@ function showInfo() {
             totalInterest.style.visibility = 'visible'; // Show interest
         }
         showingInterest = !showingInterest;
+    }, 3000); // Adjust the timing as needed
+}
+function showAmountInfo() {
+    const totalAmount = document.getElementById('totalAmountValue');
+    const averageAmount = document.getElementById('averageAmountValue');
+    let showingTotal = true;
+
+    // Initially show Total Amount
+    totalAmount.classList.add('show');
+    averageAmount.classList.remove('show');
+    averageAmount.style.visibility = 'hidden';
+
+    // Toggle between total amount and average amount every 3 seconds
+    setInterval(() => {
+        if (showingTotal) {
+            totalAmount.classList.remove('show');
+            totalAmount.style.visibility = 'hidden';
+            averageAmount.classList.add('show');
+            averageAmount.style.visibility = 'visible';
+        } else {
+            averageAmount.classList.remove('show');
+            averageAmount.style.visibility = 'hidden';
+            totalAmount.classList.add('show');
+            totalAmount.style.visibility = 'visible';
+        }
+        showingTotal = !showingTotal;
     }, 3000); // Adjust the timing as needed
 }
 
