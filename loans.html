@@ -339,30 +339,7 @@
         z-index: 9999;
     }
 
-    .flash-message {
-        display: none;
-        position: fixed;
-        bottom: 60%;
-        left: 50%;
-        color: rgb(235, 109, 109);
-        transform: translateX(-50%);
-        background-color: rgb(210, 217, 224 ,0.01);
-        padding: 10px 20px;
-        border-radius: 12px;
-        font-size: 2.5em;
-        font-weight: bold;
-        animation: flash-animation 1s infinite alternate;
-        z-index: 9999;
-    }
-
-    @keyframes flash-animation {
-        from {
-            opacity: 1;
-        }
-        to {
-            opacity: 1;
-        }
-    }
+    
    
 
 
@@ -578,8 +555,7 @@
 <!-- Confetti Canvas -->
 <canvas id="confettiCanvas"></canvas>
 
-<!-- Flash Message -->
-<div id="flashMessage" class="flash-message">100K soon!</div>
+
     
 
     <div class="overlay" id="overlay"></div>
