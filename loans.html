@@ -738,20 +738,14 @@ document.addEventListener("DOMContentLoaded", function () {
             }());
         }
 
-        // Function to show and animate the flash message
-        function showFlashMessage() {
-            flashMessage.style.display = 'block';
-            setTimeout(() => {
-                flashMessage.style.display = 'none';
-            }, 5000); // Disappear after 5 seconds
-        }
+       
 
         // Intersection Observer to detect when the progress bar comes into view
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting && !confettiTriggered) {
                     launchConfetti();
-                    showFlashMessage();
+                   
                     confettiTriggered = true; // Prevents triggering multiple times
                 }
             });
