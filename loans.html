@@ -62,7 +62,7 @@
 .header h1 {
   font-size: 3rem;
   font-weight: bold;
-  background: linear-gradient(90deg, #ff7e5f, #ff009d); /* Gradient colors */
+  background: linear-gradient(90deg, #ff5f5f, #ff009d); /* Gradient colors */
   background-clip: text; 
   -webkit-background-clip: text; /* For older WebKit browsers */
   color: transparent; /* Make the text transparent to reveal the gradient */
@@ -339,7 +339,37 @@
         z-index: 9999;
     }
 
-    
+  /* Search Bar Container */
+.search-container {
+    display: flex;
+    justify-content: flex-start; /* Aligns search bar to the left */
+    margin-left: 20px; /* Adds some spacing from the left */
+}
+
+/* Search Input */
+#searchInput {
+    width: 280px; /* Adjusts width of the search bar */
+    padding: 10px 15px; /* Adds padding for a more comfortable input area */
+    font-size: 16px; /* Increases font size for readability */
+    border-radius: 15px; /* Adds smooth, rounded edges */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Soft border for a minimalist look */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    outline: none; /* Removes the default blue border on focus */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+#searchInput::placeholder {
+    color: #a3a3a3; /* Light placeholder text for a modern look */
+}
+
+#searchInput:focus {
+    background-color: rgba(255, 255, 255, 1); /* Slightly brighter background on focus */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly deeper shadow on focus */
+    border-color: rgba(0, 122, 255, 0.5); /* Light blue border when focused */
+}
+
+
    
 
 
@@ -350,9 +380,21 @@
         <div class="header">
             <h1><b>ACTIVE LOANS</b></h1>
         </div>
+
+      <br>
+      <br>
+      <br>
+          <!-- Search Bar -->
+          <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchLoans()" placeholder="Search by Name or Loan Code">
+        </div>
+
+        <br>
+
         <div class="notice">
             <marquee>Important Notice: Please check the repayment dates and amounts carefully.</marquee>  
         </div>
+
         <table id="loanTable">
             <thead>
                 <tr>
@@ -512,6 +554,7 @@
                     <td>379</td>
                     <td>68</td>
                 </tr>
+                
                 
                   
                 <!-- Add more rows as needed -->
@@ -753,6 +796,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         observer.observe(progressContainer);
     });
+     // Search Function
+     function searchLoans() {
+            const input = document.getElementById("searchInput").value.toUpperCase();
+            const table = document.getElementById("loanTable");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                const loanCode = tr[i].getElementsByTagName("td")[0].textContent.toUpperCase();
+                const name = tr[i].getElementsByTagName("td")[2].textContent.toUpperCase();
+
+                if (loanCode.indexOf(input) > -1 || name.indexOf(input) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
     </script>
 </body>
 </html>
