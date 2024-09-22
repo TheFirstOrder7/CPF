@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Table</title>
+  <style>
+  body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: rgb(236,236,236);
+background: radial-gradient(circle, rgba(236,236,236,1) 0%, rgba(125,173,238,1) 100%);
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+
+    #banner {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeIn 2s ease-in-out;
+}
+
+#banner h1 {
+    font-size: 4.8em;
+    font-weight: bold;
+    color: #007aff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.marquee-container {
+    overflow: hidden;
+    background-color: #f0f8ff; /* Light background color */
+    border: 2px solid rgba(125,173,238,1); /* Border to match the theme */
+    border-radius: 10px; /* Rounded corners */
+    padding: 10px; /* Padding for spacing */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.marquee-content {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scroll 10s linear infinite; /* Adjust duration for speed */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 2;
+    }
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      background-color: white;
+    }
+
+    th {
+      background-color: rgba(125,173,238,1);
+      color: white;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+
+    td {
+      padding: 12px;
+      border: 1px solid #e0e0e0;
+      text-align: left;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    tr:hover td {
+      background-color: rgba(0, 122, 255, 0.1);
+      transform: scale(1.02);
+    }
+
+    td:last-child {
+      text-align: center;
+    }
+
+    button {
+      background-color: rgba(125,173,238,1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #ff0000;
+      transform: translateY(-1px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      th, td {
+        padding: 8px;
+        font-size: 14px;
+      }
+    }
+
+    .profit {
+      color: #169b05; /* Green */
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .loss {
+      color: #dc3545; /* Red */
+      font-weight: bold;
+      text-align: center;
+    }
+
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+
+    #popup {
+      display: none;
+      position: fixed;
+      text-align: center;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      font-weight: 500;
+      max-width: 400px;
+      width: 90%;
+      animation: fadeIn 0.3s;
+    }
+
+    #popup h3 {
+      margin-bottom: 20px;
+      font-size: 1.5em;
+      color: rgba(125,173,238,1);
+      text-align: center;
+    }
+
+    #popup p {
+      margin: 10px 0;
+      line-height: 1.5;
+    }
+
+    button {
+      background-color: rgba(125,173,238,1);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #04662a;
+    }
+
+    #loanTable tbody tr:nth-child(odd) {
+      background-color: #f2f2f2;
+    }
+
+    /* Access Overlay Styles */
+    #accessOverlay {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(189, 185, 185, 0.8); /* Dark overlay */
+      z-index: 1000; /* Above other content */
+    }
+
+    #accessDiv {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    #accessInput {
+      padding: 10px;
+      font-size: 1em;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    #accessButton {
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      background-color: rgba(125,173,238,1);
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  
+
+<div id="accessOverlay">
+  <div id="accessDiv">
+      <h3>Enter Passcode</h3>
+      <input type="password" id="accessInput" placeholder="Enter Passcode" />
+      <button id="accessButton" onclick="checkAccess()">Access</button>
+  </div>
+</div>
+
+<div id="banner">
+  <h1><i>THE FIRST ORDER</i></h1>
+</div>
+<div class="marquee-container">
+  <div class="marquee-content">
+     <b> Welcome to The First Order! Your gateway to financial empowerment!
+    </b></div>
+</div>
+
+<br>
+<br>
+
+    <table id="loanTable" border="1">
+      
+        <thead><tr>
+            <th>Loan Code</th>
+            <th>Loan Type</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Due Date</th>
+            <th>Amount</th>
+            <th>Interest</th>
+            <th>Days Left </th>
+            <th>Loan Tenure (Days)</th>
+            <th>Return (%)</th>
+            <th>Annualized (%)</th>
+            <th>Action</th>
+           
+        </tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+        <td>248</td>
+        <td>OY-D12 333</td>
+        <td>Rahul Goswami</td>
+        <td>21/09/2024</td>
+        <td>24/11/2025</td>
+        <td>333</td>
+        <td>82</td>
+    </tr>
+    <tr>
+        <td>247</td>
+        <td>OY-D12 356</td>
+        <td>Rahul Goswami</td>
+        <td>21/09/2024</td>
+        <td>11/11/2025</td>
+        <td>356</td>
+        <td>83</td>
+    </tr>
+    <tr>
+        <td>239</td>
+          <td>OY-D12 25</td>
+          <td>Rahul Goswami</td>
+          <td>14/09/2024</td>
+          <td>14/09/2025</td>
+          <td>25</td>
+          <td>5</td>
+      </tr>
+       <tr>
+        <td>240</td>
+          <td>HY-D4 350</td>
+          <td>Krish Goswami</td>
+          <td>14/09/2024</td>
+          <td>12/01/2025</td>
+          <td>350</td>
+          <td>21</td>
+      </tr>
+       <tr>
+        <td>241</td>
+          <td>OY-D12 400</td>
+          <td>Krish Goswami</td>
+          <td>15/09/2024</td>
+          <td>15/09/2025</td>
+          <td>400</td>
+          <td>72</td>
+      </tr>
+        <tr>
+        <td>244</td>
+          <td>OY-D12 379</td>
+          <td>Rahul Goswami</td>
+          <td>17/09/2024</td>
+          <td>17/09/2025</td>
+          <td>379</td>
+          <td>68</td>
+      </tr>
+      
+      
+
+      
+            <!-- Add more rows as needed -->
+        </tbody>
+
+        <div id="overlay"></div>
+        <div id="popup">
+            <h3>Loan Details</h3>
+            <p id="loanDetails"></p>
+            <p><strong>Current Price:</strong> ₹<span id="currentPrice"></span></p>
+            <button id="whatsappButton">Send Buy Request</button>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+<script>
+   function calculateDaysBetween(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    return Math.round((date2 - date1) / oneDay);
+}
+
+function calculateReturnPercentage(amount, expectedInterest) {
+    return (expectedInterest / amount) * 100;
+}
+
+function calculateAnnualizedReturn(returnPercentage, loanTenure) {
+    return (returnPercentage / loanTenure) * 365;
+}
+
+function updateLoanTable() {
+    const today = new Date();
+    const table = document.getElementById('loanTable');
+    const rows = table.querySelectorAll('tbody tr');
+
+    rows.forEach((row, index) => {
+        const loanDate = new Date(row.cells[3].innerText.split('/').reverse().join('-'));  // Loan Date (start date)
+        const dueDate = new Date(row.cells[4].innerText.split('/').reverse().join('-'));  // Due Date (end date)
+        const loanAmount = parseFloat(row.cells[5].innerText);  // Loan Amount
+        const expectedInterest = parseFloat(row.cells[6].innerText);  // Interest Accrued
+
+        // Calculate values
+        const daysLeft = calculateDaysBetween(today, dueDate);  // Days left until due date
+        const loanTenure = calculateDaysBetween(loanDate, dueDate);  // Total loan tenure
+        const existingReturnPercentage = calculateReturnPercentage(loanAmount, expectedInterest);
+        const annualizedReturn = calculateAnnualizedReturn(existingReturnPercentage, loanTenure);
+
+        // Append calculated values to the table
+        row.insertCell(7).innerText = daysLeft;
+        row.insertCell(8).innerText = loanTenure;
+         // Determine class based on return values
+    const returnClass = existingReturnPercentage >= 0 ? 'profit' : 'loss';
+    const annualizedClass = annualizedReturn >= 0 ? 'profit' : 'loss';
+
+    row.insertCell(9).innerHTML = `<span class="${returnClass}">${existingReturnPercentage.toFixed(2)}</span>`;
+    row.insertCell(10).innerHTML = `<span class="${annualizedClass}">${annualizedReturn.toFixed(2)}</span>`;
+
+        // Add BUY button in Action column
+        const actionCell = row.insertCell(11);
+        const buyButton = document.createElement('button');
+        buyButton.innerText = 'BUY';
+        buyButton.onclick = () => showPopup(row, loanAmount, expectedInterest, daysLeft, loanTenure);
+        actionCell.appendChild(buyButton);
+
+        // Hide loans with less than 100 days left
+        if (daysLeft < 100) {
+            row.style.display = 'none';
+        }
+    });
+}
+
+// New function to calculate the current price
+function calculateCurrentPrice(loanAmount, expectedInterest, daysLeft, loanTenure) {
+    // Calculate the deduction part of the formula
+    const tenureDeduction = (loanTenure - daysLeft) * 0.000493150685*loanAmount;
+    const loanDeduction = 0.01 * loanAmount;
+    const interestDeduction = 0.02 * expectedInterest;
+
+    // Calculate the total deductions
+    const totalDeductions = tenureDeduction + loanDeduction + interestDeduction;
+
+    // Calculate the total amount (Loan Amount + Expected Interest)
+    const totalAmount = loanAmount + expectedInterest ;
+
+    // Apply the deductions
+    const currentPrice =  (loanAmount+ totalDeductions);
+
+    // Return the rounded current price
+    return Math.round(currentPrice);
+}
+
+function showPopup(row, loanAmount, expectedInterest, daysLeft, loanTenure) {
+    const loanCode = row.cells[0].innerText;
+    const loanType = row.cells[1].innerText;
+    const name = row.cells[2].innerText;
+    const amount = row.cells[5].innerText;
+
+    // Calculate the current price using the formula
+    const currentPrice = calculateCurrentPrice(loanAmount, expectedInterest, daysLeft, loanTenure);
+
+    // Calculate new return and return percentage
+    const newReturn = (loanAmount + expectedInterest) - currentPrice;
+    const newReturnPercentage = (newReturn / currentPrice) * 100;
+
+    // Details in the popup
+    document.getElementById('loanDetails').innerText = `Loan Code: ${loanCode}\nLoan Type: ${loanType}\nName: ${name}\nAmount: ₹${amount}`;
+    document.getElementById('currentPrice').innerText = `${currentPrice}\nReturn: ₹${newReturn.toFixed(2)}\nReturn Percentage: ${newReturnPercentage.toFixed(2)}%`;
+
+    // Create a prewritten WhatsApp message with loan code and current price
+    const whatsappMessage = `Hey there, I want to buy the debt instrument with loan code ${loanCode} at current price ₹${currentPrice}.`;
+
+    // WhatsApp link
+    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Update the WhatsApp button with the link
+    const whatsappButton = document.getElementById('whatsappButton');
+    whatsappButton.onclick = function() {
+        window.open(whatsappLink, '_blank');
+    };
+
+    // Show popup
+    document.getElementById('overlay').style.display = 'block';
+    document.getElementById('popup').style.display = 'block';
+}
+
+function closePopup() {
+    document.getElementById('overlay').style.display = 'none';
+    document.getElementById('popup').style.display = 'none';
+}
+// Run the function on page load
+document.addEventListener('DOMContentLoaded', updateLoanTable);
+
+const correctPasscode = "8055"; // Replace with your actual passcode
+
+    function checkAccess() {
+        const userPasscode = document.getElementById('accessInput').value;
+        if (userPasscode === correctPasscode) {
+            document.getElementById('accessOverlay').style.display = 'none';
+            document.getElementById('banner').style.display = 'block';
+            document.getElementById('loanTable').style.display = 'table';
+        } else {
+            alert("Incorrect passcode. Please try again.");
+        }
+    }
+  
+   
+  </script>
+  
+
+</body>
+</html>
+
