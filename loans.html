@@ -721,7 +721,7 @@
         <button class="pay-button"><a href="scheme.html" style="color:white;text-decoration:none;">APPLY</a></button>
         <p>Click "APPLY" to avail benefits under President RAHA scheme</p>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+   
     <script>
        function calculateTotals() { 
     let totalAmount = 0;
@@ -859,55 +859,6 @@ updateProgressCircle(51758, 100000); // Set this to the total amount disbursed
 
 
 
-document.addEventListener("DOMContentLoaded", function () {
-        const progressContainer = document.querySelector('.progress-container');
-        const flashMessage = document.getElementById('flashMessage');
-        let confettiTriggered = false;
-
-        // Function to launch confetti
-        function launchConfetti() {
-            const confettiDuration = 2 * 1000; // 2 seconds
-            const end = Date.now() + confettiDuration;
-
-            const colors = ['#bb0000', '#ffffff'];
-
-            (function frame() {
-                confetti({
-                    particleCount: 10,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: colors
-                });
-                confetti({
-                    particleCount: 10,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: colors
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-        }
-
-       
-
-        // Intersection Observer to detect when the progress bar comes into view
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !confettiTriggered) {
-                    launchConfetti();
-                   
-                    confettiTriggered = true; // Prevents triggering multiple times
-                }
-            });
-        });
-
-        observer.observe(progressContainer);
-    });
      // Search Function
      function searchLoans() {
             const input = document.getElementById("searchInput").value.toUpperCase();
@@ -925,64 +876,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
+        function openCustomPopup() {
+        document.getElementById('customPopup').classList.add('active');
+        document.getElementById('customOverlay').classList.add('active');
+    }
 
-    // Open the popup
-    function openCustomPopup() {
-            document.getElementById('customPopup').classList.add('active');
-            document.getElementById('customOverlay').classList.add('active');
-        }
+    function validateAdminCode() {
+        var inputCode = document.getElementById('adminCodeInput').value;
+        var correctCode = "8055";
 
-        // Validate Admin Code
-        function validateAdminCode() {
-            var inputCode = document.getElementById('adminCodeInput').value;
-            var correctCode = "8055"; // Correct secret code
-
-            console.log("validateAdminCode called");
-            console.log("Input Code: ", inputCode);
-            console.log("Correct Code: ", correctCode);
-
-            if (inputCode === correctCode) {
-                // Unblur the names
-                var blurredNames = document.getElementsByClassName('name-blurred');
-                console.log("Blurred Names Count: ", blurredNames.length);
-                
-                for (var i = 0; i < blurredNames.length; i++) {
-                    blurredNames[i].classList.remove('name-blurred'); // Remove the blur class
-                    blurredNames[i].classList.add('unblur'); // Add an unblur class for clarity
-                    console.log("Unblurred Name: ", blurredNames[i].textContent);
-                }
-
-                // Close the popup
-                closeCustomPopup();
-            } else {
-                // Show error message
-                document.getElementById('errorMessage').style.display = 'block';
+        if (inputCode === correctCode) {
+            var blurredNames = document.getElementsByClassName('name-blurred');
+            for (var i = 0; i < blurredNames.length; i++) {
+                blurredNames[i].classList.remove('name-blurred');
+                blurredNames[i].classList.add('unblur');
             }
-        }
-
-        // Guest Access
-        function guestAccess() {
-            // Simply close the popup, names remain blurred
             closeCustomPopup();
+        } else {
+            document.getElementById('errorMessage').style.display = 'block';
         }
+    }
 
-        // Close the popup and overlay
-        function closeCustomPopup() {
-            document.getElementById('customPopup').classList.remove('active');
-            document.getElementById('customOverlay').classList.remove('active');
-        }
+    function guestAccess() {
+        closeCustomPopup();
+    }
 
-        // Combine both window.onload events into a single function
-        window.onload = function() {
-            // Show the popup immediately when the page loads
-            openCustomPopup();
-            
-            // Focus on the admin code input field
-            document.getElementById('adminCodeInput').focus();
-            
-            // Ensure calculateTotals is called after the page fully loads
-            calculateTotals();
-        };
+    function closeCustomPopup() {
+        document.getElementById('customPopup').classList.remove('active');
+        document.getElementById('customOverlay').classList.remove('active');
+    }
+
+    window.onload = function() {
+        openCustomPopup();
+        document.getElementById('adminCodeInput').focus();
+        calculateTotals();
+    };
 
     </script>
 </body>
