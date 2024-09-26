@@ -18,6 +18,437 @@
             padding-bottom: 80px; /* Ensure space for footer */
         }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The First Order - Loan Information</title>
+    <!-- Link to Apple-like Fonts -->
+  
+
+
+    <style>
+       body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, "Oxygen-Sans", Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica", Arial, sans-serif;
+    background-color: #F5F5F7;
+    color: #1D1D1F;
+    padding-bottom: 80px; /* Ensure space for footer */
+}
+
+
+        /* Update header to better align the title */
+        header {
+            background-color: #ffffff;
+            color: #1D1D1F;
+            padding: 1.5rem;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        header img {
+            height: 100px;
+            margin-right: 1rem;
+        }
+
+        header .title {
+            font-family: 'Helvetica Neue', sans-serif;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #e9e6e6;
+            padding: 0.5rem;
+            text-align: center;
+            border-top: 1px solid #E5E5E7;
+            border-bottom: 1px solid #E5E5E7;
+        }
+
+        nav a {
+            color: #0071E3;
+            text-decoration: none;
+            margin: 0 1rem;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #000000;
+        }
+
+        .central-div {
+            max-width: 100%;
+            margin: 0rem auto;
+            height: 1100px; /* Increased height */
+            background-size: cover;
+            background-position: center;
+            border-radius: 0px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .notice-board {
+            margin-top: 2rem;
+            background-color: #e9e6e6;
+            padding: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            height: 60px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
+        }
+
+        .notice-board p {
+            color: #0071E3;
+            font-size: 1.2rem;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+        h1, h2, h3, p {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; /* Use Apple-like font for headings and paragraphs */
+}
+
+        .popup {
+            display: none;
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0);
+            border-radius: 12px;
+            z-index: 1000;
+            max-width: 500px;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .popup p {
+    margin: 0;
+    font-size: 1.3rem; /* Adjust as needed */
+    background: rgb(63,94,251);
+background: -moz-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+background: -webkit-radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#3f5efb",endColorstr="#fc466b",GradientType=1);
+ /*  */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+        }
+
+        .popup button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color:#379efa;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .popup button:hover {
+            background-color:#f14747 ;
+        }
+
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 999;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+                padding: 1rem;
+            }
+            .notice-board p {
+                font-size: 1rem;
+            }
+        }
+
+        footer {
+            background-color: #FFFFFF;
+            color: #1D1D1F;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            border-top: 1px solid #E5E5E7;
+        }
+        #loadingSpinner {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+    }
+    .spinner {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #2397e4;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+ /* Credit Roll Styles */
+.credit-roll {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000; /* Pitch black background */
+    color: #ffffff;
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    perspective: 1000px; /* For 3D effect */
+}
+
+.credit-roll::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('std.jpg') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -1; /* Behind the text */
+}
+
+.credit-content {
+    text-align: center;
+    transform: rotateX(45deg) translateY(100%); /* Start off-screen */
+    transform-origin: bottom;
+    font-family: 'Star Jedi', sans-serif;
+    color: #cfcf1e; /* Yellow text */
+    font-weight: bold;
+    letter-spacing: 2px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2rem;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.credit-content h1, .credit-content p {
+    margin: 0;
+    padding: 0 1rem;
+    font-size: 1.9rem;
+    line-height: 1.8;
+    text-shadow: 1px 1px 2px rgb(0, 0, 0,0.01);
+}
+
+/* The animation class for rolling effect */
+.animated-roll {
+    animation: roll 40s linear forwards;
+}
+
+@keyframes roll {
+    from {
+        transform: rotateX(45deg) translateY(100%);
+    }
+    to {
+        transform: rotateX(45deg) translateY(-100%);
+    }
+}
+
+
+
+audio {
+            display: none; /* Hide audio controls */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="The First Order Logo" id="logo">
+        <div class="title"><b><h1><i>THE FIRST ORDER</i></h1></b></div>
+    </header>
+
+    <!-- Credit Roll Section -->
+    <div id="creditRoll" class="credit-roll">
+        <div class="credit-content">
+            <h1><B>THE FIRST ORDER</B></h1>
+            
+            <BR>
+                <BR>
+                   
+            <BR>
+                <BR>
+                    <BR>
+                        <BR>
+                            <BR>
+                                <BR>
+            <h1>About Us</h1>
+        <p>Welcome to The Collective Prosperity Fund, a microfinance institution established under the First Order Government. As a group registered under Society Act, we operate according to our constitution, dedicated to providing financial support to those who are typically underserved by traditional banking institutions.</p>
+        <p>We pool resources to lend to borrowers who are financially unqualified for conventional banking services. Our goal is to offer the facilities and security of formal banking in an informal setting, catering to individuals and businesses that the traditional financial sector often overlooks.</p>
+        <p>Our services include:</p>
+        <p>Personal Loans</p>
+        <p>Investment Opportunities</p>
+        <p>Financial Literacy</p>
+        <p>We are committed to expanding our reach to empower more individuals and businesses with the financial support they need. Join us in creating a brighter financial future!</p>
+        <br><br><br><br><br><br><br><br><br><br><br><br><p>Special Mention</p><p>Pres. RAHUL GOSWAMI</p>
+    </div>
+
+        </div>
+    </div>
+     <!-- Audio Element -->
+     <audio id="starWarsMusic" src="st.mp3" preload="auto"></audio>
+
+</body>
+
+
+
+    <nav aria-label="Main Navigation">
+        <b>  <a href="CPF.html">Constitution</a>
+          <a href="terminal.html">Banking</a>
+           
+       
+        <a href="interest.html">Interests</a>
+        <a href="tax.html">Taxation</a>
+        <a href="update.html">Updates</a>
+        <a href="document.html">Download</a></b>
+    </nav>
+    
+
+    <div class="central-div" id="centralDiv">
+        <div class="popup" id="welcomePopup">
+            <h1><b><p>  Welcome to The First Order  </p></b></h1><p> Your trusted financial partner. Explore our wide range of loan options, understand the latest interest rates, and stay informed about tax regulations. We are here to guide you every step of the way.</p>
+            <button onclick="closeWelcomePopup()">Close</button>
+        </div>
+
+        <div class="popup" id="interestPopup">
+           <a href="update.html"style="text-decoration:none;"> <p><strong>🌟 Check out our Fixed Deposit Products! 🌟</strong></p>
+            <p>💰 <strong>High Growth FD:</strong> 20% annual return, no lock-in!</p>
+            <p>📈 <strong>Tax Saver FD:</strong> 14% return, tax benefits included!</p></a>
+           
+            <button onclick="closeInterestPopup()">Close</button>
+        </div>
+    </div>
+    <div id="loadingSpinner" style="display: none;">
+        <div class="spinner"></div>
+    </div>
+    
+
+    <div class="notice-board">
+       <marquee> <p><B><i>Important:</i></B> Please note the changed interest rate is effective from September 1st, 2024.</p></marquee>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+    
+
+    <footer>
+        &copy;<I> 2024 <b>The First Order.</b></I> All rights reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Show the welcome popup after 1 seconds
+            setTimeout(function () {
+                document.getElementById('welcomePopup').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            }, 100);
+
+            // Function to handle closing the welcome popup
+            function closeWelcomePopup() {
+                document.getElementById('welcomePopup').style.display = 'none';
+                setTimeout(function () {
+                    document.getElementById('interestPopup').style.display = 'block';
+                }, 500); // Short delay to ensure the welcome popup is fully hidden
+            }
+
+            // Function to handle closing the interest popup
+            function closeInterestPopup() {
+                document.getElementById('interestPopup').style.display = 'none';
+                document.getElementById('overlay').style.display = 'none';
+            }
+
+            // Attach event handlers to buttons
+            document.querySelector('#welcomePopup button').addEventListener('click', closeWelcomePopup);
+            document.querySelector('#interestPopup button').addEventListener('click', closeInterestPopup);
+
+            // Slideshow functionality
+            const images = ['B.jpg', 'C.jpg',  'D.jpg']; // Array of image URLs
+            let currentIndex = 0;
+            const centralDiv = document.getElementById('centralDiv');
+
+            function changeBackgroundImage() {
+                currentIndex = (currentIndex + 1) % images.length;
+                centralDiv.style.backgroundImage = `url(${images[currentIndex]})`;
+            }
+
+            setInterval(changeBackgroundImage, 30000); // Change image every 30 seconds
+
+            // Initialize with the first image
+            centralDiv.style.backgroundImage = `url(${images[currentIndex]})`;
+        });
+
+   
+        document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('loadingSpinner').style.display = 'flex';
+        setTimeout(function () {
+            document.getElementById('loadingSpinner').style.display = 'none';
+        }, 1000); // Adjust timeout based on loading needs
+    });
+   
+    document.addEventListener('DOMContentLoaded', function () {
+            const logo = document.getElementById('logo');
+            const creditRoll = document.getElementById('creditRoll');
+            const creditContent = document.querySelector('.credit-content');
+            const starWarsMusic = document.getElementById('starWarsMusic');
+
+            logo.addEventListener('click', function () {
+                // Play Star Wars music
+                starWarsMusic.play();
+
+                // Show the credit roll
+                creditRoll.style.display = 'flex';
+
+                // Add the animation class to start rolling the text
+                creditContent.classList.add('animated-roll');
+
+                // Hide the credit roll after 30 seconds
+                setTimeout(function () {
+                    creditRoll.style.display = 'none';
+                    creditContent.classList.remove('animated-roll');
+                    starWarsMusic.pause();
+                    starWarsMusic.currentTime = 0;
+                }, 50000); // 50 seconds duration
+            });
+        });
+
+
+
+
+    </script>
+</body>
+</html>
         /* Update header to better align the title */
         header {
             background-color: #ffffff;
@@ -307,8 +738,7 @@ audio {
           <a href="terminal.html">Banking</a>
            
        
-        <a href="interest.html">Interests</a>
-        <a href="tax.html">Taxation</a>
+       
         <a href="update.html">Updates</a>
         <a href="document.html">Download</a></b>
     </nav>
