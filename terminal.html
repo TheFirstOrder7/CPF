@@ -115,7 +115,8 @@
         .button:nth-child(3) { background-image: url('https://media.istockphoto.com/id/672020450/photo/business-man-trying-to-stop-a-time-man-hanging-on-clock-arrow.jpg?s=612x612&w=0&k=20&c=dqYeIVmsk_IqJD7tv6nnTkxROFGOiRBzuWhRM39J0V4='); }
         .button:nth-child(4) { background-image: url('https://media.istockphoto.com/id/1226786654/photo/loan-bags-on-a-laptop.jpg?s=612x612&w=0&k=20&c=IzWe7AQB3FepO3711ZbRJ5lmOMdbBO6UIzHRrO8of8k='); }
         .button:nth-child(5) { background-image: url('https://media.istockphoto.com/id/1249219777/photo/shopping-online-concept-parcel-or-paper-cartons-with-a-shopping-cart-logo-in-a-trolley-on-a.jpg?s=612x612&w=0&k=20&c=EWKEahyVLY8iAHyirCCDESHRGW37lqUJ7In0SssNSLE='); }
-
+        .button:nth-child(6) { background-image: url('https://media.istockphoto.com/id/1187801035/vector/businessman-using-tape-measure-to-measure-the-height-of-the-percentage-symbol.jpg?s=612x612&w=0&k=20&c=n27JUbV4REFcvpASizXZW7V4vQGp3szMCgCftKd-yWs='); }
+        .button:nth-child(7) { background-image: url('https://media.istockphoto.com/id/1685996049/photo/word-tax-2024-on-the-calculator-business-and-tax-concept-calculator-coins-book-tax-form-and.jpg?s=612x612&w=0&k=20&c=AXj4nbSss0tY6jVeHeRFSlZe264r9x7N6_keK1G3oyo='); }
         /* Media Query for Small Screens */
         @media (max-width: 768px) {
             .button {
@@ -137,29 +138,7 @@
             line-height: 1.6;
         }
 
-        /* Marquee styles (Bottom) */
-        .marquee-container {
-            background-color: #f4f4f4;
-            padding: 10px 0;
-            text-align: center;
-            font-size: 18px;
-            font-weight: 500;
-            color: #555;
-            border-top: 1px solid #ddd;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-
-        .marquee-text {
-            animation: scrollLeft 12s linear infinite;
-            display: inline-block;
-        }
-
-        @keyframes scrollLeft {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
+        
 
     </style>
 </head>
@@ -185,6 +164,12 @@
         <a href="transaction.html" class="button">
             <div class="explainer-text">TRANSACTIONS</div>
         </a>
+        <a href="interest.html" class="button">
+            <div class="explainer-text">INTEREST</div>
+        </a>
+        <a href="tax.html" class="button">
+            <div class="explainer-text">TAXATION</div>
+        </a>
     
         <!-- Future buttons -->
         <!-- <a href="more-services.html" class="button">
@@ -194,10 +179,7 @@
     
 
 
-    <!-- Marquee at the Bottom -->
-    <div class="marquee-container">
-        <span class="marquee-text">🚀 Welcome to The First Order! 🎉</span>
-    </div>
+    
 
 </body>
 </html>
