@@ -8,10 +8,10 @@
        body {
     font-family: 'Helvetica Neue', Arial, sans-serif; /* Use a more macOS-like font */
     display: flex;
-    justify-content: space-around;
-    align-items: flex-start;
+    flex-direction: column; /* Stack elements vertically on small screens */
+    align-items: center; /* Center items horizontally */
     padding: 20px;
-    background: linear-gradient(155deg, #6ca3e2, #ffffff); /* Soft gradient background */
+    background: linear-gradient(135deg, #e0e0e0, #55abdd); /* Soft gradient background */
     color: rgb(0, 0, 0); /* Black text for contrast */
 }
 
@@ -22,7 +22,8 @@
     padding: 20px;
     border-radius: 15px; /* Softer corners for a modern look */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
-    width: 40%;
+    width: 100%; /* Full width on mobile */
+    max-width: 500px; /* Max width for larger screens */
     transition: transform 0.2s; /* Add transition for hover effect */
 }
 
@@ -59,6 +60,7 @@ button {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    width: 90%; /* Full width for buttons */
 }
 
 button:hover {
@@ -71,6 +73,26 @@ p {
     line-height: 1.5; /* Improved line height for readability */
     margin: 10px 0; /* Added margin for spacing */
 }
+
+/* Media Queries for Responsive Design */
+@media (max-width: 600px) {
+    body {
+        padding: 10px; /* Less padding on mobile */
+    }
+
+    .calculator, .display {
+        padding: 15px; /* Less padding in containers */
+    }
+
+    h2, h3 {
+        font-size: 1.5em; /* Slightly smaller font size on mobile */
+    }
+
+    input, button {
+        width: 100%; /* Full width on mobile for inputs and buttons */
+    }
+}
+
 
 
     </style>
@@ -93,7 +115,7 @@ p {
         <button onclick="calculateLRR2()">Calculate LRRc</button>
         <p id="result2"></p>
     </div>
-
+<br><bR>
     <div class="display">
         <h2>Display Section</h2>
 
