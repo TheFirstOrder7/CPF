@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Retention Ratio Calculator</title>
+    <style>
+       body {
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Use a more macOS-like font */
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 20px;
+    background: linear-gradient(155deg, #6ca3e2, #ffffff); /* Soft gradient background */
+    color: rgb(0, 0, 0); /* Black text for contrast */
+}
+
+.calculator, .display {
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
+    backdrop-filter: blur(10px); /* Frosted glass effect */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    padding: 20px;
+    border-radius: 15px; /* Softer corners for a modern look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Enhanced shadow for depth */
+    width: 40%;
+    transition: transform 0.2s; /* Add transition for hover effect */
+}
+
+.calculator:hover, .display:hover {
+    transform: scale(1.02); /* Slightly enlarge on hover */
+}
+
+h2, h3 {
+    text-align: center;
+    color: #000000; /* Black for headers */
+}
+
+input {
+    width: 90%; /* Adjusted width for better appearance */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, 0.5); /* Light border for input fields */
+    border-radius: 5px; /* Softer corners */
+    background-color: rgba(255, 255, 255, 0.3); /* Slightly transparent input background */
+    color: rgb(0, 0, 0); /* Black text in input fields */
+    transition: border-color 0.3s; /* Smooth border transition */
+}
+
+input:focus {
+    border-color: #007aff; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
+    padding: 10px;
+    background-color: #007aff; /* Blue button for macOS feel */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: #0051e0; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+p {
+    color: #000000; /* Black for paragraph text */
+    line-height: 1.5; /* Improved line height for readability */
+    margin: 10px 0; /* Added margin for spacing */
+}
+
+
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <h2>CALCULATOR</h2>
+        <h3>LRR</h3>
+        <input type="number" id="revisedAmount1" placeholder="Total Value of Revised Loans (INR)" oninput="syncToFormula2()">
+        <input type="number" id="totalAmount1" placeholder="Total Value of All Loans (INR)" oninput="syncToFormula2()">
+        <button onclick="calculateLRR1()">Calculate LRR</button>
+        <p id="result1"></p>
+
+        <h3>LRRc</h3>
+        <input type="number" id="revisedAmount2" placeholder="Total Value of Revised Loans (INR)">
+        <input type="number" id="numberRevisedLoans" placeholder="Number of Revised Loans" value="">
+        <input type="number" id="totalAmount2" placeholder="Total Value of All Loans (INR)" value="">
+        <input type="number" id="totalLoans" placeholder="Total Number of All Loans" value="">
+        <button onclick="calculateLRR2()">Calculate LRRc</button>
+        <p id="result2"></p>
+    </div>
+
+    <div class="display">
+        <h2>Display Section</h2>
+
+        <p><strong>Date: 27/09/2024</strong></p>
+        <p>Total Value of Revised Loans: ₹16,880</p>
+        <p>Number of Revised Loans: 18</p>
+        <p>Total Value of All Loans: ₹52,400</p>
+        <p>Total Number of All Loans: 79</p>
+        <p><strong>LRR:</strong> 32.06%</p>
+        <p><strong>LRRc:</strong> 7.3%</p>
+
+<BR><BR>
+
+    <h2>Explainer</h2>
+    
+        <p><strong>LLR:<br></strong> <img src="LLR.png" alt="LRR Formula 1" style="max-width: 100%; height: auto;"></p>
+
+        <p><strong>Explanation:</strong> This formula calculates the percentage of the total loan amount that is being retained through revisions. A higher LRR indicates that a significant portion of capital is tied up in revised loans rather than being repaid.</p>
+        
+        <p><strong>LRRc:<br></strong> <img src="LLRc.png" alt="LRR Formula 2" style="max-width: 100%; height: auto;"></p>
+
+        <p><strong>Explanation:</strong> This formula provides a comprehensive view of the loan retention ratio by considering both the value and the number of loans. It helps assess the impact of revisions relative to the overall loan portfolio size.</p>
+
+       
+    </div>
+
+    <script>
+        function syncToFormula2() {
+            const revisedAmount = document.getElementById('revisedAmount1').value;
+            const totalAmount = document.getElementById('totalAmount1').value;
+
+            document.getElementById('revisedAmount2').value = revisedAmount;
+            document.getElementById('totalAmount2').value = totalAmount;
+        }
+
+        function calculateLRR1() {
+            const revisedAmount = parseFloat(document.getElementById('revisedAmount1').value);
+            const totalAmount = parseFloat(document.getElementById('totalAmount1').value);
+            const lrr1 = (revisedAmount / totalAmount) * 100;
+            document.getElementById('result1').innerText = `LRR (Formula 1): ${lrr1.toFixed(2)}%`;
+        }
+
+        function calculateLRR2() {
+            const revisedAmount = parseFloat(document.getElementById('revisedAmount2').value);
+            const numberRevisedLoans = parseFloat(document.getElementById('numberRevisedLoans').value);
+            const totalAmount = parseFloat(document.getElementById('totalAmount2').value);
+            const totalLoans = parseFloat(document.getElementById('totalLoans').value);
+            const lrr2 = (revisedAmount * numberRevisedLoans) / (totalAmount * totalLoans) * 100;
+            document.getElementById('result2').innerText = `LRR (Formula 2): ${lrr2.toFixed(2)}%`;
+        }
+    </script>
+</body>
+</html>
