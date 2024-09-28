@@ -967,24 +967,29 @@
         document.getElementById('errorMessage').style.display = 'block';
     }
 }
-
 function generatePieChart() {
     const borrowerData = {}; // Key: Borrower Name, Value: Total Loan Amount
+    const interestData = {}; // Key: Borrower Name, Value: Total Interest Amount
     const rows = document.querySelectorAll('#loanTable tbody tr');
 
     rows.forEach(row => {
-        const name = row.cells[2].textContent;
-        const amount = parseFloat(row.cells[4].textContent);
+        const name = row.cells[2].textContent; // Adjust the index for borrower name
+        const amount = parseFloat(row.cells[4].textContent); // Adjust the index for loan amount
+        const interest = parseFloat(row.cells[5].textContent); // Adjust the index for interest amount
 
+        // Accumulate loan amounts
         if (borrowerData[name]) {
             borrowerData[name] += amount;
+            interestData[name] += interest; // Accumulate interest amounts
         } else {
             borrowerData[name] = amount;
+            interestData[name] = interest; // Initialize interest
         }
     });
 
     const names = Object.keys(borrowerData);
     const amounts = Object.values(borrowerData);
+    const interests = Object.values(interestData); // Total interest amounts
 
     // Generate pie chart
     const ctx = document.getElementById('loanPieChart').getContext('2d');
@@ -995,39 +1000,39 @@ function generatePieChart() {
             datasets: [{
                 data: amounts,
                 backgroundColor: [
-                'rgba(255, 99, 132, 0.7)', // Red
-                'rgba(54, 162, 235, 0.7)', // Blue
-                'rgba(255, 206, 86, 0.7)', // Yellow
-                'rgba(75, 192, 192, 0.7)', // Cyan
-                'rgba(153, 102, 255, 0.7)', // Purple
-                'rgba(255, 159, 64, 0.7)', // Orange
-                'rgba(255, 99, 71, 0.7)', // Tomato
-                'rgba(30, 144, 255, 0.7)', // Dodger Blue
-                'rgba(34, 139, 34, 0.7)', // Forest Green
-                'rgba(255, 215, 0, 0.7)', // Gold
-                'rgba(220, 20, 60, 0.7)', // Crimson
-                'rgba(148, 0, 211, 0.7)', // Dark Violet
-                'rgba(255, 20, 147, 0.7)', // Deep Pink
-                'rgba(100, 149, 237, 0.7)', // Cornflower Blue
-                'rgba(255, 105, 180, 0.7)' // Hot Pink
-            ],
-            hoverBackgroundColor: [
-                'rgba(255, 99, 132, 0.9)',
-                'rgba(54, 162, 235, 0.9)',
-                'rgba(255, 206, 86, 0.9)',
-                'rgba(75, 192, 192, 0.9)',
-                'rgba(153, 102, 255, 0.9)',
-                'rgba(255, 159, 64, 0.9)',
-                'rgba(255, 99, 71, 0.9)',
-                'rgba(30, 144, 255, 0.9)',
-                'rgba(34, 139, 34, 0.9)',
-                'rgba(255, 215, 0, 0.9)',
-                'rgba(220, 20, 60, 0.9)',
-                'rgba(148, 0, 211, 0.9)',
-                'rgba(255, 20, 147, 0.9)',
-                'rgba(100, 149, 237, 0.9)',
-                'rgba(255, 105, 180, 0.9)'
-            ],
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 206, 86, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)',
+                    'rgba(255, 159, 64, 0.7)',
+                    'rgba(255, 99, 71, 0.7)',
+                    'rgba(30, 144, 255, 0.7)',
+                    'rgba(34, 139, 34, 0.7)',
+                    'rgba(255, 215, 0, 0.7)',
+                    'rgba(220, 20, 60, 0.7)',
+                    'rgba(148, 0, 211, 0.7)',
+                    'rgba(255, 20, 147, 0.7)',
+                    'rgba(100, 149, 237, 0.7)',
+                    'rgba(255, 105, 180, 0.7)'
+                ],
+                hoverBackgroundColor: [
+                    'rgba(255, 99, 132, 0.9)',
+                    'rgba(54, 162, 235, 0.9)',
+                    'rgba(255, 206, 86, 0.9)',
+                    'rgba(75, 192, 192, 0.9)',
+                    'rgba(153, 102, 255, 0.9)',
+                    'rgba(255, 159, 64, 0.9)',
+                    'rgba(255, 99, 71, 0.9)',
+                    'rgba(30, 144, 255, 0.9)',
+                    'rgba(34, 139, 34, 0.9)',
+                    'rgba(255, 215, 0, 0.9)',
+                    'rgba(220, 20, 60, 0.9)',
+                    'rgba(148, 0, 211, 0.9)',
+                    'rgba(255, 20, 147, 0.9)',
+                    'rgba(100, 149, 237, 0.9)',
+                    'rgba(255, 105, 180, 0.9)'
+                ],
                 borderWidth: 2,
                 borderColor: '#fff',
                 hoverOffset: 10
@@ -1052,7 +1057,9 @@ function generatePieChart() {
                         label: function(tooltipItem) {
                             let sum = amounts.reduce((a, b) => a + b, 0);
                             let percentage = (tooltipItem.raw / sum * 100).toFixed(2) + '%';
-                            return `${tooltipItem.label}: ₹${tooltipItem.raw.toLocaleString()} (${percentage})`;
+                            const borrowerIndex = tooltipItem.dataIndex; // Get the index of the hovered item
+                            const totalInterest = interests[borrowerIndex]; // Get the corresponding interest amount
+                            return `${tooltipItem.label}: ₹${tooltipItem.raw.toLocaleString()} (${percentage}) | Interest: ₹${totalInterest.toLocaleString()}`;
                         }
                     }
                 },
@@ -1062,7 +1069,9 @@ function generatePieChart() {
                     formatter: (value, ctx) => {
                         let sum = ctx.dataset.data.reduce((a, b) => a + b, 0);
                         let percentage = (value / sum * 100).toFixed(1) + '%';
-                        return percentage;
+                        const borrowerIndex = ctx.dataIndex; // Get the index for the current data point
+                        const totalInterest = interests[borrowerIndex]; // Get the corresponding interest amount
+                        return `${percentage} | Interest: ₹${totalInterest.toLocaleString()}`;
                     },
                     font: {
                         size: 16,
