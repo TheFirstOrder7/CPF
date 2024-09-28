@@ -731,152 +731,156 @@
     </div>
    
     <script>
-       function calculateTotals() { 
-    let totalAmount = 0;
-    let totalInterest = 0;
-    let totalDaysLeft = 0;
-    let countDueDates = 0;
-    const today = new Date();
-    const rows = document.querySelectorAll('#loanTable tbody tr');
-
-    rows.forEach(row => {
-        const amount = parseFloat(row.cells[4].textContent);
-        const interest = parseFloat(row.cells[5].textContent);
-        const dueDateString = row.cells[3].textContent;
-        const repaymentDate = new Date(dueDateString.split('/').reverse().join('-'));
-
-        totalAmount += amount;
-        totalInterest += interest;
-
-        const diffTime = repaymentDate - today;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-        totalDaysLeft += diffDays;
-        countDueDates++;
-
-        const daysLeftElement = document.createElement('span');
-        daysLeftElement.className = 'days-left';
-        daysLeftElement.textContent = `(${diffDays} days left)`;
-        row.cells[3].appendChild(daysLeftElement);
-
-        if (diffDays <= 5 && diffDays >= 0) {
-            row.classList.add('warning');
+        function calculateTotals() { 
+            let totalAmount = 0;
+            let totalInterest = 0;
+            let totalDaysLeft = 0;
+            let countDueDates = 0;
+            const today = new Date();
+            const rows = document.querySelectorAll('#loanTable tbody tr');
+    
+            rows.forEach(row => {
+                const amount = parseFloat(row.cells[4].textContent);
+                const interest = parseFloat(row.cells[5].textContent);
+                const dueDateString = row.cells[3].textContent;
+                const repaymentDate = new Date(dueDateString.split('/').reverse().join('-'));
+    
+                totalAmount += amount;
+                totalInterest += interest;
+    
+                const diffTime = repaymentDate - today;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+                totalDaysLeft += diffDays;
+                countDueDates++;
+    
+                const daysLeftElement = document.createElement('span');
+                daysLeftElement.className = 'days-left';
+                daysLeftElement.textContent = `(${diffDays} days left)`;
+                row.cells[3].appendChild(daysLeftElement);
+    
+                if (diffDays <= 5 && diffDays >= 0) {
+                    row.classList.add('warning');
+                }
+            });
+    
+            const returnOnInterest = (totalInterest / totalAmount) * 100;
+            const averageDaysLeft = countDueDates ? (totalDaysLeft / countDueDates) : 0;
+            const averageAmount = countDueDates ? (totalAmount / countDueDates) : 0;
+    
+            document.getElementById('totalAmountText').textContent = ` ${totalAmount.toFixed(2)}`;
+            document.getElementById('averageAmountText').textContent = ` ${averageAmount.toFixed(2)}`;
+            document.getElementById('totalInterestValue').textContent = totalInterest.toFixed(2);
+            document.getElementById('averageDaysLeft').textContent = `${averageDaysLeft.toFixed(2)} Days`;
+    
+            const returnInfo = document.getElementById('returnInfoValue');
+            returnInfo.textContent = `${returnOnInterest.toFixed(2)}%`;
+    
+            if (returnOnInterest > 0) {
+                returnInfo.style.color = 'green';
+                returnInfo.innerHTML += ' <span class="arrow-up">&#9650;</span>';
+            } else {
+                returnInfo.style.color = 'red';
+                returnInfo.innerHTML += ' <span class="arrow-down">&#9660;</span>';
+            }
+    
+            showInfo();
+            showAmountInfo();  // Toggle total/average amounts
         }
-    });
-
-    const returnOnInterest = (totalInterest / totalAmount) * 100;
-    const averageDaysLeft = countDueDates ? (totalDaysLeft / countDueDates) : 0;
-    const averageAmount = countDueDates ? (totalAmount / countDueDates) : 0;
-
-    document.getElementById('totalAmountText').textContent = ` ${totalAmount.toFixed(2)}`;
-    document.getElementById('averageAmountText').textContent = ` ${averageAmount.toFixed(2)}`;
-    document.getElementById('totalInterestValue').textContent = totalInterest.toFixed(2);
-    document.getElementById('averageDaysLeft').textContent = `${averageDaysLeft.toFixed(2)} Days`;
-
-    const returnInfo = document.getElementById('returnInfoValue');
-    returnInfo.textContent = `${returnOnInterest.toFixed(2)}%`;
-
-    if (returnOnInterest > 0) {
-        returnInfo.style.color = 'green';
-        returnInfo.innerHTML += ' <span class="arrow-up">&#9650;</span>';
-    } else {
-        returnInfo.style.color = 'red';
-        returnInfo.innerHTML += ' <span class="arrow-down">&#9660;</span>';
-    }
-
-    // Call the function to show info
-    showInfo();
-    showAmountInfo();  // Add this line to toggle total/average amounts
-}
-
-function showInfo() {
-    const totalInterest = document.getElementById('totalInterest');
-    const returnInfo = document.getElementById('returnInfo');
-    let showingInterest = true;
-
-    // Initially show Total Interest
-    totalInterest.classList.add('show');
-    returnInfo.classList.remove('show');
-
-    // Toggle between the interest and return info every 3 seconds
-    setInterval(() => {
-        if (showingInterest) {
-            totalInterest.classList.remove('show');
-            totalInterest.style.visibility = 'hidden'; // Ensure it's hidden completely
-            returnInfo.classList.add('show');
-            returnInfo.style.visibility = 'visible'; // Show return info
-        } else {
-            returnInfo.classList.remove('show');
-            returnInfo.style.visibility = 'hidden'; // Hide return info
+    
+        function sortLoansByLoanCode() {
+            const table = document.getElementById("loanTable").getElementsByTagName("tbody")[0];
+            const rows = Array.from(table.rows);
+    
+            rows.sort((rowA, rowB) => {
+                const loanCodeA = parseInt(rowA.cells[0].textContent);
+                const loanCodeB = parseInt(rowB.cells[0].textContent);
+                return loanCodeA - loanCodeB;
+            });
+    
+            // Reattach sorted rows to the table
+            rows.forEach(row => table.appendChild(row));
+        }
+    
+        function showInfo() {
+            const totalInterest = document.getElementById('totalInterest');
+            const returnInfo = document.getElementById('returnInfo');
+            let showingInterest = true;
+    
             totalInterest.classList.add('show');
-            totalInterest.style.visibility = 'visible'; // Show interest
+            returnInfo.classList.remove('show');
+    
+            setInterval(() => {
+                if (showingInterest) {
+                    totalInterest.classList.remove('show');
+                    totalInterest.style.visibility = 'hidden';
+                    returnInfo.classList.add('show');
+                    returnInfo.style.visibility = 'visible';
+                } else {
+                    returnInfo.classList.remove('show');
+                    returnInfo.style.visibility = 'hidden';
+                    totalInterest.classList.add('show');
+                    totalInterest.style.visibility = 'visible';
+                }
+                showingInterest = !showingInterest;
+            }, 3000);
         }
-        showingInterest = !showingInterest;
-    }, 3000); // Adjust the timing as needed
-}
-function showAmountInfo() {
-    const totalAmount = document.getElementById('totalAmountValue');
-    const averageAmount = document.getElementById('averageAmountValue');
-    let showingTotal = true;
-
-    // Initially show Total Amount
-    totalAmount.classList.add('show');
-    averageAmount.classList.remove('show');
-    averageAmount.style.visibility = 'hidden';
-
-    // Toggle between total amount and average amount every 3 seconds
-    setInterval(() => {
-        if (showingTotal) {
-            totalAmount.classList.remove('show');
-            totalAmount.style.visibility = 'hidden';
-            averageAmount.classList.add('show');
-            averageAmount.style.visibility = 'visible';
-        } else {
+    
+        function showAmountInfo() {
+            const totalAmount = document.getElementById('totalAmountValue');
+            const averageAmount = document.getElementById('averageAmountValue');
+            let showingTotal = true;
+    
+            totalAmount.classList.add('show');
             averageAmount.classList.remove('show');
             averageAmount.style.visibility = 'hidden';
-            totalAmount.classList.add('show');
-            totalAmount.style.visibility = 'visible';
+    
+            setInterval(() => {
+                if (showingTotal) {
+                    totalAmount.classList.remove('show');
+                    totalAmount.style.visibility = 'hidden';
+                    averageAmount.classList.add('show');
+                    averageAmount.style.visibility = 'visible';
+                } else {
+                    averageAmount.classList.remove('show');
+                    averageAmount.style.visibility = 'hidden';
+                    totalAmount.classList.add('show');
+                    totalAmount.style.visibility = 'visible';
+                }
+                showingTotal = !showingTotal;
+            }, 3000);
         }
-        showingTotal = !showingTotal;
-    }, 3000); // Adjust the timing as needed
-}
-
-// Ensure calculateTotals is called after the table is fully populated
-window.onload = calculateTotals;
-
-
+    
         function openPopup() {
             document.getElementById('popup').classList.add('active');
             document.getElementById('overlay').classList.add('active');
         }
-
+    
         function closePopup() {
             document.getElementById('popup').classList.remove('active');
             document.getElementById('overlay').classList.remove('active');
         }
-
+    
         function updateProgressCircle(value, maxValue) {
-    const circumference = 2 * Math.PI * 100;
-    const progress = (1 - (value / maxValue)) * circumference;
-    document.querySelector('.progress-ring-fg').style.strokeDashoffset = progress;
-    document.getElementById('loanAmount').textContent = `₹${value}`;
-}
-
-// Example usage: Update the circle to show progress
-updateProgressCircle(52400, 100000); // Set this to the total amount disbursed
-
-
-
-     // Search Function
-     function searchLoans() {
+            const circumference = 2 * Math.PI * 100;
+            const progress = (1 - (value / maxValue)) * circumference;
+            document.querySelector('.progress-ring-fg').style.strokeDashoffset = progress;
+            document.getElementById('loanAmount').textContent = `₹${value}`;
+        }
+    
+        // Example usage: Update the circle to show progress
+        updateProgressCircle(52550, 100000); // Set this to the total amount disbursed
+    
+        // Search Function
+        function searchLoans() {
             const input = document.getElementById("searchInput").value.toUpperCase();
             const table = document.getElementById("loanTable");
             const tr = table.getElementsByTagName("tr");
-
+    
             for (let i = 1; i < tr.length; i++) {
                 const loanCode = tr[i].getElementsByTagName("td")[0].textContent.toUpperCase();
                 const name = tr[i].getElementsByTagName("td")[2].textContent.toUpperCase();
-
+    
                 if (loanCode.indexOf(input) > -1 || name.indexOf(input) > -1) {
                     tr[i].style.display = "";
                 } else {
@@ -884,42 +888,44 @@ updateProgressCircle(52400, 100000); // Set this to the total amount disbursed
                 }
             }
         }
+    
         function openCustomPopup() {
-        document.getElementById('customPopup').classList.add('active');
-        document.getElementById('customOverlay').classList.add('active');
-    }
-
-    function validateAdminCode() {
-        var inputCode = document.getElementById('adminCodeInput').value;
-        var correctCode = "8055";
-
-        if (inputCode === correctCode) {
-            var blurredNames = document.getElementsByClassName('name-blurred');
-            for (var i = 0; i < blurredNames.length; i++) {
-                blurredNames[i].classList.remove('name-blurred');
-                blurredNames[i].classList.add('unblur');
-            }
-            closeCustomPopup();
-        } else {
-            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('customPopup').classList.add('active');
+            document.getElementById('customOverlay').classList.add('active');
         }
-    }
-
-    function guestAccess() {
-        closeCustomPopup();
-    }
-
-    function closeCustomPopup() {
-        document.getElementById('customPopup').classList.remove('active');
-        document.getElementById('customOverlay').classList.remove('active');
-    }
-
-    window.onload = function() {
-        openCustomPopup();
-        document.getElementById('adminCodeInput').focus();
-        calculateTotals();
-    };
-
+    
+        function validateAdminCode() {
+            const inputCode = document.getElementById('adminCodeInput').value;
+            const correctCode = "8055";
+    
+            if (inputCode === correctCode) {
+                const blurredNames = document.getElementsByClassName('name-blurred');
+                for (let i = 0; i < blurredNames.length; i++) {
+                    blurredNames[i].classList.remove('name-blurred');
+                    blurredNames[i].classList.add('unblur');
+                }
+                closeCustomPopup();
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+    
+        function guestAccess() {
+            closeCustomPopup();
+        }
+    
+        function closeCustomPopup() {
+            document.getElementById('customPopup').classList.remove('active');
+            document.getElementById('customOverlay').classList.remove('active');
+        }
+    
+        window.onload = function() {
+            openCustomPopup();
+            document.getElementById('adminCodeInput').focus();
+            calculateTotals();
+            sortLoansByLoanCode();  // Call sorting function after calculating totals
+        };
     </script>
+    
 </body>
 </html>
