@@ -89,6 +89,7 @@ background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)
     <!-- Presaved Numbers Dropdown -->
     <select id="presavedNumbers">
       <option value="">Select a pre-saved number</option>
+      <!-- Pre-saved numbers, feel free to add/remove entries below -->
      <!-- Pre-saved numbers with country code 91 -->
 <option value="+917456943225">Rahul Goswami</option>
 <option value="+919675785596">Deepak Goswami</option>
@@ -174,35 +175,51 @@ background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%)
     return presavedNumber ? presavedNumber : newNumber;
   }
 
-  // Send WhatsApp message function
-  document.getElementById('sendMessage').addEventListener('click', function() {
-    const customerName = document.getElementById('customerName').value;
-    const whatsappNumber = getWhatsAppNumber();
-    const loanCode = document.getElementById('loanCode').value;
-    const amount = document.getElementById('amount').value;
-    const interest = document.getElementById('interest').value;
-    const tenure = document.getElementById('tenure').value;
-    const messageType = document.getElementById('messageType').value;
-    const reminderDate = document.getElementById('reminderDate').value;
+  // Function to format date to "dd Month-yyyy"
+function formatDateToWords(dateString) {
+  const date = new Date(dateString);
+  
+  // Options for displaying date in the desired format
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  
+  // Convert the date to the desired format
+  const formattedDate = date.toLocaleDateString('en-US', options);
+  
+  return formattedDate;
+}
 
-    if (!whatsappNumber) {
-      alert('Please enter or select a WhatsApp number.');
-      return;
-    }
+// Example usage in your send message functionality
+document.getElementById('sendMessage').addEventListener('click', function() {
+  const customerName = document.getElementById('customerName').value;
+  const whatsappNumber = getWhatsAppNumber();
+  const loanCode = document.getElementById('loanCode').value;
+  const amount = document.getElementById('amount').value;
+  const interest = document.getElementById('interest').value;
+  const tenure = document.getElementById('tenure').value;
+  const messageType = document.getElementById('messageType').value;
+  const reminderDate = document.getElementById('reminderDate').value;
 
-    let message = '';
-    const currentDateTime = new Date().toLocaleString();
+  if (!whatsappNumber) {
+    alert('Please enter or select a WhatsApp number.');
+    return;
+  }
 
-    if (messageType === 'confirmation') {
-      message = `Dear ${customerName}, your loan with unique loan code ${loanCode} for ₹${amount} with ₹${interest} interest for ${tenure} days has been approved on ${currentDateTime}. Reply YES to confirm the sanctioned loan.`;
-    } else {
-      const totalAmount = parseFloat(amount) + parseFloat(interest);
-      message = `Dear ${customerName}, your loan of ₹${amount} with unique loan code ${loanCode} is due on ${reminderDate}. Please pay ₹${totalAmount} to avoid extra charges. Reply REVISE to extend the loan.`;
-    }
+  let message = '';
+  const currentDate = new Date();
+  const currentDateFormatted = formatDateToWords(currentDate); // Current date in "dd Month-yyyy" format
 
-    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappLink, '_blank');
-  });
+  if (messageType === 'confirmation') {
+    message = `Dear ${customerName}, your loan with unique loan code ${loanCode} for ₹${amount} with ₹${interest} interest for ${tenure} days has been approved on ${currentDateFormatted}. Reply YES to confirm the sanctioned loan.`;
+  } else {
+    const totalAmount = parseFloat(amount) + parseFloat(interest);
+    const reminderDateFormatted = formatDateToWords(reminderDate); // Reminder date in "dd Month-yyyy" format
+    message = `Dear ${customerName}, your loan of ₹${amount} with unique loan code ${loanCode} is due on ${reminderDateFormatted}. Please pay ₹${totalAmount} to avoid extra charges. Reply REVISE to extend the loan.`;
+  }
+
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(whatsappLink, '_blank');
+});
+
 </script>
 
 </body>
