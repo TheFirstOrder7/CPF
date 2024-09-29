@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Messaging System</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-color: #FF3CAC;
+background-image: linear-gradient(225deg, #FF3CAC 0%, #784BA0 50%, #2B86C5 100%);
+
+      color: #333;
+      padding: 20px;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    input, select, button {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #ff0000;
+    }
+    #password-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: visible;
+    }
+    .password-popup {
+      background-color: rgba(255, 255, 255, 0.4);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    #password-error {
+      display: none;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Password Protected Overlay -->
+<div id="password-overlay">
+  <div class="password-popup">
+    <h2>Enter Password</h2>
+    <input type="password" id="password-input" placeholder="Enter password">
+    <button id="password-submit">Submit</button>
+    <p id="password-error">Incorrect Password</p>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container" id="main-container" style="display: none;">
+  <h1>Loan Messaging System</h1>
+
+  <!-- Loan Form -->
+  <form id="loanForm">
+    <label for="customerName">Customer Name</label>
+    <input type="text" id="customerName" placeholder="Enter customer name">
+
+    <label for="whatsappNumber">WhatsApp Number</label>
+    <!-- Presaved Numbers Dropdown -->
+    <select id="presavedNumbers">
+      <option value="">Select a pre-saved number</option>
+      <!-- Pre-saved numbers, feel free to add/remove entries below -->
+      <option value="7456943225">Rahul Goswami</option>
+      <option value="9675785596">Deepak Goswami</option>
+      <option value="7078424551">Krish Goswami</option>
+      <option value="8445368302">Bhagwati Goswami</option>
+      <option value="7454807688">Nitin Goswami</option>
+      <option value="9389302191">Shubham Goswami</option>
+      <option value="6395749586">Neeraj Goswami</option>
+      <option value="8273292843">Rohit Bora</option>
+      <option value="8954303763">Vivek Goswami</option>
+      <option value="8731593998">Vishal Goswami</option>
+      <option value="9528843823">Pawan Goswami</option>
+      <option value="8057248202">Karan Pant</option>
+    </select>
+
+    <!-- For entering new WhatsApp numbers -->
+    <input type="tel" id="whatsappNumber" placeholder="Enter new WhatsApp number if not using pre-saved">
+
+    <label for="loanCode">Loan Code</label>
+    <input type="text" id="loanCode" placeholder="Enter Loan Code">
+
+    <label for="amount">Loan Amount (₹)</label>
+    <input type="number" id="amount" placeholder="Enter loan amount">
+
+    <label for="interest">Interest (₹)</label>
+    <input type="number" id="interest" placeholder="Enter interest amount">
+
+    <label for="tenure">Tenure (Days)</label>
+    <input type="number" id="tenure" placeholder="Enter tenure in days">
+
+    <label for="messageType">Message Type</label>
+    <select id="messageType">
+      <option value="confirmation">Loan Confirmation</option>
+      <option value="reminder">Loan Reminder</option>
+    </select>
+
+    <!-- Dynamic input for reminder date -->
+    <div id="reminderDateDiv" style="display: none;">
+      <label for="reminderDate">Due Date</label>
+      <input type="date" id="reminderDate">
+    </div>
+
+    <button type="button" id="sendMessage">Send WhatsApp Message</button>
+  </form>
+</div>
+
+<!-- Inline JavaScript -->
+<script>
+  // Password protection
+  const passwordOverlay = document.getElementById('password-overlay');
+  const mainContainer = document.getElementById('main-container');
+  const passwordSubmit = document.getElementById('password-submit');
+  const passwordInput = document.getElementById('password-input');
+  const passwordError = document.getElementById('password-error');
+
+  passwordSubmit.addEventListener('click', function() {
+    const password = passwordInput.value;
+    if (password === '8055') {
+      passwordOverlay.style.display = 'none';
+      mainContainer.style.display = 'block';
+    } else {
+      passwordError.style.display = 'block';
+    }
+  });
+
+  // Dynamic show/hide for reminder date input
+  const messageType = document.getElementById('messageType');
+  const reminderDateDiv = document.getElementById('reminderDateDiv');
+  
+  messageType.addEventListener('change', function() {
+    if (this.value === 'reminder') {
+      reminderDateDiv.style.display = 'block';
+    } else {
+      reminderDateDiv.style.display = 'none';
+    }
+  });
+
+  // Get selected or new WhatsApp number
+  function getWhatsAppNumber() {
+    const presavedNumber = document.getElementById('presavedNumbers').value;
+    const newNumber = document.getElementById('whatsappNumber').value;
+    return presavedNumber ? presavedNumber : newNumber;
+  }
+
+  // Send WhatsApp message function
+  document.getElementById('sendMessage').addEventListener('click', function() {
+    const customerName = document.getElementById('customerName').value;
+    const whatsappNumber = getWhatsAppNumber();
+    const loanCode = document.getElementById('loanCode').value;
+    const amount = document.getElementById('amount').value;
+    const interest = document.getElementById('interest').value;
+    const tenure = document.getElementById('tenure').value;
+    const messageType = document.getElementById('messageType').value;
+    const reminderDate = document.getElementById('reminderDate').value;
+
+    if (!whatsappNumber) {
+      alert('Please enter or select a WhatsApp number.');
+      return;
+    }
+
+    let message = '';
+    const currentDateTime = new Date().toLocaleString();
+
+    if (messageType === 'confirmation') {
+      message = `Dear ${customerName}, your loan with unique loan code ${loanCode} for ₹${amount} with ₹${interest} interest for ${tenure} days has been approved on ${currentDateTime}. Reply YES to confirm the sanctioned loan.`;
+    } else {
+      const totalAmount = parseFloat(amount) + parseFloat(interest);
+      message = `Dear ${customerName}, your loan of ₹${amount} with unique loan code ${loanCode} is due on ${reminderDate}. Please pay ₹${totalAmount} to avoid extra charges. Reply REVISE to extend the loan.`;
+    }
+
+    const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappLink, '_blank');
+  });
+</script>
+
+</body>
+</html>
