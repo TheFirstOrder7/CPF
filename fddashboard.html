@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fixed Deposit Dashboard</title>
+    <style>
+    body {
+    font-family: 'San Francisco', sans-serif;
+    background: rgb(253,252,220);
+background: linear-gradient(90deg, rgba(253,252,220,1) 0%, rgb(184, 242, 230) 100%);
+    color: #333;
+    margin: 0; /* Remove default margin */
+    padding: 20px; /* Add padding to the body */
+}
+
+h2 {
+    text-align: center; /* Center the heading */
+    color: #cc8250;
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+.table-container {
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center the table horizontally */
+}
+
+table {
+    width: 100%; /* Set the width of the table */
+    border-collapse: collapse; /* Collapse borders */
+    background-color: #fff; /* Table background color */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* To ensure rounded corners work */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for the table */
+}
+
+th, td {
+    padding: 15px; /* Padding for cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #eaeaea; /* Bottom border for cells */
+}
+
+th {
+    background-color: rgb(184, 242, 230); /* Apple blue */
+    color: rgb(104, 97, 97); /* Text color for header */
+    font-weight: bold; /* Bold header text */
+}
+
+tr:hover {
+    background-color: #f5f5f5; /* Background color on hover */
+}
+
+.redeem-button {
+    background-color: #34c759; /* Apple green */
+    color: white; /* Button text color */
+    border: none; /* No border */
+    padding: 10px 15px; /* Button padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners for buttons */
+    font-weight: bold; /* Bold button text */
+    transition: background-color 0.3s ease; /* Smooth background transition */
+}
+
+.redeem-button:hover:not(:disabled) {
+    background-color: #28a745; /* Darker green on hover */
+}
+
+.redeem-button:disabled {
+    background-color: #ccc; /* Disabled button color */
+    cursor: not-allowed; /* Not-allowed cursor for disabled buttons */
+}
+
+/* Compact styles for mobile view */
+@media (max-width: 600px) {
+    th, td {
+        padding: 10px; /* Reduced padding for compactness */
+        font-size: 14px; /* Smaller font size */
+    }
+
+    h2 {
+        font-size: 20px; /* Adjusted heading size for mobile */
+    }
+
+    table {
+        width: 90%; /* Wider table on mobile for better visibility */
+        margin: 10px 0; /* Reduced table margin */
+    }
+
+    .redeem-button {
+        padding: 8px 12px; /* Smaller button padding */
+        font-size: 12px; /* Smaller button font size */
+    }
+
+    th {
+        font-size: 12px; /* Smaller header font size */
+    }
+}
+
+
+    </style>
+</head>
+<body>
+
+<h2>ACTIVE FIXED DEPOSIT</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Unique Code</th>
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Maturity </th>
+            <th>Accrued Interest</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="fd-table-body">
+        <!-- Dynamic rows will be added here -->
+    </tbody>
+</table>
+<script>
+    const fixedDeposits = [
+        { code: 'FD001', name: 'Test', amount: 10000, date: '2019-11-01', maturityYears: 5 },
+        { code: 'FD001', name: 'Test', amount: 10000, date: '2019-11-01', maturityYears: 5 },
+        { code: 'FD001', name: 'Test', amount: 10000, date: '2019-11-01', maturityYears: 5 },
+    ];
+
+    const interestRate = 0.16; // 16% interest
+    const today = new Date();
+
+    function calculateAccruedInterest(amount, startDate, maturityYears) {
+        const daysPassed = Math.floor((today - new Date(startDate)) / (1000 * 60 * 60 * 24));
+        const totalYears = daysPassed / 365; // Convert days to years
+        
+        let accruedInterest = 0;
+        if (totalYears >= maturityYears) {
+            // Calculate interest for each full year
+            for (let year = 1; year <= maturityYears; year++) {
+                accruedInterest += amount * Math.pow((1 + interestRate), year) - amount * Math.pow((1 + interestRate), year - 1);
+            }
+        } else {
+            // Calculate interest for the partial year
+            accruedInterest = amount * (Math.pow((1 + interestRate), totalYears) - 1);
+        }
+
+        return accruedInterest; // Return total accrued interest
+    }
+
+    function updateTable() {
+        const tbody = document.getElementById('fd-table-body');
+        tbody.innerHTML = ''; // Clear existing rows
+        fixedDeposits.forEach(fd => {
+            const accruedInterest = calculateAccruedInterest(fd.amount, fd.date, fd.maturityYears).toFixed(2);
+            const redeemButtonDisabled = (Math.floor((today - new Date(fd.date)) / (1000 * 60 * 60 * 24)) < fd.maturityYears * 365) ? false : true;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${fd.code}</td>
+                <td>${fd.name}</td>
+                <td>₹${fd.amount}</td>
+                <td>${fd.date}</td>
+                <td>${fd.maturityYears}</td>
+                <td>₹${accruedInterest}</td>
+                <td>
+                    <button class="redeem-button" onclick="redeem('${fd.code}', ${accruedInterest})" ${redeemButtonDisabled ? 'disabled' : ''}>
+                        Redeem
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function redeem(uniqueCode, accruedInterest) {
+        const penalty = (0.10 * accruedInterest).toFixed(2);
+        const message = `Premature withdrawal for Unique Code: ${uniqueCode}. Accrued Interest: ₹${accruedInterest}. Penalty: ₹${penalty}.`;
+        const phoneNumber = '7456943225';
+        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(whatsappURL, '_blank');
+    }
+
+    // Initial table population
+    updateTable();
+</script>
+
+
+</body>
+</html>
