@@ -7,17 +7,18 @@
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #00DBDE;
-            background-image: linear-gradient(360deg, #00DBDE 0%, #FC00FF 150%);
+            background: linear-gradient(180deg, #00DBDE 0%, #FC00FF 100%); /* Adjusted gradient for better mobile view */
             color: #1d1d1f;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center; /* Centering vertically */
             height: 100vh;
             margin: 0;
             padding: 20px; /* Added padding for mobile compatibility */
             box-sizing: border-box; /* Ensures padding is included in total width/height */
         }
+
         .banner {
             font-size: 50px;
             font-weight: bold;
@@ -26,11 +27,13 @@
             animation: colorChange 3s infinite alternate;
             text-align: center; /* Centering the banner text */
         }
+
         @keyframes colorChange {
             0% { color: #0071e3; }
             50% { color: #ff3b30; }
             100% { color: #4cd964; }
         }
+
         .container {
             background-color: rgba(255, 255, 255, 0.8); /* Slightly more opaque background */
             padding: 2rem;
@@ -40,11 +43,13 @@
             max-width: 400px;
             margin: auto; /* Center the container */
         }
+
         h1 {
             font-size: 30px;
             margin-bottom: 1.5rem;
             text-align: center;
         }
+
         input, select {
             width: 90%; /* Make input fields take full width */
             padding: 12px;
@@ -53,6 +58,7 @@
             border-radius: 8px;
             font-size: 16px;
         }
+
         button {
             width: 100%;
             padding: 12px;
@@ -64,9 +70,11 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #ff0000;
         }
+
         .declaration {
             margin: 1rem 0;
             font-size: 14px;
@@ -74,9 +82,24 @@
             display: flex;
             align-items: center;
         }
+
         .declaration input {
             margin-right: 10px; /* Space between checkbox and label */
             width: auto; /* Adjust width of checkbox */
+        }
+
+        /* Media Queries for mobile optimization */
+        @media (max-width: 480px) {
+            .banner {
+                font-size: 30px; /* Smaller font size for mobile */
+            }
+            h1 {
+                font-size: 24px; /* Smaller h1 font size */
+            }
+            input, select, button {
+                padding: 10px; /* Smaller padding for mobile */
+                font-size: 14px; /* Smaller font size for mobile */
+            }
         }
     </style>
 </head>
