@@ -5,122 +5,136 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fixed Deposit Dashboard</title>
     <style>
-        body {
-            font-family: 'San Francisco', sans-serif;
-            background: rgb(253,252,220);
-            background: linear-gradient(90deg, rgba(253,252,220,1) 0%, rgb(184, 242, 230) 100%);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+       body {
+    font-family: 'San Francisco', sans-serif;
+    background: rgb(253,252,220);
+    background: linear-gradient(90deg, rgba(253,252,220,1) 0%, rgb(184, 242, 230) 100%);
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
 
-        h1 {
-            font-size: 2.5em;
-            color: #d38c5c;
-            text-align: center;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1.5s forwards;
-        }
+h1 {
+    font-size: 2.5em;
+    color: #d38c5c;
+    text-align: center;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeIn 1.5s forwards;
+}
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        .table-wrapper {
-            background: rgba(255, 255, 255, 0.5); /* Transparent white background */
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%; /* Reduce width for better appearance */
-            max-width: 1200px; /* Limit max width for larger screens */
-            margin-top: 20px;
-            animation: fadeInUp 1.2s ease-in-out; /* Smooth entry animation */
-        }
+.table-wrapper {
+    background: rgba(255, 255, 255, 0.5); /* Transparent white background */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Reduce width for better appearance */
+    max-width: 1200px; /* Limit max width for larger screens */
+    margin-top: 20px;
+    animation: fadeInUp 1.2s ease-in-out; /* Smooth entry animation */
+    box-sizing: border-box; /* Include padding in width calculations */
+}
 
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 1em;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    table-layout: fixed; /* Ensures columns take equal space */
+}
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            font-size: 0.9em;
-        }
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 0.9em;
+    word-wrap: break-word; /* Prevents text from overflowing */
+}
 
-        th {
-            color: #6e6e73;
-            font-weight: 600;
-        }
+th {
+    color: #6e6e73;
+    font-weight: 600;
+}
 
-        tr:hover {
-            background-color: #e5e5e7;
-        }
+tr:hover {
+    background-color: #e5e5e7;
+}
 
-        .redeem-button {
-            background-color: #34c759;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
+.redeem-button {
+    background-color: #34c759;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
 
-        .redeem-button:hover:not(:disabled) {
-            background-color: #28a745;
-        }
+.redeem-button:hover:not(:disabled) {
+    background-color: #28a745;
+}
 
-        .redeem-button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
+.redeem-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
 
-        /* Compact styles for mobile view */
-        @media (max-width: 600px) {
-            th, td {
-                padding: 10px;
-                font-size: 14px;
-            }
+/* Compact styles for mobile view */
+@media (max-width: 600px) {
+    th, td {
+        padding: 10px;
+        font-size: 14px;
+    }
 
-            table {
-                margin: 10px 0;
-            }
+    table {
+        margin: 10px 0;
+    }
 
-            .redeem-button {
-                padding: 8px 12px;
-                font-size: 12px;
-            }
+    .redeem-button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
 
-            th {
-                font-size: 12px;
-            }
-        }
+    th {
+        font-size: 12px;
+    }
+
+    h1 {
+        font-size: 2em; /* Slightly smaller for mobile */
+    }
+
+    .table-wrapper {
+        padding: 15px; /* More compact for mobile */
+        width: 100%; /* Full width on smaller screens */
+    }
+}
+
     </style>
 </head>
 <body>
