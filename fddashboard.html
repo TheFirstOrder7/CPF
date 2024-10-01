@@ -19,31 +19,38 @@
             justify-content: center;
             overflow-x: auto; /* Allow horizontal scrolling on small screens */
         }
-        
         table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+            font-size: 1em;
         }
 
         th, td {
-            padding: 15px;
+            padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #eaeaea;
+            font-size: 0.9em;
         }
 
         th {
-            background-color: rgb(184, 242, 230);
-            color: rgb(104, 97, 97);
-            font-weight: bold;
+            color: #6e6e73;
+            font-weight: 600;
         }
 
         tr:hover {
-            background-color: #f5f5f5;
+            background-color: #e5e5e7;
         }
+
+        @keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
         .redeem-button {
             background-color: #34c759;
@@ -112,9 +119,8 @@
 
 <script>
     const fixedDeposits = [
-        { code: 'FD001', name: 'Test', amount: 10000, date: '2019-11-01', maturityYears: 5 },
-        { code: 'FD002', name: 'Example', amount: 20000, date: '2020-01-15', maturityYears: 3 },
-        { code: 'FD003', name: 'Sample', amount: 15000, date: '2021-06-10', maturityYears: 4 },
+        { code: '01', name: 'Test', amount: 1000, date: '2024-01-01', maturityYears: 1 },
+        
     ];
 
     const interestRate = 0.16; // 16% interest
