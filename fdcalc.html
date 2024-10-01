@@ -126,7 +126,7 @@ background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
 <body>
 
 <div class="container">
-    <h1>FIXED DEPOSIT</h1>
+    <h1><i><b>FIXED DEPOSIT</i></b></h1>
 
     <form id="fdForm">
         <label for="name">Name</label>
@@ -145,11 +145,35 @@ background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
         </select>
 
         <label for="ciiPurchase">CII of Purchase Year</label>
-        <input type="number" id="ciiPurchase" placeholder="Enter CII of Purchase Year" required>
-
+        <select id="ciiPurchase" required>
+            <option value="">Select Purchase Year</option>
+            <option value="363">FY 2024-25</option>
+            <option value="381">FY 2025-26</option>
+            <option value="400">FY 2026-27</option>
+            <option value="420">FY 2027-28</option>
+            <option value="441">FY 2028-29</option>
+            <option value="463">FY 2029-30</option>
+            <option value="486">FY 2030-31</option>
+            <option value="510">FY 2031-32</option>
+            <option value="535">FY 2032-33</option>
+            <option value="562">FY 2033-34</option>
+        </select>
+        
         <label for="ciiSale">CII of Sale Year</label>
-        <input type="number" id="ciiSale" placeholder="Enter CII of Sale Year" required>
-
+        <select id="ciiSale" required>
+            <option value="">Select Sale Year</option>
+            <option value="363">FY 2024-25</option>
+            <option value="381">FY 2025-26</option>
+            <option value="400">FY 2026-27</option>
+            <option value="420">FY 2027-28</option>
+            <option value="441">FY 2028-29</option>
+            <option value="463">FY 2029-30</option>
+            <option value="486">FY 2030-31</option>
+            <option value="510">FY 2031-32</option>
+            <option value="535">FY 2032-33</option>
+            <option value="562">FY 2033-34</option>
+        </select>
+        
         <div class="switch-container">
             <span class="switch-label">Avail Tax Benefit?</span>
             <label class="switch">
@@ -169,8 +193,9 @@ background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
         const name = document.getElementById('name').value;
         const amount = parseFloat(document.getElementById('amount').value);
         const tenure = parseInt(document.getElementById('tenure').value);
-        const ciiPurchase = parseFloat(document.getElementById('ciiPurchase').value);
-        const ciiSale = parseFloat(document.getElementById('ciiSale').value);
+        const ciiPurchase = parseInt(document.getElementById('ciiPurchase').value);
+const ciiSale = parseInt(document.getElementById('ciiSale').value);
+
         const taxBenefit = document.getElementById('taxBenefit').checked;
 
         if (amount < 1000) {
