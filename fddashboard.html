@@ -12,17 +12,57 @@
             color: #333;
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .table-container {
-            display: flex;
-            justify-content: center;
-            overflow-x: auto; /* Allow horizontal scrolling on small screens */
+        h1 {
+            font-size: 2.5em;
+            color: #d38c5c;
+            text-align: center;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeIn 1.5s forwards;
         }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .table-wrapper {
+            background: rgba(255, 255, 255, 0.5); /* Transparent white background */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%; /* Reduce width for better appearance */
+            max-width: 1200px; /* Limit max width for larger screens */
+            margin-top: 20px;
+            animation: fadeInUp 1.2s ease-in-out; /* Smooth entry animation */
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
+            margin: 20px 0;
             font-size: 1em;
         }
 
@@ -40,17 +80,6 @@
         tr:hover {
             background-color: #e5e5e7;
         }
-
-        @keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
         .redeem-button {
             background-color: #34c759;
@@ -75,109 +104,117 @@
         /* Compact styles for mobile view */
         @media (max-width: 600px) {
             th, td {
-                padding: 10px; /* Reduced padding */
-                font-size: 14px; /* Smaller font size */
+                padding: 10px;
+                font-size: 14px;
             }
 
-
             table {
-                width: 100%; /* Full width on mobile */
-                margin: 10px 0; /* Reduced table margin */
+                margin: 10px 0;
             }
 
             .redeem-button {
-                padding: 8px 12px; /* Smaller button padding */
-                font-size: 12px; /* Smaller button font size */
+                padding: 8px 12px;
+                font-size: 12px;
             }
 
             th {
-                font-size: 12px; /* Smaller header font size */
+                font-size: 12px;
             }
         }
     </style>
 </head>
 <body>
 
-<div class="table-container">
-    <table>
-        <thead>
-            <tr>
-                <th>Unique Code</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Date</th>
-                <th>Maturity</th>
-                <th>Accrued Interest</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="fd-table-body">
-            <!-- Dynamic rows will be added here -->
-        </tbody>
-    </table>
-</div>
+    <h1><I><B>FIXED DEPOSIT DASHBOARD</B></I></h1> <!-- Cool heading with fade-in effect -->
 
-<script>
-    const fixedDeposits = [
-        { code: '01', name: 'Test', amount: 1000, date: '2024-01-01', maturityYears: 1 },
+    <div class="table-wrapper">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Unique Code</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Maturity</th>
+                        <th>Accrued Interest</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="fd-table-body">
+                    <!-- Dynamic rows will be added here -->
+                </tbody>
+                
+            </table>
+        </div>
         
-    ];
+    </div>
 
-    const interestRate = 0.16; // 16% interest
-    const today = new Date();
+    <script>
+        const fixedDeposits = [
+            { code: '01', name: 'Test', amount: 1000, date: '2023-01-01', maturityYears: 1 },
+            { code: '02', name: 'Test', amount: 1500, date: '2024-01-01', maturityYears: 1 },
+            { code: '03', name: 'Test', amount: 2000, date: '2024-01-01', maturityYears: 1 },
+            { code: '04', name: 'Test', amount: 2500, date: '2024-03-01', maturityYears: 1 },
+            { code: '05', name: 'Test', amount: 3000, date: '2024-05-01', maturityYears: 1 },
+          
+        ];
 
-    function calculateAccruedInterest(amount, startDate, maturityYears) {
-        const daysPassed = Math.floor((today - new Date(startDate)) / (1000 * 60 * 60 * 24));
-        const totalYears = daysPassed / 365;
-        
-        let accruedInterest = 0;
-        if (totalYears >= maturityYears) {
-            for (let year = 1; year <= maturityYears; year++) {
-                accruedInterest += amount * Math.pow((1 + interestRate), year) - amount * Math.pow((1 + interestRate), year - 1);
+        const interestRate = 0.16; // 16% interest
+        const today = new Date();
+
+        function calculateAccruedInterest(amount, startDate, maturityYears) {
+            const daysPassed = Math.floor((today - new Date(startDate)) / (1000 * 60 * 60 * 24));
+            const totalYears = daysPassed / 365;
+            
+            let accruedInterest = 0;
+            if (totalYears >= maturityYears) {
+                for (let year = 1; year <= maturityYears; year++) {
+                    accruedInterest += amount * Math.pow((1 + interestRate), year) - amount * Math.pow((1 + interestRate), year - 1);
+                }
+            } else {
+                accruedInterest = amount * (Math.pow((1 + interestRate), totalYears) - 1);
             }
-        } else {
-            accruedInterest = amount * (Math.pow((1 + interestRate), totalYears) - 1);
+
+            return accruedInterest;
         }
 
-        return accruedInterest;
-    }
+        function updateTable() {
+            const tbody = document.getElementById('fd-table-body');
+            tbody.innerHTML = ''; // Clear existing rows
+            fixedDeposits.forEach(fd => {
+                const accruedInterest = calculateAccruedInterest(fd.amount, fd.date, fd.maturityYears).toFixed(2);
+                const redeemButtonDisabled = (Math.floor((today - new Date(fd.date)) / (1000 * 60 * 60 * 24)) < fd.maturityYears * 365) ? false : true;
 
-    function updateTable() {
-        const tbody = document.getElementById('fd-table-body');
-        tbody.innerHTML = ''; // Clear existing rows
-        fixedDeposits.forEach(fd => {
-            const accruedInterest = calculateAccruedInterest(fd.amount, fd.date, fd.maturityYears).toFixed(2);
-            const redeemButtonDisabled = (Math.floor((today - new Date(fd.date)) / (1000 * 60 * 60 * 24)) < fd.maturityYears * 365) ? false : true;
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${fd.code}</td>
+                    <td>${fd.name}</td>
+                    <td>₹${fd.amount}</td>
+                    <td>${fd.date}</td>
+                    <td>${fd.maturityYears}</td>
+                    <td>₹${accruedInterest}</td>
+                    <td>
+                        <button class="redeem-button" onclick="redeem('${fd.code}', ${accruedInterest})" ${redeemButtonDisabled ? 'disabled' : ''}>
+                            Redeem
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
 
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td>${fd.code}</td>
-                <td>${fd.name}</td>
-                <td>₹${fd.amount}</td>
-                <td>${fd.date}</td>
-                <td>${fd.maturityYears}</td>
-                <td>₹${accruedInterest}</td>
-                <td>
-                    <button class="redeem-button" onclick="redeem('${fd.code}', ${accruedInterest})" ${redeemButtonDisabled ? 'disabled' : ''}>
-                        Redeem
-                    </button>
-                </td>
-            `;
-            tbody.appendChild(row);
-        });
-    }
+        function redeem(uniqueCode, accruedInterest) {
+            const penalty = (0.10 * accruedInterest).toFixed(2);
+            const message = `Premature withdrawal for Unique Code: ${uniqueCode}. Accrued Interest: ₹${accruedInterest}. Penalty: ₹${penalty}.`;
+            const phoneNumber = '7456943225';
+            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        }
 
-    function redeem(uniqueCode, accruedInterest) {
-        const penalty = (0.10 * accruedInterest).toFixed(2);
-        const message = `Premature withdrawal for Unique Code: ${uniqueCode}. Accrued Interest: ₹${accruedInterest}. Penalty: ₹${penalty}.`;
-        const phoneNumber = '7456943225';
-        const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-        window.open(whatsappURL, '_blank');
-    }
-
-    // Initial table population
-    updateTable();
-</script>
+        // Initial table population
+        updateTable();
+    </script>
 
 </body>
 </html>
