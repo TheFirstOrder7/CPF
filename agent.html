@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Commission Calculator</title>
+    <style>
+        body {
+            font-family: 'San Francisco', sans-serif;
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            width: 420px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.7em;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            background: #fafafa;
+        }
+        .btn {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        .btn:hover {
+            background-color: #005eb8;
+        }
+        .result {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .result-item {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+        .return-percentage {
+            color: #007aff;
+            font-weight: bold;
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><b>AGENT COMMISSION CALCULATOR</b></h1>
+
+    <form id="fdForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="amount">Amount (Min ₹1000)</label>
+        <input type="number" id="amount" min="1000" placeholder="Enter amount" required>
+
+        <label for="tenure">Tenure (1 to 5 years)</label>
+        <select id="tenure" required>
+            <option value="1">1 Year</option>
+            <option value="2">2 Years</option>
+            <option value="3">3 Years</option>
+            <option value="4">4 Years</option>
+            <option value="5">5 Years</option>
+        
+        </select>
+
+        <label for="ciiPurchase">CII of Purchase Year</label>
+        <select id="ciiPurchase" required>
+            <option value="">Select Purchase Year</option>
+            <option value="363">FY 2024-25</option>
+            <option value="381">FY 2025-26</option>
+            <option value="400">FY 2026-27</option>
+            <option value="420">FY 2027-28</option>
+            <option value="441">FY 2028-29</option>
+            <option value="463">FY 2029-30</option>
+            <option value="486">FY 2030-31</option>
+            <option value="510">FY 2031-32</option>
+            <option value="535">FY 2032-33</option>
+            <option value="562">FY 2033-34</option>
+        </select>
+        
+        <label for="ciiSale">CII of Sale Year</label>
+        <select id="ciiSale" required>
+            <option value="">Select Sale Year</option>
+            <option value="363">FY 2024-25</option>
+            <option value="381">FY 2025-26</option>
+            <option value="400">FY 2026-27</option>
+            <option value="420">FY 2027-28</option>
+            <option value="441">FY 2028-29</option>
+            <option value="463">FY 2029-30</option>
+            <option value="486">FY 2030-31</option>
+            <option value="510">FY 2031-32</option>
+            <option value="535">FY 2032-33</option>
+            <option value="562">FY 2033-34</option>
+        </select>
+
+        <button type="button" class="btn" onclick="calculateFD()">Calculate</button>
+
+        <div id="result" class="result" style="display:none;"></div>
+    </form>
+</div>
+
+<script>
+    function calculateFD() {
+        const amount = parseFloat(document.getElementById('amount').value);
+        const tenure = parseInt(document.getElementById('tenure').value);
+        const ciiPurchase = parseInt(document.getElementById('ciiPurchase').value);
+        const ciiSale = parseInt(document.getElementById('ciiSale').value);
+
+        if (amount < 1000) {
+            alert("Amount must be at least 1000 INR.");
+            return;
+        }
+
+        // Calculate FD maturity for 18% and 16%
+        const maturity18 = amount * Math.pow(1 + 0.18, tenure);
+        const maturity16 = amount * Math.pow(1 + 0.16, tenure);
+
+        // Tax Calculation (33%)
+        const profit18 = maturity18 - amount;
+        const tax18 = profit18 * 0.33;
+        const final18 = maturity18 - tax18;
+
+        const profit16 = maturity16 - amount;
+        const tax16 = profit16 * 0.33;
+        const final16 = maturity16 - tax16;
+
+        // Difference due to rate change
+        const difference = final18 - final16;
+
+        // Calculate agent's commission (fixed at 50%)
+        const commission = difference * 0.50;
+
+        // Display results (only agent's cut)
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('result').innerHTML = `
+            <div class="result-item"><strong>Agent Commission:</strong> ₹${commission.toFixed(2)}</div>
+        `;
+    }
+</script>
+
+</body>
+</html>
