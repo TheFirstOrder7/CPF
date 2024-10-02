@@ -137,41 +137,51 @@
 
 <script>
     function calculateFD() {
-        const amount = parseFloat(document.getElementById('amount').value);
-        const tenure = parseInt(document.getElementById('tenure').value);
-        const ciiPurchase = parseInt(document.getElementById('ciiPurchase').value);
-        const ciiSale = parseInt(document.getElementById('ciiSale').value);
+    const amount = parseFloat(document.getElementById('amount').value);
+    const tenure = parseInt(document.getElementById('tenure').value);
+    const ciiPurchase = parseInt(document.getElementById('ciiPurchase').value);
+    const ciiSale = parseInt(document.getElementById('ciiSale').value);
 
-        if (amount < 1000) {
-            alert("Amount must be at least 1000 INR.");
-            return;
-        }
-
-        // Calculate FD maturity for 18% and 16%
-        const maturity18 = amount * Math.pow(1 + 0.18, tenure);
-        const maturity16 = amount * Math.pow(1 + 0.16, tenure);
-
-        // Tax Calculation (33%)
-        const profit18 = maturity18 - amount;
-        const tax18 = profit18 * 0.33;
-        const final18 = maturity18 - tax18;
-
-        const profit16 = maturity16 - amount;
-        const tax16 = profit16 * 0.33;
-        const final16 = maturity16 - tax16;
-
-        // Difference due to rate change
-        const difference = final18 - final16;
-
-        // Calculate agent's commission (fixed at 50%)
-        const commission = difference * 0.50;
-
-        // Display results (only agent's cut)
-        document.getElementById('result').style.display = 'block';
-        document.getElementById('result').innerHTML = `
-            <div class="result-item"><strong>Agent Commission:</strong> ₹${commission.toFixed(2)}</div>
-        `;
+    if (amount < 1000) {
+        alert("Amount must be at least 1000 INR.");
+        return;
     }
+
+    // Calculate indexed amount based on CII
+    const indexedAmount = (ciiSale / ciiPurchase) * amount;
+
+    // Calculate FD maturity for 18% and 16%
+    const maturity18 = amount * Math.pow(1 + 0.18, tenure);
+    const maturity16 = amount * Math.pow(1 + 0.16, tenure);
+
+    // Calculate profit after indexing
+    const amountAfterIndexing18 = maturity18 - indexedAmount;
+    const amountAfterIndexing16 = maturity16 - indexedAmount;
+
+    // Tax Calculation (33%) on amount after indexing
+    let tax18 = 0, tax16 = 0;
+    if (amountAfterIndexing18 > 250) {
+        tax18 = (amountAfterIndexing18 - 250) * 0.33;
+    }
+    if (amountAfterIndexing16 > 250) {
+        tax16 = (amountAfterIndexing16 - 250) * 0.33;
+    }
+
+    const final18 = maturity18 - tax18;
+    const final16 = maturity16 - tax16;
+
+    // Difference due to rate change
+    const difference = final18 - final16;
+
+    // Calculate agent's commission (fixed at 50%)
+    const commission = difference * 0.50;
+
+    // Display only the agent's commission
+    document.getElementById('result').style.display = 'block';
+    document.getElementById('result').innerHTML = `
+        <div class="result-item"><strong>Agent Commission:</strong> ₹${commission.toFixed(2)}</div>
+    `;
+}
 </script>
 
 </body>
