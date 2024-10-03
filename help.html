@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & Grievance Redressal - The First Order</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #85FFBD;
+background-image: linear-gradient(45deg, #85FFBD 0%, #FFFB7D 100%);
+
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f7;
+            overflow: hidden;
+        }
+
+        .container {
+            background-color: rgb(255, 255, 255,0.4);
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: translateY(100px);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #fafafa;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #007AFF;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007AFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005BB5;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .checkmark {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #28a745;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            opacity: 0;
+            transform: scale(0);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .checkmark.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .checkmark svg {
+            width: 60px;
+            height: 60px;
+            stroke: white;
+            stroke-width: 5;
+            fill: none;
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw 0.6s ease forwards;
+        }
+
+        @keyframes draw {
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .checkmark-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Form container -->
+    <div class="container" id="formContainer">
+        <h1>How may I help you?</h1>
+        <form id="grievanceForm">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Enter your name" required>
+
+            <label for="query">Your Query</label>
+            <textarea id="query" rows="6" placeholder="Describe your issue or query" required></textarea>
+
+            <button type="submit">Send via WhatsApp</button>
+        </form>
+    </div>
+
+    <!-- Success message and checkmark -->
+    <div class="success-message" id="successMessage">
+        <div class="checkmark-container">
+            <div class="checkmark" id="checkmark">
+                <svg viewBox="0 0 52 52">
+                    <path d="M14 27 l10 10 l16 -16" />
+                </svg>
+            </div>
+            <p>Our executive will reach you shortly.</p>
+        </div>
+    </div>
+
+    <script>
+        // Form submission with prewritten WhatsApp message and success animation
+        document.getElementById('grievanceForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const formContainer = document.getElementById('formContainer');
+            const successMessage = document.getElementById('successMessage');
+            const checkmark = document.getElementById('checkmark');
+
+            // Fade out the form
+            formContainer.classList.add('hidden');
+
+            // Show the checkmark and success message after a short delay
+            setTimeout(() => {
+                checkmark.classList.add('show');
+                successMessage.classList.add('show');
+            }, 1000); // Adjust timing as needed
+
+            // Prewritten WhatsApp message
+            const name = document.getElementById('name').value;
+            const query = document.getElementById('query').value;
+            const message = `Hello, my name is ${name}. I have a query: ${query}.`;
+
+            // WhatsApp URL with encoded message
+            const whatsappURL = `https://api.whatsapp.com/send?phone=7456943225&text=${encodeURIComponent(message)}`;
+
+            // Open WhatsApp with the message
+            window.open(whatsappURL, '_blank');
+        });
+    </script>
+
+</body>
+</html>
