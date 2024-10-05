@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Entry Converter</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f7;
+            color: #333;
+        }
+        h1 {
+            font-weight: 600;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+        input:focus {
+            border-color: #007aff;
+            outline: none;
+        }
+        button {
+            padding: 12px 15px;
+            background-color: #007aff;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        pre {
+            background-color: #e9ecef;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            overflow: auto;
+            font-family: monospace;
+        }
+        .copy-btn {
+            background-color: #28a745;
+        }
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Loan Entry Converter</h1>
+<form id="loanForm">
+    <label for="loanCode">Loan Code:</label>
+    <input type="text" id="loanCode" required>
+
+    <label for="loanType">Loan Type:</label>
+    <input type="text" id="loanType" required>
+
+    <label for="name">Name:</label>
+    <input type="text" id="name" required>
+
+    <label for="dueDate">Due Date (MM/DD/YYYY):</label>
+    <input type="text" id="dueDate" required>
+
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" required>
+
+    <label for="expectedInterest">Expected Interest:</label>
+    <input type="number" id="expectedInterest" required>
+
+    <button type="button" onclick="generateTableRow()">Generate Table Row</button>
+    <button type="button" class="copy-btn" onclick="copyToClipboard()">Copy HTML</button>
+</form>
+
+<h2>Generated HTML Code:</h2>
+<pre id="output"></pre>
+
+<script>
+    function generateTableRow() {
+        const loanCode = document.getElementById('loanCode').value;
+        const loanType = document.getElementById('loanType').value;
+        const name = document.getElementById('name').value;
+        const dueDate = document.getElementById('dueDate').value;
+        const amount = document.getElementById('amount').value;
+        const expectedInterest = document.getElementById('expectedInterest').value;
+
+        const tableRow = `<tr>
+    <td>${loanCode}</td>
+    <td>${loanType}</td>
+    <td>${name}</td>
+    <td>${dueDate}</td>
+    <td>${amount}</td>
+    <td>${expectedInterest}</td>
+</tr>`;
+
+        document.getElementById('output').textContent = tableRow;
+    }
+
+    function copyToClipboard() {
+        const output = document.getElementById('output').textContent;
+        navigator.clipboard.writeText(output).then(() => {
+            alert('HTML code copied to clipboard!');
+        }, (err) => {
+            console.error('Could not copy text: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
