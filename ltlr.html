@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculation Dashboard</title>
+    <style>
+         @font-face {
+            font-family: 'San Francisco';
+            font-weight: 400;
+            src: url('https://cdn.jsdelivr.net/gh/sunn-us/SF-Font@master/SF-Pro-Text-Regular.otf');
+        }
+
+        @font-face {
+            font-family: 'San Francisco';
+            font-weight: 600;
+            src: url('https://cdn.jsdelivr.net/gh/sunn-us/SF-Font@master/SF-Pro-Text-Semibold.otf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to right, lightgreen, white); /* Default background */
+            transition: background 0.5s ease;
+        }
+
+        #container {
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 2em;
+            color: #333;
+        }
+
+        .data {
+            font-size: 1.6em;
+            margin: 15px 0;
+            color: #555;
+        }
+
+         
+
+        /* Popup styles */
+        .popup {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            position: fixed;
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .popup h2 {
+            margin: 0;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+
+        .popup p {
+            margin-top: 10px;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+
+        .popup .close-btn {
+            margin-top: 20px;
+            background-color: #ff5e57;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .popup .close-btn:hover {
+            background-color: #ff1e1d;
+        }
+
+        /* Responsive layout for mobile */
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .data {
+                font-size: 1.2em;
+            }
+
+            #container {
+                padding: 20px;
+            }
+
+            .popup h2 {
+                font-size: 1.5em;
+            }
+
+            .popup p {
+                font-size: 1em;
+            }
+
+            .popup .close-btn {
+                font-size: 0.9em;
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="popup" class="popup">
+        <h2>Executive Order from the President of the First Order</h2>
+        <p>Disbursement of long-term loans is banned except for exceptional circumstances as decided by the President.</p>
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+    
+    <div id="container">
+        <h1>Loan Status Dashboard</h1>
+        <b><div class="data" id="ltlrRatio"></div></b>
+        
+        <div class="data" id="totalLoans"></div>
+        <div class="data" id="shortTermLoans"></div>
+        <div class="data" id="longTermLoans"></div>
+        <div class="data" id="totalLoanValue"></div>
+        <div class="data" id="expectedInterest"></div>
+       
+    </div>
+
+    <table id="loanTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>Loan Code</th>
+                <th>Loan Type</th>
+                <th>Name</th>
+                <th>Due Date</th>
+                <th>Amount</th>
+                <th>Expected Interest</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Paste your table rows here -->
+            <tr>
+                <td>74</td>
+                <td>OY-D8 1776</td>
+                <td>Shubham Goswami</td>
+                <td>04/12/2024</td>
+                <td>1776</td>
+                <td>285</td>
+            </tr>
+            <tr>
+                <td>228</td>
+                <td>QD2 500</td>
+                <td>Nitin Goswami</td>
+                <td>01/11/2024</td>
+                <td>500</td>
+                <td>65</td>
+            </tr>
+            
+            <tr>
+                <td>186</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>187</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>188</td>
+                <td>HY-D4 500</td>
+                <td>Nitin Goswami</td>
+                <td>07/11/2024</td>
+                <td>500</td>
+                <td>50</td>
+            </tr>
+            <tr>
+                <td>242</td>
+                <td>OML 1000</td>
+                <td>Deepak Goswami</td>
+                <td>16/10/2024</td>
+                <td>1000</td>
+                <td>50</td>
+            </tr>
+             <tr>
+                <td>243</td>
+                <td>OML 450</td>
+                <td>Deepak Goswami</td>
+                <td>30/10/2024</td>
+                <td>450</td>
+                <td>15</td>
+            </tr>
+          <tr>
+                <td>257</td>
+                <td>OML 786</td>
+                <td>Shubham Goswami</td>
+                <td>08/11/2024</td>
+                <td>786</td>
+                <td>51</td>
+            </tr>
+          
+            <tr>
+                <td>248</td>
+                <td>OY-D12 333</td>
+                <td>Rahul Goswami</td>
+                <td>24/11/2025</td>
+                <td>333</td>
+                <td>82</td>
+            </tr>
+             <tr>
+                <td>253</td>
+                <td>OY-D12 50</td>
+                <td>Krish Goswami</td>
+                <td>27/10/2025</td>
+                <td>50</td>
+                <td>12</td>
+            </tr>
+            <tr>
+                <td>252</td>
+                <td>OY-D12 250</td>
+                <td>Krish Goswami</td>
+                <td>02/10/2025</td>
+                <td>250</td>
+                <td>54</td>
+            </tr>
+             <tr>
+                <td>251</td>
+                <td>QD2 1000</td>
+                <td>Bhagwati Goswami</td>
+                <td>27/12/2024</td>
+                <td>1000</td>
+                <td>69</td>
+            </tr>
+             <tr>
+                <td>247</td>
+                <td>OY-D12 356</td>
+                <td>Rahul Goswami</td>
+                <td>11/11/2025</td>
+                <td>356</td>
+                <td>83</td>
+            </tr>
+            <tr>
+              <td>238</td>
+                <td>TM 100</td>
+                <td>Karan Pant</td>
+                <td>11/10/2024</td>
+                <td>100</td>
+                <td>0</td>
+            </tr>
+                <tr>
+              <td>239</td>
+                <td>OY-D12 25</td>
+                <td>Rahul Goswami</td>
+                <td>14/09/2025</td>
+                <td>25</td>
+                <td>5</td>
+            </tr>
+             <tr>
+              <td>240</td>
+                <td>HY-D4 350</td>
+                <td>Krish Goswami</td>
+                <td>12/01/2025</td>
+                <td>350</td>
+                <td>21</td>
+            </tr>
+             <tr>
+              <td>241</td>
+                <td>OY-D12 400</td>
+                <td>Krish Goswami</td>
+                <td>15/09/2025</td>
+                <td>400</td>
+                <td>72</td>
+            </tr>
+              <tr>
+              <td>244</td>
+                <td>OY-D12 379</td>
+                <td>Rahul Goswami</td>
+                <td>17/09/2025</td>
+                <td>379</td>
+                <td>68</td>
+            </tr>
+             <tr>
+              <td>249</td>
+                <td>OY-D12 99</td>
+                <td>Rahul Goswami</td>
+                <td>22/09/2025</td>
+                <td>98</td>
+                <td>18</td>
+            </tr>
+               <tr>
+              <td>250</td>
+                <td>OY-D12 45</td>
+                <td>Rahul Goswami</td>
+                <td>23/09/2025</td>
+                <td>45</td>
+                <td>8</td>
+            </tr>
+              <tr>
+              <td>255</td>
+                <td>OML 150</td>
+                <td>Deepak Goswami</td>
+                <td>28/10/2024</td>
+                <td>150</td>
+                <td>2</td>
+            </tr>
+            <tr>
+              <td>258</td>
+                <td>QYD 2 300</td>
+                <td>Krish Goswami</td>
+                <td>05/12/2024</td>
+                <td>300</td>
+                <td>9</td>
+            </tr>
+            <!-- Add remaining rows -->
+        </tbody>
+    </table>
+
+    <script>
+        function calculateDaysLeft(dueDate) {
+            const [day, month, year] = dueDate.split('/').map(Number);
+            const due = new Date(`${month}/${day}/${year}`);
+            const today = new Date();
+
+            const timeDiff = due - today;
+            const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            return daysLeft;
+        }
+
+        function loadLoanData() {
+            const table = document.getElementById('loanTable').getElementsByTagName('tbody')[0];
+            const rows = table.getElementsByTagName('tr');
+            let totalLoans = 0;
+            let shortTermLoans = 0;
+            let longTermLoans = 0;
+            let totalLoanValue = 0;
+            let totalExpectedInterest = 0;
+            let longTermLoanValue = 0;
+
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                const dueDate = cells[3].innerText;
+                const amount = parseFloat(cells[4].innerText);
+                const expectedInterest = parseFloat(cells[5].innerText);
+
+                const daysLeft = calculateDaysLeft(dueDate);
+
+                if (daysLeft >= 100) {
+                    longTermLoans++;
+                    longTermLoanValue += amount;
+                } else {
+                    shortTermLoans++;
+                }
+
+                totalLoans++;
+                totalLoanValue += amount;
+                totalExpectedInterest += expectedInterest;
+            }
+
+            const longTermLoanLiquidityRatio = (longTermLoanValue / totalLoanValue) * 100;
+
+            document.getElementById('totalLoans').innerText = `Total Loans: ${totalLoans}`;
+            document.getElementById('shortTermLoans').innerText = `Short-term Loans: ${shortTermLoans}`;
+            document.getElementById('longTermLoans').innerText = `Long-term Loans: ${longTermLoans}`;
+            document.getElementById('totalLoanValue').innerText = `Total Loan Value: ${totalLoanValue.toFixed(2)}`;
+            document.getElementById('expectedInterest').innerText = `Expected Interest: ${totalExpectedInterest.toFixed(2)}`;
+            document.getElementById('ltlrRatio').innerText = `Long-term Loan Liquidity Ratio (LTLR): ${longTermLoanLiquidityRatio.toFixed(2)}%`;
+
+            if (longTermLoanLiquidityRatio <= 15) {
+                document.body.style.background = 'linear-gradient(to right, lightgreen, white)';
+            } else if (longTermLoanLiquidityRatio <= 20) {
+                document.body.style.background = 'linear-gradient(to right, yellow, white)';
+            } else {
+                document.body.style.background = 'linear-gradient(to right, red, white)';
+                document.getElementById('popup').style.display = 'block';
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+
+        window.onload = loadLoanData;
+    </script>
+</body>
+</html>
