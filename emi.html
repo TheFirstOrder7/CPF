@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fun EMI Calculator with Loan Revision</title>
+    <title>Fun EMI Calculator 🎉</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -20,7 +20,7 @@
             padding: 40px;
             box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
             text-align: center;
-            width: 500px;
+            width: 400px;
             animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
@@ -41,7 +41,7 @@
         .input-group {
             margin-bottom: 20px;
         }
-        input[type="number"], input[type="range"], select {
+        input[type="number"], input[type="range"] {
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
@@ -86,7 +86,7 @@
             font-size: 14px;
             color: #555;
         }
-        #tenureDisplay, #revisionMonthDisplay {
+        #tenureDisplay {
             font-size: 16px;
             color: #007aff;
         }
@@ -98,9 +98,6 @@
             font-size: 18px;
             margin-bottom: 10px;
             color: #007aff;
-        }
-        .info-section div {
-            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -118,118 +115,38 @@
             <input type="range" id="loanTenure" min="1" max="72" value="12" oninput="updateTenureDisplay()" />
         </div>
 
-        <div class="input-group">
-            <label for="paymentFrequency">Payment Frequency:</label>
-            <select id="paymentFrequency">
-                <option value="monthly">Monthly</option>
-                <option value="bimonthly">Bi-monthly</option>
-                <option value="quarterly">Quarterly</option>
-                <option value="semiannual">Semi-annual</option>
-            </select>
-        </div>
-
-        <div class="input-group">
-            <label for="revisionMonths">Revision Interval (Months): <span id="revisionMonthDisplay">12 months</span></label>
-            <input type="range" id="revisionMonths" min="1" max="72" value="12" oninput="updateRevisionDisplay()" />
-        </div>
-
         <button onclick="calculateEMI()">Calculate EMI</button>
         
         <div class="result" id="emiResult"></div>
-        <br>
-
-        <button onclick="reviseLoan()">Revise Loan 🎯</button>
-        <div class="result" id="revisionResult"></div>
-
-        <div class="info-section">
-            <h3>Additional Information:</h3>
-            <div><strong>Loan Revision Count:</strong> <span id="revisionCount">0</span></div>
-        </div>
     </div>
 
     <script>
         const annualInterestRate = 18; // 18% per annum compounded annually
-        let accruedInterest = 0;
-        let loanAmount = 0;
-        let totalPayable = 0;
-        let revisionCount = 0;
 
         function updateTenureDisplay() {
             const loanTenure = document.getElementById('loanTenure').value;
             document.getElementById('tenureDisplay').innerText = loanTenure + (loanTenure == 1 ? " month" : " months");
         }
 
-        function updateRevisionDisplay() {
-            const revisionMonths = document.getElementById('revisionMonths').value;
-            document.getElementById('revisionMonthDisplay').innerText = revisionMonths + (revisionMonths == 1 ? " month" : " months");
-        }
-
         function calculateEMI() {
-            loanAmount = document.getElementById('loanAmount').value;
+            const loanAmount = document.getElementById('loanAmount').value;
             const loanTenure = document.getElementById('loanTenure').value / 12; // Convert months to years
-            const paymentFrequency = document.getElementById('paymentFrequency').value;
             const r = annualInterestRate / 100;
 
             // Calculate accrued interest
-            accruedInterest = loanAmount * Math.pow(1 + r, loanTenure) - loanAmount;
-            totalPayable = parseFloat(loanAmount) + accruedInterest;
+            const accruedInterest = loanAmount * Math.pow(1 + r, loanTenure) - loanAmount;
+            const totalPayable = parseFloat(loanAmount) + accruedInterest;
 
-            // Adjust based on payment frequency
-            let emi = calculateEMIForFrequency(paymentFrequency, totalPayable, loanTenure);
+            // Monthly EMI calculation (total amount payable / total months)
+            const monthlyEMI = Math.round(totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
 
             // Display EMI results
             document.getElementById('emiResult').innerHTML = `
                 <strong>Total Payable Amount:</strong> ₹${totalPayable.toFixed(2)} <br>
                 <strong>Accrued Interest:</strong> ₹${accruedInterest.toFixed(2)} <br>
-                <strong>${capitalizeFirstLetter(paymentFrequency)} EMI:</strong> ₹${emi.toFixed(2)} <br>
+                <strong>Monthly EMI:</strong> ₹${monthlyEMI} <br>
                 <strong>Loan Tenure:</strong> ${document.getElementById('loanTenure').value} months
             `;
-        }
-
-        function calculateEMIForFrequency(frequency, totalAmount, tenure) {
-            switch (frequency) {
-                case "bimonthly":
-                    return totalAmount / (tenure * 6);  // 6 payments per year
-                case "quarterly":
-                    return totalAmount / (tenure * 4);  // 4 payments per year
-                case "semiannual":
-                    return totalAmount / (tenure * 2);  // 2 payments per year
-                default:
-                    return totalAmount / (tenure * 12); // 12 payments per year (monthly)
-            }
-        }
-
-        function reviseLoan() {
-            const revisionMonths = document.getElementById('revisionMonths').value / 12; // Convert months to years
-            const r = annualInterestRate / 100;
-
-            // Apply additional interest for the revision period
-            let revisionInterest = accruedInterest * Math.pow(1 + r, revisionMonths);
-            
-            // Add 10% revision fee on accrued interest
-            const revisionFee = 0.10 * revisionInterest;
-            accruedInterest += revisionFee + revisionInterest;
-            totalPayable += revisionFee + revisionInterest;
-
-            // Update revision count
-            revisionCount++;
-            document.getElementById('revisionCount').innerText = revisionCount;
-
-            // Recalculate EMI based on revised total amount payable
-            const paymentFrequency = document.getElementById('paymentFrequency').value;
-            let revisedEMI = calculateEMIForFrequency(paymentFrequency, totalPayable, revisionMonths);
-
-            // Display revised EMI results
-            document.getElementById('revisionResult').innerHTML = `
-                <strong>Revised Total Payable Amount:</strong> ₹${totalPayable.toFixed(2)} <br>
-                <strong>Revised Accrued Interest:</strong> ₹${accruedInterest.toFixed(2)} <br>
-                <strong>Revised ${capitalizeFirstLetter(paymentFrequency)} EMI:</strong> ₹${revisedEMI.toFixed(2)} <br>
-                <strong>Revision Duration:</strong> ${document.getElementById('revisionMonths').value} months
-            `;
-        }
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
 </body>
