@@ -1,278 +1,153 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The First Order - Apple Style</title>
+    <title>Fun EMI Calculator 🎉</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background:rgb(2,128,144);
-            background: radial-gradient(circle, rgba(2,128,144,1) 0%, rgba(0,168,150,1) 50%, rgba(240,243,189,1) 100%);
-            color: #333;
-            height: 100%;
-            overflow-x: hidden;
-        }
-        a {
-    text-decoration: none; /* Removes underline */
-    display: block; /* Makes the anchor fill the entire button space */
-    width: 100%;
-    height: 100%;
-    color: inherit; /* Ensures text color stays consistent */
-}
-        /* Animated Banner */
-        .banner {
-    text-align: center;
-    padding: 80px 20px;
-    font-size: 60px;
-    font-weight: bold;
-    color: #F0F3BD;
-    background-color:rgb(2,128,144);
-    background: radial-gradient(circle, rgba(2,128,144,1) 0%, rgba(0,168,150,1) 50%, rgba(240,243,189,1) 100%);
-    animation: fadeIn 2s ease-in-out, pulse 4s infinite;
-    border-radius: 12px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.001); /* Subtle shadow for depth */
-    letter-spacing: 2px;
-    text-transform: uppercase;
-}
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px); /* Slide in effect */
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes pulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.03); /* Slight zoom to create a pulse effect */
-    }
-}
-
-
-        /* Button Container with Flex Wrap */
-        .button-container {
+            background: radial-gradient(circle at top left, #007aff, #00d4ff);
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin: 50px 40px;
-            gap: 30px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-
-        /* Button Styles */
-        .button {
-            background-size: cover;
-            background-position: center;
-            width: 300px;
-            height: 200px;
-            position: relative;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            color: white;
-            overflow: hidden;
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            width: 400px;
+            animation: fadeIn 1s ease-in-out;
         }
-
-        .button:hover {
-            transform: rotate(-2deg) scale(1.05); /* Bonus hover effect */
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .button::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 15px;
-            transition: background 0.3s ease;
-        }
-
-        .button:hover::after {
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .explainer-text {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            z-index: 10;
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        /* Custom div backgrounds */
-        .button:nth-child(1) { background-image: url('https://media.istockphoto.com/id/1193531888/photo/money-bag-with-coins-and-up-arrow-the-concept-of-a-successful-business-increase-profits-and.jpg?s=612x612&w=0&k=20&c=SAqKgvyh9W8EbfQxudYOOQrdxasdXTkalhpHO9vISGw='); }
-        .button:nth-child(2) { background-image: url('https://media.istockphoto.com/id/1218622436/photo/paycheck-protection-program-application-and-reminder-note.jpg?s=612x612&w=0&k=20&c=Zfr1a1536beofmde1Wc6pPm7VfrIqL5O-ZDUTysycW8='); }
-        .button:nth-child(3) { background-image: url('https://media.istockphoto.com/id/672020450/photo/business-man-trying-to-stop-a-time-man-hanging-on-clock-arrow.jpg?s=612x612&w=0&k=20&c=dqYeIVmsk_IqJD7tv6nnTkxROFGOiRBzuWhRM39J0V4='); }
-        .button:nth-child(4) { background-image: url('https://media.istockphoto.com/id/1226786654/photo/loan-bags-on-a-laptop.jpg?s=612x612&w=0&k=20&c=IzWe7AQB3FepO3711ZbRJ5lmOMdbBO6UIzHRrO8of8k='); }
-        .button:nth-child(5) { background-image: url('https://media.istockphoto.com/id/1249219777/photo/shopping-online-concept-parcel-or-paper-cartons-with-a-shopping-cart-logo-in-a-trolley-on-a.jpg?s=612x612&w=0&k=20&c=EWKEahyVLY8iAHyirCCDESHRGW37lqUJ7In0SssNSLE='); }
-        .button:nth-child(6) { background-image: url('https://media.istockphoto.com/id/1187801035/vector/businessman-using-tape-measure-to-measure-the-height-of-the-percentage-symbol.jpg?s=612x612&w=0&k=20&c=n27JUbV4REFcvpASizXZW7V4vQGp3szMCgCftKd-yWs='); }
-        .button:nth-child(7) { background-image: url('https://media.istockphoto.com/id/1685996049/photo/word-tax-2024-on-the-calculator-business-and-tax-concept-calculator-coins-book-tax-form-and.jpg?s=612x612&w=0&k=20&c=AXj4nbSss0tY6jVeHeRFSlZe264r9x7N6_keK1G3oyo='); }
-        .button:nth-child(8) { background-image: url('https://media.istockphoto.com/id/1402436756/photo/uploading-documents-from-folder-open-file-folder-with-flying-blank-documents-with-laptop.jpg?s=612x612&w=0&k=20&c=MU17qr1lv0ydmZF9QKczJyOLlIb0M4BQWg9LBHtiYZQ='); }
-        .button:nth-child(9) { background-image: url('https://media.istockphoto.com/id/1172767690/photo/person-calculating-money-or-monthly-expenses.jpg?s=612x612&w=0&k=20&c=m8l7kxqQXO8dO0E2RdE2ft_2oYF3TeHsovZrZka_SQw='); }
-         .button:nth-child(10) { background-image: url('https://media.istockphoto.com/id/949395808/photo/stand-up-woman-holding-white-folded-a4-paper-and-brown-envelope.jpg?s=612x612&w=0&k=20&c=mimwD3lrb54Ny_l40WmVlWDQeBInTgLR5bqc4BFDvzY='); }
-         .button:nth-child(11) { background-image: url('https://media.istockphoto.com/id/628075244/photo/indian-rupees-and-fixed-deposit-concept.jpg?s=612x612&w=0&k=20&c=6ozLFRFMDRcz3Wm9yx_X6PVsMHtPM-nj9QR4QhQdMIE='); }
-         .button:nth-child(12) { background-image: url('https://media.istockphoto.com/id/1309831153/vector/dashboard-great-design-for-any-site-purposes-business-infographic-template-vector-flat.jpg?s=612x612&w=0&k=20&c=JW6DAMFFkOP78-GlC9t_rMV8zYlERIvrVrKrdv0HdnY='); }
-         .button:nth-child(13) { background-image: url('https://media.istockphoto.com/id/1364269973/photo/call-center-agent-with-headset-working-on-support-hotline-in-modern-office.jpg?s=612x612&w=0&k=20&c=iCblISdZ3DGN1EAo_EUy8bSXuQT9bAJfHAN1H1NsmYQ='); }
-         .button:nth-child(14) { background-image: url('https://media.istockphoto.com/id/1278695301/vector/financial-audit-and-literacy-financier-banker-advising-bookkeeping-tiny-accountant.jpg?s=612x612&w=0&k=20&c=TGwUKcyJzslTwU2xcczrukxbPsUmeC-YcZtO91yeXFE='); }
-        .button:nth-child(15) { background-image: url('https://media.istockphoto.com/id/1290492381/photo/3d-code-programming-for-website-editors-view.jpg?s=612x612&w=0&k=20&c=883lEwg2DqnnTXbIJo6uZIjPE7ihmBfbx_UWWSTioJU='); }
-         .button:nth-child(16) { background-image: url('https://media.istockphoto.com/id/869329236/photo/credit-score-concept.jpg?s=612x612&w=0&k=20&c=3gTSmbX6OYotaE69YBEzf2qeW_6dFlubwGWsRdg2s6g='); }
-         .button:nth-child(17) { background-image: url('https://media.istockphoto.com/id/912960874/photo/getting-last-minute-tips-online-before-the-interview.jpg?s=612x612&w=0&k=20&c=N9UxxhNmJWnqg9sNRpJ9IZWtZCCr6lkGBDNW17KJW0o='); }
-         .button:nth-child(18) { background-image: url('https://media.istockphoto.com/id/1276975617/photo/man-standing-on-stack-of-coins-thinking-about-emi.jpg?s=612x612&w=0&k=20&c=0YUpWF54xTJkDn0exP2kK7-rOeCvdXrRggSh57zh-Oo='); }
-        /* Media Query for Small Screens */
-        /* Media Query for Small Screens */
-        /* Media Query for Small Screens */
-        @media (max-width: 768px) {
-            .button {
-                width: 100%;
-                height: 180px;
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
             }
         }
-
-        /* Paragraph Section */
-        .paragraph-section {
-            max-width: 90%;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: justify;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-            font-size: 18px;
-            line-height: 1.6;
+        h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-
-         /* Search Bar Styles */
-    .search-bar-container {
-        display: flex;
-        justify-content: center;
-        padding: 20px;
-        margin-top: 20px;
-    }
-
-    .search-bar {
-        width: 50%;
-        padding: 15px;
-        font-size: 18px;
-        border: 1px solid #ddd;
-        border-radius: 50px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        outline: none;
-        transition: box-shadow 0.3s ease;
-    }
-
-    .search-bar:focus {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    }
-
-    .hidden {
-        display: none; /* CSS to hide elements */
-    }
-    
-    .items-container {
-        display: flex;
-        flex-direction: column; /* Ensure items stack vertically */
-    }
-
+        .input-group {
+            margin-bottom: 20px;
+        }
+        input[type="number"], input[type="range"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #ff007f;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff3399;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            animation: slideIn 0.5s ease-in-out;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+        #tenureDisplay {
+            font-size: 16px;
+            color: #007aff;
+        }
+        .info-section {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .info-section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #007aff;
+        }
     </style>
 </head>
 <body>
- <!-- Animated Banner -->
- <div class="banner"><i>THE FIRST ORDER</i></div>
-    
- <div class="search-bar-container">
-     <input type="text" class="search-bar" id="searchInput" placeholder="Search...">
- </div>
 
- <div class="items-container">
-     <!-- Button Divs -->
-     <div class="button-container">
-         <a href="invest.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">INVEST</div>
-         </a>
-         <a href="apply.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">APPLY LOAN</div>
-         </a>
-         <a href="restructure.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">REVISE LOAN</div>
-         </a>
-         <a href="loans.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">ACTIVE LOANS</div>
-         </a>
-         <a href="transaction.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">TRANSACTIONS</div>
-         </a>
-         <a href="interest.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">INTEREST</div>
-         </a>
-         <a href="tax.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">TAXATION</div>
-         </a>
-         <a href="document.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">DOWNLOAD</div>
-         </a>
-         <a href="calcium.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">LRR</div>
-         </a>
-         <a href="message.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">MESSAGING SYSTEM</div>
-         </a>
-         <a href="fdcalc.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">APPLY FD</div>
-         </a>
-         <a href="fddashboard.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">ACTIVE FD</div>
-         </a>
-         <a href="agent.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">AGENT COMMISSION</div>
-         </a>
-         <a href="ltlr.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">LOAN INFO</div>
-         </a>
-         <a href="convert.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">CONVERTER</div>
-         </a>
-         <a href="creditscore.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">CREDIT SCORE</div>
-         </a>
-         <a href="ticket.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">GENERATE TICKET</div>
-         </a>
-           <a href="emi.html" class="button item"> <!-- Added class "item" -->
-             <div class="explainer-text">EMI CALCULATOR</div>
-         </a>
-     </div>
- </div>
- 
- <script>
-     // Search Functionality
-     const searchInput = document.getElementById('searchInput');
-     const items = document.querySelectorAll('.item');
+    <div class="container">
+        <h2>EMI Calculator 🎉</h2>
+        
+        <div class="input-group">
+            <input type="number" id="loanAmount" placeholder="Loan Amount (₹)" />
+        </div>
+        
+        <div class="input-group">
+            <label for="loanTenure">Loan Tenure (1 month to 6 years): <span id="tenureDisplay">12 months</span></label>
+            <input type="range" id="loanTenure" min="1" max="72" value="12" oninput="updateTenureDisplay()" />
+        </div>
 
-     searchInput.addEventListener('keyup', function() {
-         const searchTerm = searchInput.value.toLowerCase();
+        <button onclick="calculateEMI()">Calculate EMI</button>
+        
+        <div class="result" id="emiResult"></div>
+    </div>
 
-         items.forEach(item => {
-             const itemText = item.textContent.toLowerCase();
-             if (itemText.includes(searchTerm)) {
-                 item.style.display = 'block'; // Show item if it matches
-             } else {
-                 item.style.display = 'none'; // Hide item if it doesn't match
-             }
-         });
-     });
- </script>
+    <script>
+        const annualInterestRate = 18; // 18% per annum compounded annually
 
+        function updateTenureDisplay() {
+            const loanTenure = document.getElementById('loanTenure').value;
+            document.getElementById('tenureDisplay').innerText = loanTenure + (loanTenure == 1 ? " month" : " months");
+        }
 
+        function calculateEMI() {
+            const loanAmount = document.getElementById('loanAmount').value;
+            const loanTenure = document.getElementById('loanTenure').value / 12; // Convert months to years
+            const r = annualInterestRate / 100;
+
+            // Calculate accrued interest
+            const accruedInterest = loanAmount * Math.pow(1 + r, loanTenure) - loanAmount;
+            const totalPayable = parseFloat(loanAmount) + accruedInterest;
+
+            // Monthly EMI calculation (total amount payable / total months)
+            const monthlyEMI = Math.round(totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
+
+            // Display EMI results
+            document.getElementById('emiResult').innerHTML = `
+                <strong>Total Payable Amount:</strong> ₹${totalPayable.toFixed(2)} <br>
+                <strong>Accrued Interest:</strong> ₹${accruedInterest.toFixed(2)} <br>
+                <strong>Monthly EMI:</strong> ₹${monthlyEMI} <br>
+                <strong>Loan Tenure:</strong> ${document.getElementById('loanTenure').value} months
+            `;
+        }
+    </script>
 </body>
 </html>
