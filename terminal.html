@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -149,81 +150,124 @@
             line-height: 1.6;
         }
 
-        
+         /* Search Bar Styles */
+    .search-bar-container {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .search-bar {
+        width: 30%;
+        padding: 15px;
+        font-size: 18px;
+        border: 1px solid #ddd;
+        border-radius: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        outline: none;
+        transition: box-shadow 0.3s ease;
+    }
+
+    .search-bar:focus {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .hidden {
+        display: none; /* CSS to hide elements */
+    }
+    
+    .items-container {
+        display: flex;
+        flex-direction: column; /* Ensure items stack vertically */
+    }
 
     </style>
 </head>
 <body>
-
-    <!-- Animated Banner -->
-    <div class="banner"><i>THE FIRST ORDER</i></div>
-
-    <!-- Button Divs -->
-    <div class="button-container">
-        <a href="invest.html" class="button">
-            <div class="explainer-text">INVEST</div>
-        </a>
-        <a href="apply.html" class="button">
-            <div class="explainer-text">APPLY LOAN</div>
-        </a>
-        <a href="restructure.html" class="button">
-            <div class="explainer-text">REVISE LOAN</div>
-        </a>
-        <a href="loans.html" class="button">
-            <div class="explainer-text">ACTIVE LOANS</div>
-        </a>
-        <a href="transaction.html" class="button">
-            <div class="explainer-text">TRANSACTIONS</div>
-        </a>
-        <a href="interest.html" class="button">
-            <div class="explainer-text">INTEREST</div>
-        </a>
-        <a href="tax.html" class="button">
-            <div class="explainer-text">TAXATION</div>
-        </a>
-         <a href="document.html" class="button">
-            <div class="explainer-text">DOWNLOAD</div>
-        </a>
-          <a href="calcium.html" class="button">
-            <div class="explainer-text">LRR</div>
-        </a>
-         
-          <a href="message.html" class="button">
-            <div class="explainer-text">MESSAGING SYSTEM</div>
-        </a>
-        
-          <a href="fdcalc.html" class="button">
-            <div class="explainer-text">APPLY FD</div>
-        </a>
-           <a href="fddashboard.html" class="button">
-            <div class="explainer-text">ACTIVE FD</div>
-        </a>
-     </a>
-           <a href="agent.html" class="button">
-            <div class="explainer-text">AGENT COMMISSION</div>
-        </a>
-          <a href="ltlr.html" class="button">
-            <div class="explainer-text">LOAN INFO</div>
-        </a>
-          <a href="convert.html" class="button">
-            <div class="explainer-text">CONVERTER</div>
-        </a>
-         <a href="creditscore.html" class="button">
-            <div class="explainer-text">CREDIT SCORE</div>
-        </a>
-     <a href="ticket.html" class="button">
-            <div class="explainer-text">GENERATE TICKET</div>
-        </a>
+ <!-- Animated Banner -->
+ <div class="banner"><i>THE FIRST ORDER</i></div>
     
-        <!-- Future buttons -->
-        <!-- <a href="more-services.html" class="button">
-            <div class="explainer-text">Page 6 - More Services</div>
-        </a> -->
-    </div>
-    
+ <div class="search-bar-container">
+     <input type="text" class="search-bar" id="searchInput" placeholder="Search...">
+ </div>
 
+ <div class="items-container">
+     <!-- Button Divs -->
+     <div class="button-container">
+         <a href="invest.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">INVEST</div>
+         </a>
+         <a href="apply.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">APPLY LOAN</div>
+         </a>
+         <a href="restructure.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">REVISE LOAN</div>
+         </a>
+         <a href="loans.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">ACTIVE LOANS</div>
+         </a>
+         <a href="transaction.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">TRANSACTIONS</div>
+         </a>
+         <a href="interest.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">INTEREST</div>
+         </a>
+         <a href="tax.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">TAXATION</div>
+         </a>
+         <a href="document.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">DOWNLOAD</div>
+         </a>
+         <a href="calcium.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">LRR</div>
+         </a>
+         <a href="message.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">MESSAGING SYSTEM</div>
+         </a>
+         <a href="fdcalc.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">APPLY FD</div>
+         </a>
+         <a href="fddashboard.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">ACTIVE FD</div>
+         </a>
+         <a href="agent.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">AGENT COMMISSION</div>
+         </a>
+         <a href="ltlr.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">LOAN INFO</div>
+         </a>
+         <a href="convert.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">CONVERTER</div>
+         </a>
+         <a href="creditscore.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">CREDIT SCORE</div>
+         </a>
+         <a href="ticket.html" class="button item"> <!-- Added class "item" -->
+             <div class="explainer-text">GENERATE TICKET</div>
+         </a>
+     </div>
+ </div>
+ 
+ <script>
+     // Search Functionality
+     const searchInput = document.getElementById('searchInput');
+     const items = document.querySelectorAll('.item');
 
-    
+     searchInput.addEventListener('keyup', function() {
+         const searchTerm = searchInput.value.toLowerCase();
+
+         items.forEach(item => {
+             const itemText = item.textContent.toLowerCase();
+             if (itemText.includes(searchTerm)) {
+                 item.style.display = 'block'; // Show item if it matches
+             } else {
+                 item.style.display = 'none'; // Hide item if it doesn't match
+             }
+         });
+     });
+ </script>
+
 
 </body>
 </html>
