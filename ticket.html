@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priority Access Form</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #0093E9;
+background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h2 {text-align: center;}
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 320px;
+        }
+        input[type="text"], input[type="number"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        input[type="checkbox"] {
+            accent-color: #007aff;
+            width: 20px;
+            height: 20px;
+        }
+        .checkbox-label {
+            margin-left: 8px;
+            font-size: 14px;
+            color: #333;
+        }
+        .btn {
+            background-color: #007aff;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px; /* Added margin for spacing */
+        }
+        .btn:disabled {
+            background-color: #b0b0b5;
+            cursor: not-allowed;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            width: 300px;
+        }
+        .close-btn {
+            background-color: #ff3b30;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .copy-btn {
+            margin-top: 5px;
+            color: #007aff;
+            background: none;
+            border: none;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+        .copy-btn:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>REQUEST FORM</h2>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="number" id="amount" placeholder="Amount" required>
+    <input type="text" id="ticketId" placeholder="Ticket ID" value="" readonly>
+    
+    <div class="checkbox-container">
+        <input type="checkbox" id="priorityCheckbox">
+        <label for="priorityCheckbox" class="checkbox-label">Get Priority Access or get ahead in line</label>
+    </div>
+
+    <button class="btn" id="generateTicketBtn">Generate Ticket</button>
+    <button class="btn" id="checkWaitingListBtn" onclick="location.href='wl.html'">Check Waiting List</button>
+</div>
+
+<!-- Overlay Popup -->
+<div id="overlay">
+    <div class="overlay-content">
+        <p>Pay 5 INR to <b id="paymentAddress">7456943225@jupiteraxis</b></p>
+        <button class="copy-btn" id="copyBtn">Copy Address</button>
+        <input type="text" id="secretCode" placeholder="Enter Secret Code">
+        <button class="btn" id="submitCodeBtn">Submit Code</button>
+        <button class="close-btn" id="closePopupBtn">Close</button>
+    </div>
+</div>
+
+<script>
+    // Generate random ticket ID
+    document.getElementById('ticketId').value = 'TICKET-' + Math.floor(Math.random() * 1000000);
+
+    // Priority checkbox behavior
+    const priorityCheckbox = document.getElementById('priorityCheckbox');
+    const overlay = document.getElementById('overlay');
+    let isPriorityChecked = false;
+
+    priorityCheckbox.addEventListener('change', function () {
+        if (this.checked) {
+            overlay.style.display = 'flex'; // Show overlay
+        }
+    });
+
+    // Close button behavior
+    document.getElementById('closePopupBtn').addEventListener('click', function () {
+        overlay.style.display = 'none';
+        priorityCheckbox.checked = false; // Uncheck the checkbox
+    });
+
+    // Submit secret code behavior
+    document.getElementById('submitCodeBtn').addEventListener('click', function () {
+        const secretCode = document.getElementById('secretCode').value;
+        const actualCode = '8055'; // Replace with actual verification logic
+
+        if (secretCode === actualCode) {
+            overlay.style.display = 'none'; // Hide overlay if the code is correct
+            isPriorityChecked = true; // Allow priority to remain checked
+            alert('Code accepted! You have priority access.');
+        } else {
+            alert('Invalid code. Please try again.');
+            priorityCheckbox.checked = false; // Uncheck the checkbox if the code is invalid
+        }
+    });
+
+    // Copy payment address to clipboard
+    document.getElementById('copyBtn').addEventListener('click', function () {
+        const paymentAddress = document.getElementById('paymentAddress').innerText;
+        navigator.clipboard.writeText(paymentAddress).then(() => {
+            alert('Payment address copied to clipboard!');
+        }).catch(err => {
+            alert('Failed to copy text: ', err);
+        });
+    });
+
+    // Generate ticket and send message to WhatsApp
+    document.getElementById('generateTicketBtn').addEventListener('click', function () {
+        const name = document.getElementById('name').value;
+        const amount = document.getElementById('amount').value;
+        const ticketId = document.getElementById('ticketId').value;
+        const isPriority = priorityCheckbox.checked && isPriorityChecked ? 'Yes' : 'No';
+        const dateTime = new Date().toLocaleString();
+
+        if (name && amount) {
+            const message = `Hey there, this is my inquiry with unique code: ${ticketId}, for amount: ${amount}. This is ${isPriority === 'Yes' ? 'a priority request' : 'not a priority request'}. Date/Time: ${dateTime}`;
+            const whatsappUrl = `https://wa.me/917456943225?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        } else {
+            alert('Please fill in all fields.');
+        }
+    });
+</script>
+
+</body>
+</html>
