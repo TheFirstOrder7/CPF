@@ -276,18 +276,24 @@
     });
 
     // New game button functionality
-    newGameBtn.addEventListener('click', () => {
-        crossedCount = 0;
-        bingoAchieved = false;
-        bingoMessage.innerText = '';
-        confettiContainer.innerHTML = '';  // Clear confetti
-        createBingoGrid();  // Create a new grid
-        startBtn.disabled = false;  // Re-enable timer start button
-        newGameBtn.style.display = 'none';  // Hide new game button
-        timerDisplay.innerText = 'Time: 0s';  // Reset timer
-        clearInterval(interval);
-        timerStarted = false;
+newGameBtn.addEventListener('click', () => {
+    crossedCount = 0;
+    bingoAchieved = false;
+    bingoMessage.innerText = '';
+    confettiContainer.innerHTML = '';  // Clear confetti
+    createBingoGrid();  // Create a new grid
+    startBtn.disabled = false;  // Re-enable timer start button
+    newGameBtn.style.display = 'none';  // Hide new game button
+    timerDisplay.innerText = 'Time: 0s';  // Reset timer
+    clearInterval(interval);
+    timerStarted = false;
+
+    // Reset the gridState array to its initial state
+    gridState.forEach((row, rowIndex) => {
+        gridState[rowIndex] = Array(5).fill(false);
     });
+});
+
 </script>
 
 </body>
