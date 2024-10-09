@@ -135,7 +135,7 @@
 
             // Calculate accrued interest
             const accruedInterest = loanAmount * Math.pow(1 + r, loanTenure) - loanAmount;
-            const totalPayable = parseFloat(loanAmount) + accruedInterest;
+            const totalPayable = Math.round(parseFloat(loanAmount) + accruedInterest);
 
             // Monthly EMI calculation (total amount payable / total months)
             const monthlyEMI = (totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
