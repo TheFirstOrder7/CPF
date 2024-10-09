@@ -15,6 +15,29 @@
             background: linear-gradient(135deg, #c7ecee, #f5f6fa);
             margin: 0;
         }
+
+        .banner {
+            width: 100%;
+            background-color: #007aff;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            padding: 15px 0;
+            animation: slideIn 1s ease forwards;
+            position: relative;
+            top: -50px; /* Initially hidden above the screen */
+        }
+        @keyframes slideIn {
+            0% {
+                top: -50px;
+                opacity: 0;
+            }
+            100% {
+                top: 0;
+                opacity: 1;
+            }
+        }
         .bingo-container {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
@@ -112,7 +135,9 @@
     </style>
 </head>
 <body>
-
+    <div class="banner">Welcome to the Classic Bingo Game!</div>
+    
+    <bR><br><!-- New Banner -->
 <div class="bingo-container" id="bingoGrid"></div>
 <div class="controls">
     <button class="start-btn" id="startBtn">Start Timer</button>
