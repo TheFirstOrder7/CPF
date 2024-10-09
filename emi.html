@@ -138,7 +138,7 @@
             const totalPayable = parseFloat(loanAmount) + accruedInterest;
 
             // Monthly EMI calculation (total amount payable / total months)
-            const monthlyEMI = Math.round(totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
+            const monthlyEMI = (totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
 
             // Display EMI results
             document.getElementById('emiResult').innerHTML = `
