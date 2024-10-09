@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Bingo Game</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #c7ecee, #f5f6fa);
+            margin: 0;
+        }
+        .bingo-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 400px;
+            padding: 20px;
+            background: #ffffffd9;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        .bingo-cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f7f7f7;
+            border-radius: 10px;
+            font-size: 24px;
+            font-weight: 600;
+            height: 80px;
+            cursor: pointer;
+            transition: transform 0.1s ease, background 0.3s ease;
+        }
+        .bingo-cell:active {
+            transform: scale(0.95);
+            background: #ececec;
+        }
+        .bingo-cell.crossed {
+            background: #ff2d55;
+            color: #fff;
+            text-decoration: line-through;
+        }
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .timer {
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: 500;
+        }
+        .bingo-message {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff2d55;
+        }
+        .start-btn, .new-game-btn {
+            padding: 10px 20px;
+            background-color: #007aff;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .start-btn:active, .new-game-btn:active {
+            transform: scale(0.95);
+            background-color: #005bb5;
+        }
+        .new-game-btn {
+            display: none;
+        }
+        /* Confetti celebration */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            pointer-events: none;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 30px;
+            background-color: red;
+            opacity: 0.7;
+            transform-origin: bottom center;
+            animation: fall 3s ease-out forwards;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bingo-container" id="bingoGrid"></div>
+<div class="controls">
+    <button class="start-btn" id="startBtn">Start Timer</button>
+    <button class="new-game-btn" id="newGameBtn">New Game</button>
+    <div class="timer" id="timer">Time: 0s</div>
+</div>
+<div class="bingo-message" id="bingoMessage"></div>
+
+<!-- Confetti container -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<script>
+    const bingoNumbers = Array.from({ length: 25 }, (_, i) => i + 1);
+    const bingoGrid = document.getElementById('bingoGrid');
+    const bingoMessage = document.getElementById('bingoMessage');
+    const timerDisplay = document.getElementById('timer');
+    const startBtn = document.getElementById('startBtn');
+    const newGameBtn = document.getElementById('newGameBtn');
+    const confettiContainer = document.getElementById('confettiContainer');
+    let crossedCount = 0;
+    let startTime;
+    let interval;
+    let timerStarted = false;
+    let bingoAchieved = false;
+    const gridState = Array(5).fill(null).map(() => Array(5).fill(false));
+    
+    // Shuffle bingo numbers
+    function shuffleArray(array) {
+        return array.sort(() => Math.random() - 0.5);
+    }
+
+    // Add confetti effect
+    function createConfetti() {
+        const colors = ['#f39c12', '#e74c3c', '#9b59b6', '#3498db', '#2ecc71'];
+        for (let i = 0; i < 100; i++) {
+            const confettiPiece = document.createElement('div');
+            confettiPiece.classList.add('confetti-piece');
+            confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confettiPiece.style.left = Math.random() * 100 + 'vw';
+            confettiPiece.style.animationDelay = Math.random() * 2 + 's';
+            confettiPiece.style.transform = `rotate(${Math.random() * 360}deg)`;
+            confettiContainer.appendChild(confettiPiece);
+
+            // Remove confetti after animation
+            setTimeout(() => confettiPiece.remove(), 3000);
+        }
+    }
+
+    // Timer logic
+    function startTimer() {
+        startTime = new Date();
+        timerStarted = true;
+        interval = setInterval(() => {
+            const currentTime = Math.floor((new Date() - startTime) / 1000);
+            timerDisplay.innerText = `Time: ${currentTime}s`;
+        }, 1000);
+        startBtn.disabled = true;
+    }
+
+    // Check for Bingo logic
+    function checkBingo() {
+        let linesCompleted = 0;
+
+        // Check rows
+        for (let i = 0; i < 5; i++) {
+            if (gridState[i].every(val => val === true)) linesCompleted++;
+        }
+
+        // Check columns
+        for (let j = 0; j < 5; j++) {
+            if (gridState.every(row => row[j] === true)) linesCompleted++;
+        }
+
+        // Check diagonals
+        if (gridState.every((row, index) => row[index] === true)) linesCompleted++;
+        if (gridState.every((row, index) => row[4 - index] === true)) linesCompleted++;
+
+        if (linesCompleted >= 5 && !bingoAchieved) {
+            clearInterval(interval);
+            bingoAchieved = true;
+            const currentTimeStamp = new Date().toLocaleTimeString();  // Current time stamp
+            bingoMessage.innerHTML = `Bingo! Completed at <strong>${currentTimeStamp}</strong>!`;
+
+            // Disable all further clicks
+            document.querySelectorAll('.bingo-cell').forEach(cell => {
+                cell.style.pointerEvents = 'none';
+            });
+
+            // Show celebration
+            showCelebration();
+
+            // Show the new game button
+            newGameBtn.style.display = 'inline-block';
+        }
+    }
+
+    function showCelebration() {
+        // Confetti effect
+        createConfetti();
+
+        // Play sound when Bingo is achieved
+       
+    }
+
+    // Create the Bingo grid
+    function createBingoGrid() {
+        const shuffledNumbers = shuffleArray([...bingoNumbers]);
+        bingoGrid.innerHTML = '';  // Reset grid for new game
+        shuffledNumbers.forEach((number, index) => {
+            const row = Math.floor(index / 5);
+            const col = index % 5;
+
+            const cell = document.createElement('div');
+            cell.classList.add('bingo-cell');
+            cell.innerText = number;
+            cell.addEventListener('click', () => {
+                if (!cell.classList.contains('crossed') && timerStarted && !bingoAchieved) {
+                    cell.classList.add('crossed');
+                    gridState[row][col] = true;
+                    crossedCount++;
+                    checkBingo();
+                }
+            });
+            bingoGrid.appendChild(cell);
+        });
+    }
+
+    // Initialize the Bingo Grid
+    createBingoGrid();
+
+    // Start timer when button is clicked
+    startBtn.addEventListener('click', () => {
+        startTimer();
+        startBtn.classList.add('active');  // Add active class for visual feedback
+        setTimeout(() => startBtn.classList.remove('active'), 100);  // Remove active class after a short delay
+    });
+
+    // New game button functionality
+    newGameBtn.addEventListener('click', () => {
+        crossedCount = 0;
+        bingoAchieved = false;
+        bingoMessage.innerText = '';
+        confettiContainer.innerHTML = '';  // Clear confetti
+        createBingoGrid();  // Create a new grid
+        startBtn.disabled = false;  // Re-enable timer start button
+        newGameBtn.style.display = 'none';  // Hide new game button
+        timerDisplay.innerText = 'Time: 0s';  // Reset timer
+        clearInterval(interval);
+        timerStarted = false;
+    });
+</script>
+
+</body>
+</html>
