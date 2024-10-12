@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Inquiry Response</title>
+  <style>
+    /* Apple-style design */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f5f5f7;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      display: none;
+      width: 400px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      box-sizing: border-box;
+      transition: all 0.3s;
+    }
+
+    input:focus, select:focus, button:focus {
+      border-color: #007aff;
+      outline: none;
+    }
+
+    button {
+      background-color: #007aff;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #005bb5;
+    }
+
+    /* Password overlay styling */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .overlay input {
+      width: 300px;
+      padding: 15px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      text-align: center;
+    }
+
+    .overlay input:focus {
+      outline: none;
+    }
+
+    .error {
+      color: red;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Password Overlay -->
+<div class="overlay" id="overlay">
+  <div>
+    <input type="password" id="password" placeholder="Enter Password" />
+    <p class="error" id="errorMsg"></p>
+  </div>
+</div>
+
+<!-- Main Container -->
+<div class="container" id="container">
+  <h2>Send WhatsApp Response</h2>
+
+  <input type="text" id="customerName" placeholder="Enter Customer Name" required />
+
+  <select id="phoneNumber" required>
+    <option value="">Select Phone Number</option>
+    <option value="+917456943225">Rahul Goswami</option>
+    <option value="+919675785596">Deepak Goswami</option>
+    <option value="+917078424551">Krish Goswami</option>
+    <option value="+918445368302">Bhagwati Goswami</option>
+    <option value="+917454807688">Nitin Goswami</option>
+    <option value="+919389302191">Shubham Goswami</option>
+    <option value="+916395749586">Neeraj Goswami</option>
+    <option value="+918273292843">Rohit Bora</option>
+    <option value="+918954303763">Vivek Goswami</option>
+    <option value="+918731593998">Vishal Goswami</option>
+    <option value="+919528843823">Pawan Goswami</option>
+    <option value="+918057248202">Karan Pant</option>
+  </select>
+
+  <select id="messageTemplate" required>
+    <option value="">Select a Response</option>
+    <option value="Your request for a loan cannot be processed due to insufficient funds at this time. We sincerely apologize for any inconvenience this may cause. Please know that we have recorded your inquiry and generated a support ticket. Our team will reach out to you promptly as soon as funds become available. Thank you for your patience and understanding.">
+      Low Balance Issue
+    </option>
+    <option value="Your loan request was declined due to a low credit score, and we sincerely apologize for any disappointment this may cause. We encourage you to consult with one of our associates, who can guide you on building and maintaining a healthy credit score. Alternatively, you may also consider keeping a sufficient deposit with us to strengthen future loan applications. We appreciate your understanding and look forward to assisting you on your financial journey.">
+      Low Credit Score
+    </option>
+    <option value="The long-term loan liquidity ratio has exceeded 20%, so we are currently offering only loans with a duration of less than 100 days. We sincerely apologize for any inconvenience this may cause. However, you are always welcome to revise or extend your short-term loan if needed. Thank you for your understanding.">
+      Loan Term Restriction
+    </option>
+    <option value="We have received your payment and acknowledge your consistent loan repayments. Thank you for your trust in our services. We look forward to assisting you with your future financial needs.  THANK YOU SIR">
+      Acknowledgment of Loan Repayment
+    </option>
+  </select>
+
+  <button onclick="sendWhatsAppMessage()">Send WhatsApp Message</button>
+</div>
+
+<script>
+  // Unlock the interface with password
+  const overlay = document.getElementById('overlay');
+  const passwordInput = document.getElementById('password');
+  const errorMsg = document.getElementById('errorMsg');
+  const container = document.getElementById('container');
+
+  passwordInput.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+      checkPassword();
+    }
+  });
+
+  function checkPassword() {
+    const password = passwordInput.value;
+    if (password === '8055') {
+      overlay.style.display = 'none';
+      container.style.display = 'block';
+    } else {
+      errorMsg.textContent = 'Incorrect password. Please try again.';
+      passwordInput.value = '';
+    }
+  }
+
+  // WhatsApp message sending logic
+  function sendWhatsAppMessage() {
+    const name = document.getElementById('customerName').value.trim();
+    const phoneNumber = document.getElementById('phoneNumber').value;
+    const messageTemplate = document.getElementById('messageTemplate').value;
+
+    if (!name || !phoneNumber || !messageTemplate) {
+      alert('Please fill in all the fields.');
+      return;
+    }
+
+    const message = `Dear ${name}, ${messageTemplate}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    window.open(whatsappLink, '_blank');
+  }
+</script>
+
+</body>
+</html>
