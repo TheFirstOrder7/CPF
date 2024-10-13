@@ -23,6 +23,7 @@
       min-height: 100vh;
       animation: gradient 15s ease infinite;
       background-size: 300% 300%;
+      padding: 10px;
     }
 
     @keyframes gradient {
@@ -31,42 +32,54 @@
     }
 
     .dashboard-container {
-      width: 90%;
+      width: 100%;
       max-width: 800px;
       background: rgba(255, 255, 255, 0.8);
       border-radius: 25px;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-      padding: 40px;
+      padding: 40px 20px;
       backdrop-filter: blur(8px);
     }
 
     .dashboard-header {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
     .dashboard-header h1 {
-      font-size: 36px;
+      font-size: 28px;
       font-weight: 700;
       color: #1d1d1f;
       letter-spacing: 1.2px;
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
     }
 
+    .dashboard-header p {
+      font-size: 16px;
+      color: #6e6e73;
+      margin-top: 5px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+    }
+
     .ticket-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 20px;
+      margin-top: 10px;
       border-radius: 12px;
       overflow: hidden;
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      min-width: 600px; /* Ensures it scrolls on small screens */
     }
 
     .ticket-table th,
     .ticket-table td {
-      padding: 18px;
+      padding: 12px;
       text-align: left;
-      font-size: 18px;
+      font-size: 16px;
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
@@ -83,7 +96,7 @@
 
     .status-badge {
       display: inline-block;
-      padding: 8px 16px;
+      padding: 8px 12px;
       border-radius: 15px;
       font-size: 14px;
       font-weight: 600;
@@ -103,6 +116,23 @@
     .ready {
       background: linear-gradient(135deg, #34C759, #A5D6A7);
     }
+
+    /* Responsive Styles */
+    @media (max-width: 600px) {
+      .dashboard-header h1 {
+        font-size: 22px;
+      }
+
+      .ticket-table th,
+      .ticket-table td {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .dashboard-container {
+        padding: 20px 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -113,20 +143,22 @@
     <p>Check your ticket status and waiting period below.</p>
   </div>
 
-  <table class="ticket-table">
-    <thead>
-      <tr>
-        <th>Ticket ID</th>
-        <th>Name</th>
-        <th>Amount Requested</th>
-        <th>Expected Date (dd/mm/yy)</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="ticket-table-body">
-      <!-- Rows will be dynamically generated here -->
-    </tbody>
-  </table>
+  <div class="table-wrapper">
+    <table class="ticket-table">
+      <thead>
+        <tr>
+          <th>Ticket ID</th>
+          <th>Name</th>
+          <th>Amount Requested</th>
+          <th>Expected Date (dd/mm/yy)</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="ticket-table-body">
+        <!-- Rows will be dynamically generated here -->
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script>
@@ -144,7 +176,6 @@
     { id: 'NIL', name: 'NIL', amount: 465, endDate: new Date('2024-10-30') },
     { id: 'NIL', name: 'NIL', amount: 565, endDate: new Date('2024-11-01') },
     { id: 'NIL', name: 'NIL', amount: 1650, endDate: new Date('2024-11-07') },
-    
   ];
 
   // Function to update the waiting period dynamically
