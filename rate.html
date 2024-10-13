@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rate Us</title>
+  <style>
+    /* Global Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    }
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #FAACA8;
+background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
+
+    }
+   
+
+    /* Container Styling */
+    .container {
+      text-align: center;
+      padding: 50px;
+      background: linear-gradient(135deg, #ffffff, #f0f0f5);
+      border-radius: 24px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      max-width: 1000px;
+      width: 90%;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    /* Animated Heading */
+    h1 {
+      font-size: 3rem;
+      letter-spacing: 0.1em;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: #FAACA8;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Star Rating Styling */
+    .stars {
+      margin: 20px 0;
+    }
+
+    .star {
+      font-size: 6.5rem;
+      color: #c5c5c5;
+      cursor: pointer;
+      transition: color 0.3s, transform 0.2s;
+    }
+
+    .star:hover, .star.selected {
+      color: #1c226b;
+      transform: scale(1.2);
+    }
+
+    /* Label Styling */
+    .rate-label {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #555;
+    }
+
+    /* Button Styling */
+    .submit-btn {
+      margin-top: 25px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      background-color: #007aff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #005bb5;
+      transform: scale(1.05);
+    }
+
+    /* Thank You Message Styling */
+    .thank-you {
+      font-size: 2.5rem;
+      color: #28a745;
+      display: none;
+      animation: fade-in 0.8s ease-in-out forwards;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+    
+  <div class="container" id="ratingSection">
+    <h1>RATE US</h1> <!-- Fun Animated First Order Heading -->
+    <div class="stars" id="stars">
+      <span class="star" data-value="1">&#9733;</span>
+      <span class="star" data-value="2">&#9733;</span>
+      <span class="star" data-value="3">&#9733;</span>
+      <span class="star" data-value="4">&#9733;</span>
+      <span class="star" data-value="5">&#9733;</span>
+    </div>
+    <div class="rate-label">Select your rating</div>
+    <button class="submit-btn" id="submitBtn">Submit</button>
+  </div>
+  <div class="thank-you" id="thankYouMessage">
+    &#10003; Thank you for your feedback!
+  </div>
+
+  <script>
+    const stars = document.querySelectorAll('.star');
+    let selectedRating = 0;
+
+    stars.forEach((star, index) => {
+      star.addEventListener('click', () => {
+        selectedRating = index + 1;
+        updateStars();
+      });
+    });
+
+    function updateStars() {
+      stars.forEach((star, i) => {
+        star.classList.toggle('selected', i < selectedRating);
+      });
+    }
+
+    document.getElementById('submitBtn').addEventListener('click', () => {
+      if (selectedRating > 0) {
+        document.getElementById('ratingSection').style.opacity = 0;
+        setTimeout(() => {
+          document.getElementById('ratingSection').style.display = 'none';
+          document.getElementById('thankYouMessage').style.display = 'block';
+        }, 500);
+      } else {
+        alert('Please select a rating!');
+      }
+    });
+  </script>
+</body>
+</html>
