@@ -1,96 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The First Order - Waiting List</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan Inquiry Dashboard</title>
 
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, 
+                   "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
 
-        }
-        header.banner {
-            background-color: rgb(89, 202, 236);
-            color: #ffffff;
-            text-align: center;
-            padding: 10px 0;
-            font-size: 2rem;
-            letter-spacing: 2px;
-        }
-        section.waiting-list-container {
-            margin: 50px auto;
-            width: 80%;
-            background-color: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-        h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        table.waiting-list-table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-        }
-        table th, table td {
-            padding: 15px;
-            border-bottom: 1px solid #e0e0e0;
-        }
-        table th {
-            background-color: #f0f0f0;
-            color: #555;
-            font-weight: bold;
-        }
-        table tr:hover {
-            background-color: #f9f9f9;
-        }
-        @media (max-width: 768px) {
-            table th, table td {
-                padding: 10px;
-            }
-        }
-    </style>
+    body {
+      background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      animation: gradient 15s ease infinite;
+      background-size: 300% 300%;
+    }
+
+    @keyframes gradient {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .dashboard-container {
+      width: 90%;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 25px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      backdrop-filter: blur(8px);
+    }
+
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .dashboard-header h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #1d1d1f;
+      letter-spacing: 1.2px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .ticket-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .ticket-table th,
+    .ticket-table td {
+      padding: 18px;
+      text-align: left;
+      font-size: 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .ticket-table th {
+      background-color: #f4f4f7;
+      color: #6e6e73;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .ticket-table td {
+      color: #2c2c2e;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 8px 16px;
+      border-radius: 15px;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .status-badge:hover {
+      transform: scale(1.05);
+    }
+
+    .waiting {
+      background: linear-gradient(135deg, #FF9F0A, #FFCC80);
+    }
+
+    .ready {
+      background: linear-gradient(135deg, #34C759, #A5D6A7);
+    }
+  </style>
 </head>
 <body>
-    <header class="banner">
-        <h1><i>THE FIRST ORDER</i></h1>
-    </header>
 
-    <section class="waiting-list-container">
-        <h2>WAITING LIST</h2>
-        <table class="waiting-list-table">
-            <thead>
-                <tr>
-                    <th>Unique TICKET ID</th>
-                    <th>Name</th>
-                    <th>Amount (INR)</th>
-                    <th>Waiting Period (Days)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <!-- Additional rows as needed -->
-            </tbody>
-        </table>
-    </section>
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h1>Your Loan Inquiry Dashboard</h1>
+    <p>Check your ticket status and waiting period below.</p>
+  </div>
+
+  <table class="ticket-table">
+    <thead>
+      <tr>
+        <th>Ticket ID</th>
+        <th>Name</th>
+        <th>Amount Requested</th>
+        <th>Expected Date (dd/mm/yy)</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="ticket-table-body">
+      <!-- Rows will be dynamically generated here -->
+    </tbody>
+  </table>
+</div>
+
+<script>
+  // Helper function to format dates as dd/mm/yy
+  function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const year = String(date.getFullYear()).slice(-2); // Get last two digits of the year
+    return `${day}/${month}/${year}`;
+  }
+
+  // Sample ticket data with real dates
+  const tickets = [
+    { id: 'NIL', name: 'NIL', amount: 152, endDate: new Date('2024-10-28') },
+    { id: 'NIL', name: 'NIL', amount: 465, endDate: new Date('2024-10-30') },
+    { id: 'NIL', name: 'NIL', amount: 565, endDate: new Date('2024-11-01') },
+    { id: 'NIL', name: 'NIL', amount: 1650, endDate: new Date('2024-11-07') },
+    
+  ];
+
+  // Function to update the waiting period dynamically
+  function updateWaitingPeriod() {
+    const today = new Date(); // Get today's date
+    const ticketTableBody = document.getElementById('ticket-table-body');
+    ticketTableBody.innerHTML = ''; // Clear the table for updates
+
+    tickets.forEach((ticket) => {
+      const remainingDays = Math.ceil((ticket.endDate - today) / (1000 * 60 * 60 * 24)); // Days left
+
+      const statusClass = remainingDays <= 0 ? 'ready' : 'waiting';
+      const statusText = remainingDays <= 0 ? 'Ready' : 'Waiting';
+
+      // Create a new row for each ticket
+      const row = `
+        <tr>
+          <td>${ticket.id}</td>
+          <td>${ticket.name}</td>
+          <td>₹${ticket.amount.toLocaleString()}</td>
+          <td>${formatDate(ticket.endDate)}</td>
+          <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+        </tr>
+      `;
+      ticketTableBody.innerHTML += row;
+    });
+  }
+
+  // Run the update function on load and every day at midnight
+  updateWaitingPeriod();
+  setInterval(updateWaitingPeriod, 24 * 60 * 60 * 1000); // 24 hours in milliseconds
+</script>
+
 </body>
 </html>
