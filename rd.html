@@ -124,8 +124,8 @@
         <label for="name">Name</label>
         <input type="text" id="name" placeholder="Enter your name" required>
 
-        <label for="monthlyAmount">Monthly Amount (Min ₹100)</label>
-        <input type="number" id="monthlyAmount" min="100" placeholder="Enter amount" required>
+        <label for="monthlyAmount">Monthly Amount (Min ₹50)</label>
+        <input type="number" id="monthlyAmount" min="50" placeholder="Enter amount" required>
 
         <label for="tenure">Tenure (in Months)</label>
         <select id="tenure" required>
@@ -161,8 +161,8 @@
         const tenure = parseInt(document.getElementById('tenure').value);
         const taxBenefit = document.getElementById('taxBenefit').checked;
 
-        if (monthlyAmount < 100) {
-            alert("Monthly amount must be at least 100 INR.");
+        if (monthlyAmount < 50) {
+            alert("Monthly amount must be at least 50 INR.");
             return;
         }
 
