@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RD Calculator - Apple Style</title>
+    <style>
+        body {
+            font-family: 'San Francisco', sans-serif;
+            background-color: #4158D0;
+            background-image: linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.4);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            width: 420px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 1.7em;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 88%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1em;
+            background: #fafafa;
+        }
+        .switch-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        .switch input { display: none; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+        }
+        input:checked + .slider {
+            background-color: #4caf50;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        .btn {
+            background-color: #007aff;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 1.1em;
+        }
+        .btn:hover {
+            background-color: #005eb8;
+        }
+        .result {
+            background: #f9f9f9;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        .result-item {
+            margin: 10px 0;
+            font-size: 1.1em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1><i><b>RECURRING DEPOSIT</b></i></h1>
+
+    <form id="rdForm">
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your name" required>
+
+        <label for="monthlyAmount">Monthly Amount (Min ₹100)</label>
+        <input type="number" id="monthlyAmount" min="100" placeholder="Enter amount" required>
+
+        <label for="tenure">Tenure (in Months)</label>
+        <select id="tenure" required>
+            <option value="6">6 Months</option>
+            <option value="12">1 Year</option>
+            <option value="24">2 Year</option>
+            <option value="36">3 Year</option>
+            <option value="48">4 Year</option>
+            <option value="60">5 Year</option>
+        </select>
+
+        <div class="switch-container">
+            <span class="switch-label">Avail Tax Benefit?</span>
+            <label class="switch">
+                <input type="checkbox" id="taxBenefit">
+                <span class="slider round"></span>
+            </label>
+        </div>
+
+        <button type="button" class="btn" onclick="calculateRD()">Calculate</button>
+        <button id="whatsappButton" class="btn" style="background-color: #25D366; display:none;">
+            Send Declaration on WhatsApp
+        </button>
+
+        <div id="result" class="result" style="display:none;"></div>
+    </form>
+</div>
+
+<script>
+    function calculateRD() {
+        const name = document.getElementById('name').value;
+        const monthlyAmount = parseFloat(document.getElementById('monthlyAmount').value);
+        const tenure = parseInt(document.getElementById('tenure').value);
+        const taxBenefit = document.getElementById('taxBenefit').checked;
+
+        if (monthlyAmount < 100) {
+            alert("Monthly amount must be at least 100 INR.");
+            return;
+        }
+
+        const rate = 0.12 / 12; // Monthly interest rate (12% annual)
+        let maturityAmount = 0;
+
+        for (let i = 0; i < tenure; i++) {
+            maturityAmount += monthlyAmount * Math.pow(1 + rate, tenure - i);
+        }
+
+        const profit = maturityAmount - (monthlyAmount * tenure);
+        let tax = taxBenefit ? Math.max((profit - 2500) * 0.33, 0) : profit * 0.33;
+        const finalAmount = maturityAmount - tax;
+
+        const returnPercentage = ((finalAmount - (monthlyAmount * tenure)) / (monthlyAmount * tenure)) * 100;
+        const timestamp = new Date().toLocaleString();
+
+        document.getElementById('result').style.display = 'block';
+        document.getElementById('result').innerHTML = `
+            <div class="result-item"><strong>RD Maturity Details for:</strong> ${name}</div>
+            <div class="result-item">Maturity Amount: ₹${maturityAmount.toFixed(2)}</div>
+            <div class="result-item">Profit: ₹${profit.toFixed(2)}</div>
+            <div class="result-item">Tax Deducted: ₹${tax.toFixed(2)}</div>
+            <div class="result-item"><strong>Final Maturity Amount: ₹${finalAmount.toFixed(2)}</strong></div>
+             <div class="return-percentage">Return: ${returnPercentage.toFixed(2)}%</div><br>
+        `;
+
+        const message = `Hey, I want to make a recurring deposit with you for ₹${monthlyAmount} for ${tenure} months. ` +
+                        `I have ${taxBenefit ? "availed" : "not availed"} the tax benefit, and the interest offered is ₹${finalAmount.toFixed(2)}. ` +
+                        `I have read all the terms and conditions, and this text signifies my voluntary ratification.`;
+
+        const whatsappButton = document.getElementById('whatsappButton');
+        whatsappButton.style.display = 'block';
+        whatsappButton.onclick = function() {
+            const whatsappURL = `https://wa.me/7456943225?text=${encodeURIComponent(message)}`;
+            window.open(whatsappURL, '_blank');
+        };
+    }
+</script>
+
+</body>
+</html>
