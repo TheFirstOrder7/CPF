@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RD Dashboard with Accurate Interest</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background-image: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+      color: #333;
+      padding: 20px;
+    }
+
+    .dashboard-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 50px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1D1D1F;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f1f1f3;
+      color: #333;
+      font-weight: bold;
+    }
+
+    td {
+      color: #555;
+    }
+
+    .dynamic {
+      color: #0071E3; /* Stylish blue for dynamic fields */
+      font-weight: bold;
+    }
+
+    .apple-button {
+      background-color: #0071E3;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      font-size: 16px;
+    }
+
+    .apple-button:hover {
+      background-color: #005BB5;
+    }
+
+    /* Responsive styling */
+    @media (max-width: 768px) {
+      th, td {
+        padding: 10px;
+        font-size: 14px; /* Smaller font size for mobile */
+      }
+      
+      .dashboard-container {
+        padding: 15px; /* Reduced padding for mobile */
+      }
+
+      h1 {
+        font-size: 1.5em; /* Smaller heading size for mobile */
+      }
+
+      table {
+        border: none; /* Remove borders for better mobile readability */
+      }
+
+      tr {
+        display: block; /* Stack rows for better layout */
+        margin-bottom: 15px; /* Space between rows */
+      }
+
+      th, td {
+        display: block; /* Make cells block elements */
+        text-align: right; /* Right-align text for better readability */
+        border: none; /* Remove cell borders */
+      }
+
+      th {
+        text-align: left; /* Left-align headers for clarity */
+        font-weight: bold; /* Maintain boldness for headers */
+      }
+
+      td::before { /* Adding labels for cells */
+        content: attr(data-label);
+        float: left; /* Make labels float to the left */
+        font-weight: bold; /* Make labels bold */
+        text-align: left; /* Left-align labels */
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <h1>RECURRING DEPOSIT DASHBOARD</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Unique ID</th>
+          <th>Name</th>
+          <th>Monthly Amount</th>
+          <th>RD Creation Date</th>
+          <th>Tenure</th>
+          <th>Accrued Principal</th>
+          <th>Accrued Interest</th>
+        </tr>
+      </thead>
+      <tbody id="rdTableBody">
+        <!-- Rows will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // Sample RD data
+    const customers = [
+        { id: 245, name: 'test', amount: 100, creationDate: '2023-10-14', tenure: 60 },
+        // Add more customer data if needed
+    ];
+
+    const annualInterestRate = 12; // 12% annual interest
+
+    // Function to calculate accrued principal and interest
+    function calculateAccruedData(customer) {
+        const currentDate = new Date();
+        const creationDate = new Date(customer.creationDate);
+        const monthsPassed = (currentDate.getFullYear() - creationDate.getFullYear()) * 12 + (currentDate.getMonth() - creationDate.getMonth());
+
+        // Total deposits so far, not exceeding tenure
+        const accruedPrincipal = customer.amount * Math.min(monthsPassed, customer.tenure); 
+
+        const n = Math.min(monthsPassed, customer.tenure);
+        let totalInterest = 0;
+
+        // Calculate interest for each monthly deposit using the compound interest formula
+        for (let month = 0; month < n; month++) {
+            totalInterest += customer.amount * Math.pow(1 + (annualInterestRate / 12 / 100), n - month) - customer.amount;
+        }
+
+        return { accruedPrincipal, totalInterest };
+    }
+
+    // Function to update the RD table
+    function updateTable() {
+        const tbody = document.getElementById('rdTableBody');
+        tbody.innerHTML = ''; // Clear previous rows
+
+        customers.forEach(customer => {
+            const { accruedPrincipal, totalInterest } = calculateAccruedData(customer);
+
+            const row = `
+                <tr>
+                    <td data-label="Unique ID">${customer.id}</td>
+                    <td data-label="Name">${customer.name}</td>
+                    <td data-label="Monthly Amount">${customer.amount}</td>
+                    <td data-label="RD Creation Date">${new Date(customer.creationDate).toLocaleDateString()}</td>
+                    <td data-label="Tenure">${customer.tenure} months</td>
+                    <td class="dynamic" data-label="Accrued Principal">₹${accruedPrincipal.toFixed(2)}</td>
+                    <td class="dynamic" data-label="Accrued Interest">₹${totalInterest.toFixed(2)}</td>
+                </tr>
+            `;
+            tbody.innerHTML += row;
+        });
+    }
+
+    // Initial table update
+    updateTable();
+  </script>
+
+</body>
+</html>
