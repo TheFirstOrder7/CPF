@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Our Products</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fafafa;
+            color: #1e1e2d;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Header Section */
+        .header {
+            background: linear-gradient(135deg, #74ebd5, #9face6);
+            padding: 80px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .header p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            padding: 14px 30px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(255, 107, 107, 0.4);
+        }
+           /* Why Choose Us Section */
+           .why-us {
+            padding: 40px 20px;
+            background-color: #fff3e6; /* Light background for contrast */
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px 20px; /* Margins for spacing */
+        }
+
+        .why-us h2 {
+            font-size: 28px; /* Size for headings */
+            color: #ff6b6b;
+            margin-bottom: 20px;
+        }
+
+        .why-us p {
+            font-size: 16px; /* Size for text */
+            color: #555;
+            line-height: 1.6; /* Spacing for readability */
+            max-width: 600px; /* Limit width for better readability */
+            margin: 0 auto; /* Center align */
+        }
+
+        /* Product Carousel */
+        .product-carousel {
+            display: flex;
+            background-color: white;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 0;
+            gap: 40px;
+            animation: fadeIn 1.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .product-card {
+            background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+            border-radius: 20px;
+            width: 320px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .product-card h2 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            color: #333;
+            font-weight: 700;
+        }
+
+        .product-card p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #777;
+            margin-bottom: 20px;
+        }
+
+        .learn-more {
+            color: #ff6b6b;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .learn-more:hover {
+            border-color: #ff6b6b;
+        }
+
+        .highlight {
+            position: absolute;
+            top: -30px;
+            right: -30px;
+            background: radial-gradient(circle, #ff6b6b, #ff4757);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 600;
+            transform: rotate(20deg);
+            box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Comparison Section */
+        .compare-section {
+            padding: 70px 20px;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .compare-section h2 {
+            font-size: 32px;
+            margin-bottom: 40px;
+            color: #ff6b6b;
+        }
+
+        .compare-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .compare-box {
+            background-image: linear-gradient(to top, #fdcbf1 0%, #fdcbf1 1%, #e6dee9 100%);
+            border-radius: 20px;
+            padding: 30px;
+            width: 320px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .compare-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .compare-box h3 {
+            font-size: 22px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .compare-box p {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #ff6b6b;
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .footer h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .footer p {
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+
+        .footer .btn-primary {
+            background-color: #f1f2f6;
+            color: #ff6b6b;
+            padding: 14px 40px;
+        }
+          /* Responsive Styles */
+          @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px; /* Smaller header for mobile */
+            }
+
+            .product-card {
+                width: 90%; /* Full width on mobile */
+                padding: 20px; /* Reduced padding */
+            }
+
+            .compare-box {
+                width: 90%; /* Full width on mobile */
+                padding: 20px; /* Reduced padding */
+            }
+
+            .why-us h2 {
+                font-size: 24px; /* Smaller heading for mobile */
+            }
+
+            .why-us p {
+                font-size: 14px; /* Smaller text for mobile */
+            }
+
+            .footer h2 {
+                font-size: 24px; /* Smaller footer heading */
+            }
+
+            .footer p {
+                font-size: 14px; /* Smaller footer text */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <div class="header">
+        <h1>Explore Our High-Growth Products</h1>
+        <p>Transform your savings into high returns with our Tax Saver FD & RD plans, designed for future-focused young adults.</p>
+        <a href="#products" class="btn-primary">Get Started</a>
+    </div>
+
+    
+
+    <!-- Product Carousel -->
+    <div id="products" class="product-carousel">
+        <div class="product-card">
+            <div class="highlight">16% Returns</div>
+            <h2>High Growth Tax Saver FD</h2>
+            <p>Earn 16% annual compounded interest with indexation benefits. Start from ₹1,000. No lock-in period, flexible terms from 1 to 5 years.</p>
+            <a href="https://raw.githubusercontent.com/TheFirstOrder7/CPF//main/fdnew.pdf" download class="learn-more">Learn More</a>
+        </div>
+        <div class="product-card">
+            <div class="highlight">12% Interest</div>
+            <h2>High Growth Tax Saver RD</h2>
+            <p>Enjoy 12% annual interest with ₹2,500 standard deduction. Start from just ₹50 for 6 months to 5 years. No lock-in period.</p>
+            <a href="https://raw.githubusercontent.com/TheFirstOrder7/CPF//main/rd.pdf" download class="learn-more">Learn More</a>
+        </div>
+    </div>
+
+    <!-- Comparison Section -->
+    <div class="compare-section">
+        <h2>Compare Our Products</h2>
+        <div class="compare-wrapper">
+            <div class="compare-box">
+                <h3>High Growth Tax Saver FD</h3>
+                <p>✔ 16% annual returns<br>✔ ₹250 INR standard deduction<br>✔ No lock-in period<br>✔ Flexible terms: 1-5 years</p>
+            </div>
+            <div class="compare-box">
+                <h3>High Growth Tax Saver RD</h3>
+                <p>✔ 12% interest<br>✔ ₹2,500 INR standard deduction<br>✔ No lock-in period<br>✔ Flexible terms: 6 months-5 years</p>
+            </div>
+        </div>
+    </div>
+<!-- Why Choose Us Section -->
+<div class="why-us">
+    <h2>Why Us?</h2>
+    <p>In a world with countless options, we stand out by offering 2x returns compared to conventional deposit products. Our flexible approach ensures that you can maximize your savings without compromising on your financial goals.</p>
+    <p>Moreover, our dual utility product not only boosts your returns but also funds a sustainable future for marginalized communities. By choosing us, you are not just investing; you are making a difference!</p>
+</div>
+    <!-- Footer Section -->
+    <div class="footer">
+        <h2>Ready to Grow Your Savings?</h2>
+        <p>Start with our high-growth Tax Saver FD or RD plans now!</p>
+        <a href="fdcalc.html" class="btn-primary">Start with FD</a>
+        <a href="rd.html" class="btn-primary" style="margin-left: 10px;">Start with RD</a>
+        &c
+    </div>
+
+</body>
+</html>
