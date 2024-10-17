@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Loan Incentives</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 4px 20px rgba(1, 61, 33, 0.322);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin-bottom: 15px;
+            color: #10522b;
+            font-size: 2.5em;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 1.1em;
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 12px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #000000;
+            font-size: 1em;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 12px 15px;
+            background-color: #1156be;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #ffbb00;
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container animated">
+        <header>
+            <h1>Green Loan Incentives</h1>
+            <p>Share how your loan supports a sustainable future and</p>
+            <p>Win a chance to get interest rate subvention for green loans!</p>
+        </header>
+
+        <form id="greenLoanForm">
+           
+            <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+          
+            <input type="text" id="loanCode" name="loanCode" placeholder="Your Loan Code" required>
+
+            <label for="impactDescription">How will this loan help in saving our Environment?</label>
+            <textarea id="impactDescription" name="impactDescription" placeholder="Describe your impact..." rows="4" required></textarea>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <footer>
+            &copy; 2024 Green Initiative
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('greenLoanForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const name = document.getElementById('name').value;
+            const loanCode = document.getElementById('loanCode').value;
+            const impactDescription = document.getElementById('impactDescription').value;
+
+            // Create the WhatsApp message
+            const message = `Hello! My name is ${name} with loan code ${loanCode}. This loan has helped me achieve the following environmentally friendly purchases: ${impactDescription}`;
+            const whatsappNumber = '7456943225';
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
+            // Redirect to WhatsApp
+            window.open(whatsappURL, '_blank');
+        });
+    </script>
+</body>
+</html>
