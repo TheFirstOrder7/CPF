@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gen Z Slang Generator</title>
+    <style>
+       body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #f8ff70, #a4ffdd);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            position: relative;
+        }
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1; /* Ensure the container is above the images */
+        }
+        h1 {
+            font-size: 2.5em;
+            color: #ff6b81;
+            text-shadow: 2px 2px 0 #000;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.5em;
+            background-color: #ff6b81;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff9b81;
+            transform: scale(1.1);
+        }
+        .slang {
+            font-size: 2em;
+            margin-top: 20px;
+            color: #333;
+        }
+        .meaning {
+            font-size: 1.5em;
+            margin-top: 10px;
+            color: #666;
+        }
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0; /* Ensure the confetti is below other elements */
+        }
+
+        @keyframes goofyTilt {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-10deg);
+    }
+    50% {
+        transform: rotate(10deg);
+    }
+    75% {
+        transform: rotate(-10deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+img {
+    animation: goofyTilt 1s infinite;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+        img {
+            width: 30%; /* Set images to be responsive */
+            max-width: 150px; /* Set a max width for larger screens */
+            border-radius: 10px; /* Optional: add some styling */
+            position: absolute;
+            z-index: 0; /* Ensure images are below the container */
+        }
+        /* Positioning images */
+        #kai {
+            top: 20px;
+            left: 10%;
+        }
+        #fanum {
+            top: 20px;
+            right: 10%;
+        }
+        #speed {
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>💥 Gen Z Outreach Programme 💥</h1>
+    <p>Learn Genz slang</p>
+    <button onclick="generateSlang()">Show me the vibe</button>
+    <div class="slang" id="slang"></div>
+    <div class="meaning" id="meaning"></div>
+    <canvas class="confetti" id="confettiCanvas"></canvas>
+</div>
+
+<img id="kai" src="data:image/jpeg;base64,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" alt="Kai Cenat">
+<img id="fanum" src="data:image/jpeg;base64,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" alt="Fanum">
+<img id="speed" src="data:image/jpeg;base64,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" alt="Speed">
+<script>
+    const slangs = [
+    { slang: "No Cap", meaning: "Not lying, being honest." },
+    { slang: "Vibe Check", meaning: "Checking the mood or atmosphere." },
+    { slang: "Bet", meaning: "Sure, okay, I agree." },
+    { slang: "Sus", meaning: "Suspicious or shady behavior." },
+    { slang: "Sheesh", meaning: "Expression of disbelief or excitement." },
+    { slang: "Glow Up", meaning: "Transformation, usually for the better." },
+    { slang: "Flex", meaning: "Showing off or bragging." },
+    { slang: "Fam", meaning: "Close friends or family." },
+    { slang: "Hits Different", meaning: "Something that feels more significant." },
+    { slang: "Slaps", meaning: "Really good, often referring to music." },
+    { slang: "Drip", meaning: "Cool style or fashionable outfit." },
+    { slang: "Tea", meaning: "Gossip or juicy info." },
+    { slang: "Lowkey", meaning: "Secretly or subtly." },
+    { slang: "Highkey", meaning: "Out in the open, obvious." },
+    { slang: "Mood", meaning: "Relatable feeling or experience." },
+    { slang: "Salty", meaning: "Bitter or upset." },
+    { slang: "Lit", meaning: "Exciting, fun, or cool." },
+    { slang: "Bussin'", meaning: "Extremely good or delicious." },
+    { slang: "Big Yikes", meaning: "Extremely embarrassing or awkward." },
+    { slang: "GOAT", meaning: "Greatest of All Time." },
+    { slang: "Simp", meaning: "Someone who does way too much for someone they like." },
+    { slang: "Main Character Energy", meaning: "Feeling like the center of attention." },
+    { slang: "Bruh", meaning: "Expression of frustration or disbelief." },
+    { slang: "Yeet", meaning: "To throw something with force or excitement." },
+    { slang: "Thirsty", meaning: "Desperate for attention or affection." },
+    { slang: "Shook", meaning: "Shocked or surprised." },
+    { slang: "Stan", meaning: "A super fan or someone who supports intensely." },
+    { slang: "Karen", meaning: "A rude, entitled person (usually middle-aged woman)." },
+    { slang: "Extra", meaning: "Over the top or dramatic." },
+    { slang: "Snack", meaning: "Someone who looks good, attractive." },
+    { slang: "Cap", meaning: "A lie or false statement." },
+    { slang: "Woke", meaning: "Socially aware, especially of injustices." },
+    { slang: "Bae", meaning: "Term of endearment for a significant other." },
+    { slang: "Dead", meaning: "Something so funny it 'killed' you with laughter." },
+    { slang: "Receipts", meaning: "Proof or evidence of something." },
+    { slang: "TFW", meaning: "That Feel When; describes relatable emotions." },
+    { slang: "AF", meaning: "As [expletive], used for emphasis." },
+    { slang: "Chill", meaning: "Relaxed, laid-back, or cool." },
+    { slang: "Pressed", meaning: "Upset, bothered, or mad." },
+    { slang: "Slay", meaning: "To do something amazingly or look stunning." },
+    { slang: "FOMO", meaning: "Fear of Missing Out." },
+    { slang: "IYKYK", meaning: "If You Know, You Know; something only understood by insiders." },
+    { slang: "Sksksk", meaning: "Expressing excitement or nervousness, common in online chats." },
+    { slang: "Periodt", meaning: "Finality, no debate, end of conversation." },
+    { slang: "Boujee", meaning: "High-class, fancy, or expensive." },
+    { slang: "Ok Boomer", meaning: "Dismissive retort to out-of-touch older generations." },
+    { slang: "L", meaning: "Loss, failure, or something bad." },
+    { slang: "W", meaning: "Win or something good." },
+    { slang: "Dank", meaning: "Really cool or excellent." },
+    { slang: "Receipts", meaning: "Evidence of something, usually used to show proof." },
+    { slang: "Snatched", meaning: "Looking good or well-put-together." },
+    { slang: "Szn", meaning: "Season; used to describe a vibe or trend." },
+    { slang: "Clout", meaning: "Influence or fame, usually on social media." },
+    { slang: "Gassed", meaning: "Overly hyped up, excited." },
+    { slang: "Rent-Free", meaning: "When someone or something lives in your head without effort." },
+    { slang: "Rizz", meaning: "Smooth charm or flirting ability." },
+    { slang: "On Fleek", meaning: "Perfectly done, on point." },
+    { slang: "Sending Me", meaning: "Something so funny it makes you laugh uncontrollably." },
+    { slang: "Deada", meaning: "Totally serious or for real." },
+    { slang: "Oof", meaning: "Expression of empathy or awkwardness." },
+    { slang: "Finna", meaning: "Going to, about to do something." },
+    { slang: "Boomer", meaning: "Older person seen as out-of-touch." },
+    { slang: "Bruh", meaning: "Expression of frustration or disbelief." },
+    { slang: "Yass", meaning: "Enthusiastic agreement or excitement." },
+    { slang: "Savage", meaning: "Bold, fierce, or ruthless." },
+    { slang: "I Can't Even", meaning: "Overwhelmed, unable to handle something." },
+    { slang: "Receipts", meaning: "Proof or evidence of something." },
+    { slang: "Tea", meaning: "Gossip or juicy information." },
+    { slang: "Chuggy", meaning: "Out of style or trying too hard." },
+    { slang: "Swole", meaning: "Muscular or buff." },
+    { slang: "It's Giving", meaning: "The vibe or energy something radiates." },
+    { slang: "Wylin'", meaning: "Acting crazy or irrational." },
+    { slang: "Glo'd Up", meaning: "Significant improvement in appearance or success." },
+    { slang: "Fire", meaning: "Incredible, really cool or amazing." },
+    { slang: "Hits Different", meaning: "Something that feels more significant." },
+    { slang: "Zaddy", meaning: "A good-looking, confident man." },
+    { slang: "Szn", meaning: "Short for season, describes a period or vibe." },
+    { slang: "Ghosting", meaning: "Cutting off all communication without explanation." },
+    { slang: "Dank", meaning: "Very cool or awesome, usually memes." },
+    { slang: "Drip", meaning: "High fashion or stylish appearance." },
+    { slang: "Thicc", meaning: "Someone with a full, curvy body." },
+    { slang: "Spill", meaning: "Tell the truth or gossip." },
+    { slang: "Slaps", meaning: "Something really good, especially music." },
+    { slang: "Vibing", meaning: "Chilling, enjoying the moment." },
+    { slang: "Deadass", meaning: "Completely serious, no joke." },
+    { slang: "Ratio", meaning: "A response getting more likes than the original post." },
+    { slang: "Hits Different", meaning: "Something that feels unique or special." },
+    { slang: "Receipts", meaning: "Evidence, usually screenshots or proof." },
+    { slang: "Big Mood", meaning: "Something that's very relatable." },
+    { slang: "Catch These Hands", meaning: "An invitation to fight." },
+    { slang: "Boujee", meaning: "Fancy, rich, or high-class in taste." },
+    { slang: "Pull Up", meaning: "Come over, or arrive somewhere." },
+    { slang: "Thirst Trap", meaning: "Posting attractive pictures to get attention." },
+    { slang: "Hits", meaning: "Something good or successful." },
+    { slang: "Cuffing Season", meaning: "Winter season when people seek relationships." },
+    { slang: "No Filter", meaning: "Being blunt or straightforward without sugar-coating." },
+    { slang: "Slay Queen/King", meaning: "Someone doing exceptionally well, especially in terms of style or attitude." },
+    { slang: "Tea Spill", meaning: "To share gossip or juicy information." },
+    { slang: "Bet", meaning: "To agree or confirm something." },
+    { slang: "Ghost", meaning: "To suddenly cut off all communication." },
+    { slang: "Shade", meaning: "Subtle, sneaky criticism or disrespect." },
+    { slang: "Simp", meaning: "Someone who does too much for someone they like." },
+    { slang: "Clout Chaser", meaning: "Someone who seeks fame or attention from others." },
+    { slang: "Flex", meaning: "To show off or brag." },
+    { slang: "Woke", meaning: "Socially aware, especially of injustices." },
+    { slang: "Drip", meaning: "Stylish or fashionable clothing." },
+    { slang: "Finesse", meaning: "To handle a situation cleverly or skillfully." },
+    { slang: "Lowkey", meaning: "Secretly or subtly." },
+    { slang: "Highkey", meaning: "Openly or obviously." },
+    { slang: "Bop", meaning: "A good song or something that’s fun to listen to." },
+    { slang: "Vibe Check", meaning: "Assessing the mood or atmosphere." },
+    { slang: "Fire", meaning: "Something really cool or amazing." },
+    { slang: "Simping", meaning: "Excessively showing affection for someone, often without reciprocation." },
+    { slang: "FOMO", meaning: "Fear of Missing Out." },
+    { slang: "Bet", meaning: "To agree or confirm something." },
+    { slang: "Throwing Shade", meaning: "Subtly disrespecting someone." },
+    { slang: "Salty", meaning: "Bitter or upset." },
+    { slang: "Lookmaxx", meaning: "The act of improving one’s physical appearance to maximize attractiveness." },
+    { slang: "Chad", meaning: "An attractive, confident man who is often seen as the ideal male." },
+    { slang: "Stacy", meaning: "An attractive woman who is often seen as the ideal female." },
+    { slang: "Incels", meaning: "Involuntarily celibate individuals who often discuss dating and attractiveness issues." },
+    { slang: "Alpha", meaning: "A dominant or assertive person, often in a social or dating context." },
+    { slang: "Beta", meaning: "A less dominant or more passive person in social situations." },
+    { slang: "Facemaxx", meaning: "Focusing specifically on improving one’s facial appearance." },
+    { slang: "Gymmaxx", meaning: "Improving physical appearance through fitness and bodybuilding." },
+    { slang: "Stylemaxx", meaning: "Enhancing one’s fashion and clothing to look more attractive." },
+    { slang: "Rizz", meaning: "Charisma or charm in dating situations." },
+    { slang: "Glow Up", meaning: "A significant improvement in appearance or style over time." },
+    { slang: "Lifting", meaning: "Referring to weightlifting or bodybuilding to enhance physical appearance." },
+    { slang: "Aesthetic", meaning: "A particular style or appearance that is visually appealing." },
+    { slang: "Sculpt", meaning: "To shape or define one’s body through exercise or diet." },
+    { slang: "Self-Improvement", meaning: "The process of bettering oneself in various aspects, including appearance." },
+    { slang: "Game", meaning: "The ability to attract or charm others, often in dating." },
+    { slang: "Heightmaxx", meaning: "Seeking ways to appear taller, such as posture improvement or footwear." },
+    ];
+
+    function generateSlang() {
+        const randomIndex = Math.floor(Math.random() * slangs.length);
+        document.getElementById('slang').innerText = slangs[randomIndex].slang;
+        document.getElementById('meaning').innerText = slangs[randomIndex].meaning;
+
+        triggerConfetti();
+    }
+
+    function triggerConfetti() {
+        // Simple confetti animation logic
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const confettiColors = ['#ff6b81', '#70f8ff', '#f0ff70', '#81ff6b'];
+        const confettiPieces = Array.from({ length: 100 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            size: Math.random() * 5 + 2,
+            color: confettiColors[Math.floor(Math.random() * confettiColors.length)],
+            velocityX: Math.random() * 2 - 1,
+            velocityY: Math.random() * 3 + 1
+        }));
+
+        function update() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            confettiPieces.forEach(p => {
+                p.x += p.velocityX;
+                p.y += p.velocityY;
+
+                if (p.y > canvas.height) p.y = -p.size;
+
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(update);
+        }
+
+        update();
+    }
+</script>
+
+</body>
+</html>
