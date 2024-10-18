@@ -103,6 +103,12 @@
         .new-game-btn {
             display: none;
         }
+        .plain-text-link {
+    color: inherit; /* Use the same color as the surrounding text */
+    text-decoration: none; /* Remove the underline */
+    cursor: default; /* Set the cursor to default to avoid hand cursor */
+}
+
         /* Confetti celebration */
         .confetti-container {
             position: fixed;
@@ -135,7 +141,8 @@
     </style>
 </head>
 <body>
-    <div class="banner">Welcome to the Classic Bingo Game!</div>
+    <div class="banner">Welcome to the Classic Bingo<a href="genz.html" class="plain-text-link">Game!</a>
+</div>
     
     <bR><br><!-- New Banner -->
 <div class="bingo-container" id="bingoGrid"></div>
