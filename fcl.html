@@ -19,7 +19,7 @@
         }
         h1 {
     text-align: center;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
     color: #fff;
     background-color: #CDDCDC;
@@ -59,7 +59,7 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 16px;
     padding: 20px;
-    width: 60%;
+    width: 70%;
     max-width: 1200px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -204,8 +204,8 @@
             const amounts = loans.map(loan => loan.amount);
 
             const ctx = loanChart.getContext('2d');
-loanChart.width = 500;  // Set the width
-loanChart.height = 600;  // Set the height
+loanChart.width = 300;  // Set the width
+loanChart.height = 300;  // Set the height
 
             new Chart(ctx, {
                 type: 'doughnut',
