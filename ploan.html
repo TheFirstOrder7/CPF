@@ -328,7 +328,7 @@ body {
       const now = new Date().getTime();
       const timeLeft = endDate - now;
       countdown.textContent = timeLeft > 0
-        ? `${Math.floor(timeLeft / (1000 * 60 * 60 * 24))} Days Remaining`
+        ? `${Math.floor(timeLeft / (1000 * 60 * 60 * 24))} Days `
         : "The program has launched!";
     }, 1000);
 
