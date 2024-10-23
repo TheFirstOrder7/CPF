@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>First Order Loans - Revolutionize Your Financing</title>
+    <style>
+      /* General Styling */
+body {
+    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: white;
+    background-blend-mode: screen;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+h2, h3, p {
+    color: #575454;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+h1, h4 {
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.hero {
+  height: 100vh;
+  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  position: relative;
+  animation: fadeIn 1.5s;
+  background-attachment: fixed;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  animation: textBounce 2s infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+@keyframes textBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp 2s forwards 1s;
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(10px); }
+}
+
+/* Scroll Button Styling */
+.scroll-btn {
+  background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.scroll-btn:hover {
+  background-color: #04befe;
+}
+
+/* Product Section with Glassmorphism */
+.product-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.product-card {
+    width: 30%;
+    background: rgb(255, 255, 255); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px); /* Blur background for glassmorphism effect */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Light border for glass effect */
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 40px;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+}
+
+.product-header {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+.product-description {
+    font-size: 1em;
+    color: #444;
+    text-align: justify;
+}
+
+/* CTA Button Styling */
+.cta-btn {
+    display: inline-block;
+    background-color: #e52e71;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #ff8a00;
+}
+
+/* Features Section */
+.features-section {
+    background: white;
+    background-blend-mode: screen;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.features-list {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.feature {
+    width: 30%;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    text-align: center;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.2rem;
+  }
+  .product-card {
+    width: 80%;
+  }
+  .feature {
+    width: 80%;
+  }
+}
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px 0;
+   
+    color: white;
+}
+
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div>
+          <h1><b>SINGULARITY</b></h1>
+          <h4>Your one-stop solution to flexible, no-hassle loans.</h4>
+          <button class="scroll-btn" onclick="scrollToSection()">Explore Loans</button>
+        </div>
+      </div>
+
+    <!-- Loan Product Comparison Section -->
+    <section id="loan-products" class="product-section">
+
+        <!-- Loan Product 1 -->
+        <div class="product-card">
+            <h3 class="product-header">ReviseMax Loan</h3>
+            <p class="product-description">
+                <strong>18% per annum interest, no processing fees or hidden charges.</strong><br>
+                Choose a loan tenure from 1 month to 1 year.<br>
+                Enjoy unlimited loan revision or extension.<br>
+                <strong>Loan Revision Fees:</strong> 10% on accrued interest with every revision.<br>
+                <strong>Early Repayment Charge:</strong> 80% of committed interest at loan inquiry.<br>
+                <strong>Approval Time:</strong> Just 3 hours with 100% approval rate.<br>
+                Perfect for those seeking flexibility, quick disbursements, and no hidden costs!
+            </p>
+            <a href="apply.html" class="cta-btn">Apply ReviseMax Loan</a>
+        </div>
+
+        <!-- Loan Product 2 -->
+        <div class="product-card">
+            <h3 class="product-header">FlexiCash Loan</h3>
+            <p class="product-description">
+                <strong>18% per annum interest with minimal processing fees.</strong><br>
+                <strong>No fixed repayment deadline</strong> - you only pay for the tenure you keep the loan.<br>
+                No hassles of agent reminders or constant updates.<br>
+                <strong>Zero Revisioning Fees:</strong> No extra fees for extending your loan.<br>
+                <strong>No Early Repayment Fees:</strong> You decide when to pay back, without penalty.<br>
+                The ultimate hassle-free solution to manage your cash flow on your terms!
+            </p>
+            <a href="ploan.html" class="cta-btn">Apply FlexiCash Loan</a>
+        </div>
+
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>Why Choose First Order Loans?</h2>
+        <div class="features-list">
+            <div class="feature">
+                <h3>Fast Approval</h3>
+                <p>Get your loan approved in just 3 hours with 100% guaranteed approval rates.</p>
+            </div>
+            <div class="feature">
+                <h3>No Hidden Fees</h3>
+                <p>Transparent terms with no surprise charges. What you see is what you get.</p>
+            </div>
+            <div class="feature">
+                <h3>Unlimited Flexibility</h3>
+                <p>Choose your tenure, extend or revise as you need, and pay back early with ease.</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>First Order Loans &copy; 2024 | Designed for sophisticated borrowers.</p>
+    </footer>
+
+    <script>
+      function scrollToSection() {
+        document.getElementById("loan-products").scrollIntoView({ behavior: "smooth" });
+      }
+    </script>
+
+</body>
+</html>
