@@ -318,68 +318,45 @@
             margin-top: 20px;
         }
  
-    /* Base styles for desktop view (larger screens) */
-nav {
-    padding: 15px 40px; /* General padding for larger screens */
-}
-
-.nav-links {
-    display: flex;
-    justify-content: flex-end; /* Align items to the right */
-    gap: 30px; /* Space between links */
-    width: auto;
-    padding: 0; /* Remove any extra padding */
-}
-
-.nav-links a {
-    margin: 0;
-    padding: 10px;
-    text-align: center;
-    flex-grow: 0; /* Links won't stretch */
-}
-
-/* Mobile view: Adjust for screens up to 767px */
-@media (max-width: 767px) {
+    @media (max-width: 767px) {
     nav {
-        padding: 15px 20px; /* Smaller padding for mobile */
+        padding: 15px 30px;
     }
 
     .nav-links {
         display: flex;
-        flex-direction: column; /* Stack links vertically */
-        align-items: center; /* Center the links */
+        justify-content: space-between;
         width: 100%;
-        padding: 0; /* Remove extra padding */
+        padding: 0 20px;
     }
 
     .nav-links a {
-        margin: 10px 0; /* Add vertical margin between links */
-        padding: 10px;
+        margin: 0 10px; /* Add horizontal margin between links */
+        padding: 10px 0;
         text-align: center;
-        width: 100%; /* Full width for mobile */
-        flex-grow: 0;
+        flex-grow: 1;
     }
-}
-
-/* Tablet view: Adjust for screens between 768px and 1024px */
+/* Tablet view: Align navigation bar properly */
 @media (min-width: 768px) and (max-width: 1024px) {
     nav {
-        padding: 15px 30px; /* Slightly more padding than mobile */
+        padding: 10px 20px;
     }
 
     .nav-links {
         display: flex;
-        justify-content: space-between; /* Spread the links across */
-        width: 100%;
-        padding: 0 20px; /* Provide some padding */
+        justify-content: flex-end; /* Align items to the right */
+        gap: 20px; /* Adds spacing between links */
+        width: auto;
+        padding: 0; /* Remove any extra padding */
     }
 
     .nav-links a {
-        margin: 0 10px; /* Small horizontal margin between links */
+        margin: 0;
         padding: 10px;
-        text-align: center;
-        flex-grow: 1; /* Allow links to stretch evenly */
-    }
+        text-align: center; /* Keeps the text centered */
+        flex-grow: 0; /* Prevents links from stretching */
+    } 
+  
 
             .hero h1 {
                 font-size: 2.5rem;
