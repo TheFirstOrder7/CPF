@@ -43,10 +43,10 @@
     }
 
     .nav-brand {
-      font-size: 28px;
+      font-size: 32px;
       font-weight: bold;
       color: #ff6f61;
-      background: linear-gradient(90deg, #ff6f61, #56ccf2);
+      background: linear-gradient(90deg, #da0505, #56ccf2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -365,30 +365,59 @@
             background-color: #56ccf2;
         }
 
-        /* Footer */
-        footer {
-            padding: 40px 20px;
-            background-color: #000;
-            text-align: center;
-        }
+        * Footer CTA Styling */
+  .footer-cta {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #222;
+    color: #fff;
+  }
 
-        footer .social-icons a {
-            font-size: 20px;
-            margin: 0 10px;
-            color: #ff6f61;
-            transition: color 0.3s ease;
-        }
+  .footer-cta h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
 
-        footer .social-icons a:hover {
-            color: #56ccf2;
-        }
+  .footer-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
 
-        footer p {
-            color: #888;
-            font-size: 14px;
-            margin-top: 20px;
-        }
- 
+  .cta-btn-footer {
+    background-color: #ff6f61;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 22px;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+
+  .cta-btn-footer:hover {
+    background-color: #50abe8;
+  }
+
+  /* General Footer Styling */
+  footer {
+    background-color: #000000;
+    padding: 20px 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    color: #82c2ec;
+    font-size: 1.5rem;
+  }
+
+  .social-icons a:hover {
+    color: #ff6f61;
+  }
+
+  footer p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+  }
         @media (max-width: 767px) {
         
        
@@ -415,6 +444,7 @@
                 width: 90%;
             }
         }
+       
     </style>
 </head>
 <body>
@@ -503,15 +533,22 @@
           </div>
         </div>
     </section>
-
+    
     <!-- Footer -->
     <footer>
+      <div class="footer-cta">
+        <h2>Need Assistance or Have Questions?</h2>
+        <p>We’re here to help. Reach out to us today for any support on loans, investments, or general inquiries.</p>
+        <a href="help.html" class="cta-btn-footer">Get Help Now</a>
+        
+      </div>
+<br><br>
         <div class="social-icons">
             <a href="#"><i class="fab fa-instagram"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
         </div>
-        <p>© 2024 THE FIRST ORDER. All Rights Reserved.</p>
+        <p>© 2024 <i>THE FIRST ORDER</i>. All Rights Reserved.</p>
     </footer>
     <script>
       const hamburger = document.querySelector('.hamburger');
