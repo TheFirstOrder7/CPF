@@ -25,44 +25,115 @@
             color: inherit;
         }
 
-         /* Navigation Bar */
-         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: rgba(0, 0, 0, 0.7);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            transition: background 0.3s ease-in-out;
-        }
+     /* Revamped Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background 0.3s ease-in-out;
+    }
 
-        nav.sticky {
-            background: rgba(0, 0, 0, 0.95);
-        }
+    nav.sticky {
+      background: rgba(0, 0, 0, 0.95);
+    }
 
-        .nav-brand {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ff6f61;
-            background: linear-gradient(90deg, #ff6f61, #56ccf2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    .nav-brand {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff6f61;
+      background: linear-gradient(90deg, #ff6f61, #56ccf2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-        .nav-links a {
-            margin-left: 30px;
-            font-size: 16px;
-            font-weight: 500;
-            color: #ffffffd9;
-            transition: color 0.3s ease-in-out;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
 
-        .nav-links a:hover {
-            color: #ff6f61;
-        }
+    .nav-links a {
+      margin-left: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffffd9;
+      transition: color 0.3s ease-in-out;
+    }
 
+    .nav-links a:hover {
+      color: #ff6f61;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 2px;
+      background-color: #fff;
+      margin: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 15px 0;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background-color: #ff6f61;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
         
         /* Hero Section */
         .hero {
@@ -318,46 +389,10 @@
             margin-top: 20px;
         }
  
-    @media (max-width: 767px) {
-    nav {
-        padding: 15px 30px;
-    }
+        @media (max-width: 767px) {
+        
+       
 
-    .nav-links {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 20px;
-    }
-
-    .nav-links a {
-        margin: 0 10px; /* Add horizontal margin between links */
-        padding: 10px 0;
-        text-align: center;
-        flex-grow: 1;
-    }
-/* Tablet view: Align navigation bar properly */
-@media (min-width: 768px) and (max-width: 1024px) {
-    nav {
-        padding: 10px 20px;
-    }
-
-    .nav-links {
-        display: flex;
-        justify-content: flex-end; /* Align items to the right */
-        gap: 20px; /* Adds spacing between links */
-        width: auto;
-        padding: 0; /* Remove any extra padding */
-    }
-
-    .nav-links a {
-        margin: 0;
-        padding: 10px;
-        text-align: center; /* Keeps the text centered */
-        flex-grow: 0; /* Prevents links from stretching */
-    } 
-  
-  }
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -386,12 +421,22 @@
 
     <!-- Navigation Bar -->
     <nav>
-        <div class="nav-brand">SINGULARITY</div>
-        <div class="nav-links">
-            
-            <a href="terminal.html">Menu</a>
-            <a href="update.html">Updates</a>
-        </div>
+      <div class="nav-brand">SINGULARITY</div>
+      <div class="nav-links">
+        <a href="terminal.html">Menu</a>
+        <a href="update.html">Updates</a>
+      
+      </div>
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="mobile-menu">
+        <a href="terminal.html">Menu</a>
+        <a href="update.html">Updates</a>
+       
+      </div>
     </nav>
 
     <!-- Hero Section -->
@@ -468,6 +513,14 @@
         </div>
         <p>© 2024 THE FIRST ORDER. All Rights Reserved.</p>
     </footer>
-
+    <script>
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('.mobile-menu');
+  
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+    </script>
 </body>
 </html>
