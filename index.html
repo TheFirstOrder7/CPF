@@ -318,25 +318,25 @@
             margin-top: 20px;
         }
 
-     @media (max-width: 768px) {
+        @media (min-width: 768px) and (max-width: 1024px) {
     nav {
-        padding: 15px 30px;
+        padding: 10px 20px;
     }
 
     .nav-links {
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 20px;
+        justify-content: flex-start; /* Align to the left */
+        gap: 20px; /* Adds spacing between links */
+        width: auto;
+        padding: 0; /* Remove any extra padding */
     }
 
     .nav-links a {
-        margin: 0 10px; /* Add horizontal margin between links */
-        padding: 10px 0;
-        text-align: center;
-        flex-grow: 1;
+        margin: 0;
+        padding: 10px;
+        text-align: left;
+        flex-grow: 0; /* Prevents links from stretching */
     }
-
             .hero h1 {
                 font-size: 2.5rem;
             }
