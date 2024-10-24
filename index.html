@@ -336,15 +336,15 @@
         text-align: center;
         flex-grow: 1;
     }
-
-    @media (min-width: 768px) and (max-width: 1024px) {
+/* Tablet view: Align navigation bar properly */
+@media (min-width: 768px) and (max-width: 1024px) {
     nav {
         padding: 10px 20px;
     }
 
     .nav-links {
         display: flex;
-        justify-content: flex-start; /* Align to the left */
+        justify-content: flex-end; /* Align items to the right */
         gap: 20px; /* Adds spacing between links */
         width: auto;
         padding: 0; /* Remove any extra padding */
@@ -353,10 +353,10 @@
     .nav-links a {
         margin: 0;
         padding: 10px;
-        text-align: left;
+        text-align: center; /* Keeps the text centered */
         flex-grow: 0; /* Prevents links from stretching */
-}
     }
+
 
     
             .hero h1 {
