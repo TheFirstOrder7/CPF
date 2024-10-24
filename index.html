@@ -1,6 +1,5 @@
 <html>
-  
-<head>
+  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Singularity - Finance Redefined</title>
@@ -26,8 +25,8 @@
             color: inherit;
         }
 
-        /* Navigation Bar */
-        nav {
+         /* Navigation Bar */
+         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,6 +63,7 @@
             color: #ff6f61;
         }
 
+        
         /* Hero Section */
         .hero {
             height: 100vh;
@@ -94,7 +94,20 @@
             padding: 0 20px;
         }
 
-        .hero h1 {
+        /* Text Animation */
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            animation: slideDown 1.5s ease-out;
             font-size: 4rem;
             letter-spacing: 4px;
             line-height: 1.2;
@@ -305,10 +318,23 @@
             margin-top: 20px;
         }
 
-        /* Media Queries */
         @media (max-width: 768px) {
             nav {
                 padding: 15px 30px;
+            }
+
+            .nav-links {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .nav-links a {
+                margin-left: 0;
+                padding: 10px 0;
+                text-align: center;
+                flex-grow: 1;
             }
 
             .hero h1 {
