@@ -209,7 +209,7 @@ document.getElementById('sendMessage').addEventListener('click', function() {
   const currentDateFormatted = formatDateToWords(currentDate); // Current date in "dd Month-yyyy" format
 
   if (messageType === 'confirmation') {
-    message = `Dear ${customerName}, your loan with unique loan code ${loanCode} for ₹${amount} with ₹${interest} interest for ${tenure} days has been approved on ${currentDateFormatted}. Reply YES to confirm the sanctioned loan.`;
+    message = `Dear ${customerName}, your loan with unique loan code ${loanCode} for ₹${amount} with ₹${interest} interest for ${tenure} days has been approved on ${currentDateFormatted}. Reply YES to confirm the sanctioned loan. Please read the terms and conditions before ratifying this agreement. Bare in mind your response constitute a formal contractual relationship `;
   } else {
     const totalAmount = parseFloat(amount) + parseFloat(interest);
     const reminderDateFormatted = formatDateToWords(reminderDate); // Reminder date in "dd Month-yyyy" format
