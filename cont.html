@@ -137,8 +137,28 @@
       .form-container h2 {
         font-size: 1.8em;
       }
+      .form-container label {
+        font-size: 0.9em; /* Smaller label font */
+      }
+      .form-container input {
+        padding: 10px; /* Smaller input padding */
+        font-size: 0.9em; /* Smaller input font */
+      }
       .calculate-button, .submit-button {
-        font-size: 1em;
+        font-size: 1em; /* Smaller button font */
+      }
+    }
+
+    /* Extra Small Devices */
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 2em; /* Further reduced font size */
+      }
+      .form-container h2 {
+        font-size: 1.5em; /* Further reduced title size */
+      }
+      .calculate-button, .submit-button {
+        padding: 10px; /* Smaller button padding */
       }
     }
   </style>
@@ -204,6 +224,5 @@
       window.open(whatsappURL, '_blank');
     }
   </script>
-
 </body>
 </html>
