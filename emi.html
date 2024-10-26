@@ -90,38 +90,28 @@
             font-size: 16px;
             color: #007aff;
         }
-        .info-section {
-            margin-top: 30px;
-            text-align: left;
-        }
-        .info-section h3 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: #007aff;
-        }
     </style>
 </head>
 <body>
-
     <div class="container">
         <h2>EMI Calculator 🎉</h2>
-        
+
         <div class="input-group">
             <input type="number" id="loanAmount" placeholder="Loan Amount (₹)" />
         </div>
-        
+
         <div class="input-group">
             <label for="loanTenure">Loan Tenure (1 month to 6 years): <span id="tenureDisplay">12 months</span></label>
             <input type="range" id="loanTenure" min="1" max="72" value="12" oninput="updateTenureDisplay()" />
         </div>
 
         <button onclick="calculateEMI()">Calculate EMI</button>
-        
+
         <div class="result" id="emiResult"></div>
     </div>
 
     <script>
-        const annualInterestRate = 18; // 18% per annum compounded annually
+        const annualInterestRate = 18; // 18% per annum
 
         function updateTenureDisplay() {
             const loanTenure = document.getElementById('loanTenure').value;
@@ -129,23 +119,26 @@
         }
 
         function calculateEMI() {
-            const loanAmount = document.getElementById('loanAmount').value;
-            const loanTenure = document.getElementById('loanTenure').value / 12; // Convert months to years
-            const r = annualInterestRate / 100;
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const loanTenure = parseInt(document.getElementById('loanTenure').value);
+            const monthlyInterestRate = (annualInterestRate / 100) / 12;
+            const tenureInMonths = loanTenure;
 
-            // Calculate accrued interest
-            const accruedInterest = loanAmount * Math.pow(1 + r, loanTenure) - loanAmount;
-            const totalPayable = Math.round(parseFloat(loanAmount) + accruedInterest);
+            if (isNaN(loanAmount) || loanAmount <= 0 || isNaN(loanTenure) || loanTenure <= 0) {
+                document.getElementById('emiResult').innerHTML = `<strong>Please enter valid loan amount and tenure.</strong>`;
+                return;
+            }
 
-            // Monthly EMI calculation (total amount payable / total months)
-            const monthlyEMI = (totalPayable / (loanTenure * 12)); // Rounded to nearest whole number
+            // EMI calculation using reducing balance formula
+            const emi = loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, tenureInMonths) / (Math.pow(1 + monthlyInterestRate, tenureInMonths) - 1);
+            const totalPayable = emi * tenureInMonths;
+            const accruedInterest = totalPayable - loanAmount;
 
-            // Display EMI results
             document.getElementById('emiResult').innerHTML = `
                 <strong>Total Payable Amount:</strong> ₹${totalPayable.toFixed(2)} <br>
                 <strong>Accrued Interest:</strong> ₹${accruedInterest.toFixed(2)} <br>
-                <strong>Monthly EMI:</strong> ₹${monthlyEMI} <br>
-                <strong>Loan Tenure:</strong> ${document.getElementById('loanTenure').value} months
+                <strong>Monthly EMI:</strong> ₹${emi.toFixed(2)} <br>
+                <strong>Loan Tenure:</strong> ${loanTenure} months
             `;
         }
     </script>
