@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convertible Loans</title>
+  <style>
+    /* Reset and Basic Styling */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+    body {
+        background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+      overflow-x: hidden;
+      padding-bottom: 30px;
+    }
+    h1, h2, label, p {
+      color: #333;
+    }
+
+    /* Hero Section with Glassmorphism */
+    .hero {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      margin: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: 3em;
+      font-weight: bold;
+      background: linear-gradient(90deg, #FF512F, #DD2476);
+      -webkit-background-clip: text;
+      color: transparent;
+      animation: fadeInText 2s ease-in-out forwards;
+    }
+    @keyframes fadeInText {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    
+    /* Form Section */
+    .form-container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(250, 250, 250, 0.9));
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #2c3e50;
+    }
+    .form-container label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .form-container input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #cfd8dc;
+      border-radius: 10px;
+      font-size: 1em;
+    }
+    .calculate-button, .submit-button {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .calculate-button {
+      background: linear-gradient(90deg, #e67e22, #e74c3c);
+      color: #fff;
+    }
+    .calculate-button:hover {
+      background: linear-gradient(90deg, #e74c3c, #e67e22);
+    }
+    .submit-button {
+      background: linear-gradient(90deg, #2980b9, #6dd5fa);
+      color: #fff;
+      margin-top: 10px;
+    }
+    .submit-button:hover {
+      background: linear-gradient(90deg, #6dd5fa, #2980b9);
+    }
+
+    /* Invoice Box */
+    .invoice-box {
+      display: none;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: 1em;
+      color: #2c3e50;
+      text-align: left;
+    }
+    .invoice-box strong {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hero Section -->
+  <div class="hero">
+    <div>
+      <h1>LOAN CONVERTIBLE</h1>
+      
+  <!-- Conversion Form -->
+  <div class="form-container" id="conversion-form">
+    <h2>Loan Conversion Form</h2>
+    <h4>Convert your existing REVISEMAX LOAN to FLEXICASH LOAN</h4>
+    <form id="loanForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="loanCode">Loan Code:</label>
+      <input type="text" id="loanCode" name="loanCode" required>
+      
+      <label for="amount">Amount (₹):</label>
+      <input type="number" id="amount" name="amount" required>
+      
+      <button type="button" class="calculate-button" onclick="calculateFees()">Calculate Conversion Fees</button>
+      
+      <div class="invoice-box" id="invoice">
+        <strong>Conversion Fee Invoice</strong>
+        <p>Amount: ₹<span id="invoiceAmount"></span></p>
+        <p>Conversion Fee : ₹<span id="conversionFee"></span></p>
+      </div>
+      
+      <button type="button" class="submit-button" onclick="submitRequest()">Submit Request</button>
+    </form>
+    <p style="margin-top: 20px; font-size: 0.9em; color: #333;">By submitting this form, you agree to the terms of this contractual agreement. Upon payment of the conversion fee, we will process your loan conversion request.</p>
+  </div>
+
+    </div>
+  </div>
+
+
+  <script>
+   
+
+    // Calculate Conversion Fee
+    function calculateFees() {
+      const amount = parseFloat(document.getElementById('amount').value);
+      if (!isNaN(amount)) {
+        const fee = Math.min(amount * 0.01, 10).toFixed(2);
+        document.getElementById('conversionFee').textContent = fee;
+        document.getElementById('invoiceAmount').textContent = amount.toFixed(2);
+        document.getElementById('invoice').style.display = "block";  // Show invoice box
+      } else {
+        alert("Please enter a valid amount.");
+      }
+    }
+
+    // Submit Request and Open WhatsApp
+    function submitRequest() {
+      const name = document.getElementById('name').value;
+      const loanCode = document.getElementById('loanCode').value;
+      const amount = parseFloat(document.getElementById('amount').value);
+      const fee = Math.max(amount * 0.01, 5).toFixed(2);
+      
+      const whatsappMessage = `I, ${name}, with Revise Max loan code ${loanCode}, want to convert my loan to Flexicash. Upon payment of the conversion fee of ₹${fee}, I request you to process my loan conversion and agree on all contractual terms`;
+      
+      const whatsappURL = `https://wa.me/7456943225?text=${encodeURIComponent(whatsappMessage)}`;
+      window.open(whatsappURL, '_blank');
+    }
+  </script>
+
+</body>
+</html>
