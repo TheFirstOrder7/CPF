@@ -157,7 +157,24 @@
             text-align: center;
             overflow: hidden;
         }
+   
+/* Adjust for tablets */
+@media (max-width: 768px) {
+  .hero {
+    background-position: center;
+    background-size: cover; /* Ensures it covers the screen */
+    height: 80vh; /* Adjust height to fit smaller screens */
+  }
+}
 
+/* Adjust for mobile devices */
+@media (max-width: 480px) {
+  .hero {
+    background-position: center;
+    background-size: contain; /* Makes image fully visible */
+    height: 60vh; /* Further adjusts height */
+  }
+}
         .hero::before {
             content: '';
             position: absolute;
