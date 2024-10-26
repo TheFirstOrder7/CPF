@@ -213,7 +213,7 @@ document.getElementById('sendMessage').addEventListener('click', function() {
   } else {
     const totalAmount = parseFloat(amount) + parseFloat(interest);
     const reminderDateFormatted = formatDateToWords(reminderDate); // Reminder date in "dd Month-yyyy" format
-    message = `Dear ${customerName}, this is an auto remainder that your loan of ₹${amount} with unique loan code ${loanCode} is due on ${reminderDateFormatted}. Please pay ₹${totalAmount} to 7456943225@jupiteraxis to avoid extra charges. Reply REVISE to extend the loan. If already paid, kindly ignore the message. Please bare in mind on not resoponding in either affirmative or negative response, the loan would auto revise for a month. Inaction on your part will also constitute a strike on the Credit Score.`;
+    message = `Dear ${customerName}, this is an auto remainder that your loan of ₹${amount} with unique loan code ${loanCode} is due on ${reminderDateFormatted}. Please pay ₹${totalAmount} to 7456943225@jupiteraxis to avoid extra charges. Reply REVISE to extend the loan. If already paid, kindly ignore the message. Please bare in mind on not responding in either affirmative or negative response, the loan would auto revise for a month. Inaction on your part will also constitute a strike on the Credit Score.`;
   }
 
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
