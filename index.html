@@ -18,7 +18,7 @@
         }
 
         body {
-    background-color: #101010;
+    background-color: #000000;
     color: #fff;
     scroll-behavior: smooth;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -363,10 +363,10 @@
         .carousel-item img {
     max-width: 100%;
     width: 100%;
-    height: 300px; /* Set a fixed height */
+    height: 350px; /* Set a fixed height */
     object-fit: cover; /* Ensures the image covers the area without distorting */
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -475,7 +475,51 @@
                 width: 90%;
             }
         }
-       
+      /* Promo Video Banner Styling */
+.promo-banner {
+  position: relative;
+  width: 100%;
+  height: 50vh; /* Full viewport height for a banner feel */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000; /* Black background for better video contrast */
+}
+
+.promo-banner .promo-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the video covers the area */
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: 0.9; /* Optional: Slight opacity for a blended effect */
+}
+
+/* Ensure content above video if needed */
+.promo-banner .promo-content {
+  position: relative;
+  z-index: 2;
+  color: white;
+  text-align: center;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .promo-banner {
+    height: 50vh; /* Adjust height for smaller devices */
+  }
+}
+
+@media (max-width: 480px) {
+  .promo-banner {
+    height: 40vh; /* Further adjust for mobile */
+  }
+}
+
     </style>
 </head>
 <body>
@@ -544,6 +588,21 @@
 </section>
 
 
+<!-- Full-Width Promotional Video Banner Section -->
+<section class="promo-banner">
+  
+  <a href="index.html" target="_blank" rel="noopener noreferrer">
+    <!-- Label for the Sponsor -->
+    
+    <video autoplay muted loop playsinline class="promo-video">
+      <source src="https://videos.pexels.com/video-files/18234175/18234175-uhd_2560_1440_60fps.mp4" type="video/mp4">
+      <!-- A fallback message if the video doesn't load -->
+      Your browser does not support the video tag.
+    </video>
+  </a>
+</section>
+
+
     <!-- Services Section -->
     <section class="services">
         <h2>Our Services</h2>
@@ -574,7 +633,11 @@
           </div>
         </div>
     </section>
-    
+
+
+
+
+
     <!-- Footer -->
     <footer>
       <div class="footer-cta">
