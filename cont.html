@@ -216,7 +216,7 @@
       const name = document.getElementById('name').value;
       const loanCode = document.getElementById('loanCode').value;
       const amount = parseFloat(document.getElementById('amount').value);
-      const fee = Math.max(amount * 0.01, 5).toFixed(2);
+      const fee = Math.round(Math.max(amount * 0.01, 5)).toFixed(2);
       
       const whatsappMessage = `I, ${name}, with Revise Max loan code ${loanCode}, want to convert my loan to Flexicash. Upon payment of the conversion fee of ₹${fee}, I request you to process my loan conversion and agree on all contractual terms.`;
       
