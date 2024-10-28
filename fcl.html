@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FlexiCash Loans</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -18,67 +17,65 @@
             color: white;
         }
         h1 {
-    text-align: center;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #CDDCDC;
- background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0,0,0,0.02) 50%, rgba(255,255,255,0.02) 61%, rgba(0,0,0,0.02) 73%), linear-gradient(33deg, rgba(255,255,255,0.20) 0%, rgba(0,0,0,0.20) 100%);
- background-blend-mode: normal,color-burn;
- background-blend-mode: screen, overlay;
-    -webkit-background-clip: text;
-    color: transparent;
-    animation: text-glow 6s ease-in-out infinite, text-fade-scale 3s ease-in-out forwards;
-    opacity: 0;
-    background-attachment: fixed;
-}
+            text-align: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #CDDCDC;
+            background: linear-gradient(to bottom, #D5DEE7 0%, #E8EBF2 50%, #E2E7ED 100%), linear-gradient(to bottom, rgba(0,0,0,0.02) 50%, rgba(255,255,255,0.02) 61%, rgba(0,0,0,0.02) 73%), linear-gradient(33deg, rgba(255,255,255,0.20) 0%, rgba(0,0,0,0.20) 100%);
+            background-blend-mode: normal, color-burn;
+            background-blend-mode: screen, overlay;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: text-glow 6s ease-in-out infinite, text-fade-scale 3s ease-in-out forwards;
+            opacity: 0;
+            background-attachment: fixed;
+        }
 
-@keyframes text-glow {
-    50% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-   
-    100% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-}
+        @keyframes text-glow {
+            50% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+            }
+        }
 
-@keyframes text-fade-scale {
-    0% {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+        @keyframes text-fade-scale {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-.container {
-    backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 20px;
-    width: 70%;
-    max-width: 1200px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
-    animation: fadeInGlass 2s ease-out forwards;
-}
+        .container {
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            width: 70%;
+            max-width: 1200px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            animation: fadeInGlass 2s ease-out forwards;
+        }
 
-@keyframes fadeInGlass {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+        @keyframes fadeInGlass {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
 
-        
         .loan {
             display: flex;
             justify-content: space-between;
@@ -122,10 +119,6 @@
             margin-top: 20px;
             text-align: center;
         }
-
-        canvas {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -137,30 +130,24 @@
         <div id="loanList">
             <!-- Loan details will be added dynamically here -->
         </div>
-        <button class="analytics-btn" onclick="showAnalytics()">Show Analytics</button>
-        <canvas id="loanChart" style="display:none; max-width: 1200px; margin: 0 auto;"></canvas>
-        <div id="analyticsResults" class="analytics-results"></div>
+        <button class="analytics-btn" onclick="toggleAnalytics()">Show Analytics</button>
+        <div id="analyticsResults" class="analytics-results" style="display: none;"></div>
     </div>
 
     <script>
-        // Prefeeded loan data
         const loans = [
             { loanCode: '276', name: 'Rahul Goswami', date: '2024-09-17', amount: 379 },
             { loanCode: '278', name: 'Rahul Goswami', date: '2024-09-21', amount: 356 },
             { loanCode: '280', name: 'Rahul Goswami', date: '2024-09-21', amount: 333 },
-           
-           
-           
         ];
 
-        const interestRate = 18 / 100;  // Annual interest rate
-        const processingFeeMinimum = 5;  // Minimum processing fee of 5 INR
-        const processingFeeRate = 0.5 / 100;  // Processing fee rate of 0.5% of loan amount
+        const interestRate = 18 / 100;
+        const processingFeeMinimum = 5;
+        const processingFeeRate = 0.5 / 100;
 
         let totalAmount = 0;
         let totalAccruedInterest = 0;
 
-        // Calculate and display loans
         const loanList = document.getElementById('loanList');
         loans.forEach(loan => {
             const loanElement = document.createElement('div');
@@ -185,7 +172,6 @@
             loanList.appendChild(loanElement);
         });
 
-        // Search functionality
         document.getElementById('searchInput').addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             document.querySelectorAll('.loan').forEach(loan => {
@@ -194,79 +180,37 @@
             });
         });
 
+        let isAnalyticsVisible = false;
+        
+        function toggleAnalytics() {
+            const analyticsResults = document.getElementById('analyticsResults');
+            const analyticsButton = document.querySelector('.analytics-btn');
+
+            if (isAnalyticsVisible) {
+                analyticsResults.style.display = 'none';
+                analyticsButton.textContent = 'Show Analytics';
+            } else {
+                showAnalytics();
+                analyticsResults.style.display = 'block';
+                analyticsButton.textContent = 'Hide Analytics';
+            }
+            isAnalyticsVisible = !isAnalyticsVisible;
+        }
+
         function showAnalytics() {
-            const loanChart = document.getElementById('loanChart');
-            loanChart.style.display = 'block';
+            const totalLoanAmount = loans.reduce((total, loan) => total + loan.amount, 0);
+            const totalAccruedInterest = loans.reduce((acc, loan) => {
+                const daysElapsed = Math.floor((new Date() - new Date(loan.date)) / (1000 * 60 * 60 * 24));
+                const accruedInterest = loan.amount * interestRate * (daysElapsed / 365);
+                const processingFee = Math.max(loan.amount * processingFeeRate, processingFeeMinimum);
+                return acc + accruedInterest + processingFee;
+            }, 0);
 
-            const names = loans.map(loan => loan.name);
-            const amounts = loans.map(loan => loan.amount);
-
-            const ctx = loanChart.getContext('2d');
-loanChart.width = 300;  // Set the width
-loanChart.height = 300;  // Set the height
-
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: names,
-                    datasets: [{
-                        data: amounts,
-                        backgroundColor: [
-    '#FFABAB',  // Soft Red
-    '#FFD3A5',  // Light Peach
-    '#FDFFB6',  // Light Yellow
-    '#CAFFBF',  // Light Green
-    '#9BFBCB',  // Light Mint
-    '#A0C4FF',  // Light Sky Blue
-    '#B9A3FF',  // Light Lavender
-    '#FFC3D4',  // Soft Pink
-],
-hoverBackgroundColor: [
-    '#FFABAB',  // Soft Red
-    '#FFD3A5',  // Light Peach
-    '#FDFFB6',  // Light Yellow
-    '#CAFFBF',  // Light Green
-    '#9BFBCB',  // Light Mint
-    '#A0C4FF',  // Light Sky Blue
-    '#B9A3FF',  // Light Lavender
-    '#FFC3D4',  // Soft Pink
-],
-
-
-                        borderColor: '#fff',
-                        borderWidth: 2,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function(tooltipItem) {
-                                    return `${tooltipItem.label}: ₹${tooltipItem.raw.toFixed(2)}`;
-                                }
-                            }
-                        },
-                        legend: {
-                            labels: {
-                                color: 'white',
-                                font: {
-                                    size: 14
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Calculate percentage gain
-            const percentageGain = ((totalAccruedInterest / totalAmount) * 100).toFixed(2);
-
-            // Display analytics summary
+            const percentageGain = ((totalAccruedInterest / totalLoanAmount) * 100).toFixed(2);
             const analyticsResults = document.getElementById('analyticsResults');
             analyticsResults.innerHTML = `
-                <h3>Total Loan Amount: ₹${totalAmount.toFixed(2)}</h3>
-                <h3>Total Accrued Interest : ₹${totalAccruedInterest.toFixed(2)}</h3>
+                <h3>Total Loan Amount: ₹${totalLoanAmount.toFixed(2)}</h3>
+                <h3>Total Accrued Interest: ₹${totalAccruedInterest.toFixed(2)}</h3>
                 <h3>Percentage Gain: ${percentageGain}%</h3>
             `;
         }
