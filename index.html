@@ -1,0 +1,611 @@
+<html>
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Singularity - Finance Redefined</title>
+  <!-- Font Awesome CDN for Social Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap" rel="stylesheet">
+
+
+  <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+    background-color: #000000;
+    color: #fff;
+    scroll-behavior: smooth;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+     /* Revamped Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(0, 0, 0, 0.7);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background 0.3s ease-in-out;
+    }
+
+    nav.sticky {
+      background: rgba(0, 0, 0, 0.95);
+    }
+
+    .nav-brand {
+    font-family: 'Cinzel', serif; /* Elegant serif font */
+    font-size: 1.8rem;
+    color: #ff6f61;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    transition: color 0.3s ease;
+}
+
+.nav-brand:hover {
+    color: #d4a373; /* A warm, muted gold on hover */
+}
+
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links a {
+      margin-left: 30px;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffffd9;
+      transition: color 0.3s ease-in-out;
+    }
+
+    .nav-links a:hover {
+      color: #ff6f61;
+    }
+
+    /* Hamburger Menu Icon */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 2px;
+      background-color: #fff;
+      margin: 5px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Mobile Menu */
+    .mobile-menu {
+      display: none;
+      position: absolute;
+      top: 70px;
+      right: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.9);
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .mobile-menu.active {
+      display: flex;
+    }
+
+    .mobile-menu a {
+      padding: 15px 0;
+      width: 100%;
+      text-align: center;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background-color: #ff6f61;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hamburger.active div:nth-child(1) {
+        transform: rotate(-45deg) translate(-5px, 6px);
+      }
+
+      .hamburger.active div:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active div:nth-child(3) {
+        transform: rotate(45deg) translate(-5px, -6px);
+      }
+    }
+        
+        /* Hero Section */
+        .hero {
+          
+            height: 100vh;
+            background: url('mt.png') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+   
+/* Adjust for tablets */
+@media (max-width: 768px) {
+  .hero {
+    background-position: center;
+    background-size: cover; /* Ensures it covers the screen */
+    height: 100vh; /* Adjust height to fit smaller screens */
+  }
+}
+
+/* Adjust for mobile devices */
+@media (max-width: 480px) {
+  .hero {
+    background-position: center;
+    background-size: contain; /* Makes image fully visible */
+    height: 80vh; /* Further adjusts height */
+  }
+}
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1;
+        }
+
+        .hero-content {
+          
+            z-index: 2;
+            color: #fff;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        /* Text Animation */
+        @keyframes slideDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content h1 {
+            animation: slideDown 1.5s ease-out;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            color: #f1f1f1;
+        }
+
+        .cta-btn {
+            padding: 15px 40px;
+            background-color: #ff6f61;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 50px;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background-color: #56ccf2;
+            transform: translateY(-3px);
+        }
+
+       /* About Section */
+.about {
+    padding: 80px 20px;
+    text-align: center;
+    background-color: #000000;
+    position: relative;
+   
+}
+
+.about h2 {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.about-content {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.about-card {
+    background-color: #1e1e1e;
+    padding: 40px;
+    border-radius: 15px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.about-card:hover {
+  box-shadow: 0 8px 30px rgba(255, 111, 97, 0.3);
+    transform: scale(1.15);
+}
+
+.about-card i {
+    font-size: 40px;
+    color: #56ccf2;
+    margin-bottom: 20px;
+}
+
+.about-card h3 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff6f61;
+    margin-bottom: 10px;
+}
+
+.about-card p {
+    font-size: 16px;
+    color: #ddd;
+}
+
+.about .know-more-btn {
+    display: inline-block;
+    margin-top: 50px;
+    padding: 15px 40px;
+    background-color: #56ccf2;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.about .know-more-btn:hover {
+    background-color: #ff6f61;
+}
+
+/* Add media query for responsiveness */
+@media (max-width: 768px) {
+    .about-content {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-card {
+        width: 90%;
+    }
+}
+
+
+        /* Services Section */
+        .services {
+            padding: 80px 20px;
+            background-color: #000000;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 36px;
+            color: #ff6f61;
+            margin-bottom: 50px;
+        }
+
+        .carousel {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap; /* For responsiveness */
+        }
+
+        .carousel-item {
+    background-color: #1e1e1e;
+    padding: 30px;
+    border-radius: 15px;
+    width: 500px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.carousel-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(255, 111, 97, 0.3);
+}
+
+        .carousel-item img {
+    max-width: 100%;
+    width: 100%;
+    height: 350px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image covers the area without distorting */
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+        .carousel-item h3 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #56ccf2;
+            margin-bottom: 10px;
+        }
+
+        .carousel-item p {
+            font-size: 16px;
+            color: #ddd;
+        }
+
+        .carousel-item a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6f61;
+            color: #fff;
+            border-radius: 30px;
+            transition: background-color 0.3s ease;
+        }
+
+        .carousel-item a:hover {
+            background-color: #56ccf2;
+        }
+
+        * Footer CTA Styling */
+  .footer-cta {
+    text-align: center;
+    padding: 40px 0;
+    background-color: #222;
+    color: #fff;
+  }
+
+  .footer-cta h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .footer-cta p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .cta-btn-footer {
+    background-color: #ff6f61;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 22px;
+    text-decoration: none;
+    font-size: 1.2rem;
+  }
+
+  .cta-btn-footer:hover {
+    background-color: #50abe8;
+  }
+
+  /* General Footer Styling */
+  footer {
+    background-color: #000000;
+    padding: 20px 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .social-icons a {
+    margin: 0 10px;
+    color: #82c2ec;
+    font-size: 1.5rem;
+  }
+
+  .social-icons a:hover {
+    color: #ff6f61;
+  }
+
+  footer p {
+    margin-top: 20px;
+    font-size: 0.7rem;
+  }
+        @media (max-width: 767px) {
+        
+       
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .cta-btn {
+                font-size: 16px;
+                padding: 12px 30px;
+            }
+
+            .carousel {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .carousel-item {
+                width: 90%;
+            }
+        }
+    
+
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="nav-brand">SINGULARITY</div>
+      <div class="nav-links">
+        <a href="terminal.html">Menu</a>
+        <a href="update.html">Updates</a>
+      
+      </div>
+      <div class="hamburger">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <div class="mobile-menu">
+        <a href="terminal.html">Menu</a>
+        <a href="update.html">Updates</a>
+       
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Lending a Hand, Elevating Dreams</h1>
+            <p> When others turn you away, we step up with loans and investments tailored to your needs.</p>
+            <a href="join.html" class="cta-btn">Join Us Today</a>
+        </div>
+    </section>
+
+   <!-- About Section -->
+<section class="about">
+  <h2>What We Do</h2>
+  <div class="about-content">
+      <div class="about-card">
+          <i class="fas fa-hand-holding-usd"></i>
+          <h3>Inclusive Lending</h3>
+          <p>We provide loans for individuals and businesses with flexible terms and competitive rates, ensuring everyone has access to finance.</p>
+      </div>
+      <div class="about-card">
+          <i class="fas fa-chart-line"></i>
+          <h3>High-Growth Investments</h3>
+          <p>Invest with us and secure your future with tailored investment plans designed to maximize returns and minimize risks.</p>
+      </div>
+      <div class="about-card">
+          <i class="fas fa-users"></i>
+          <h3>Empowering Communities</h3>
+          <p>Our focus is on underserved communities, offering financial literacy programs and support to uplift those who need it most.</p>
+      </div>
+      <div class="about-card">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Risk Management</h3>
+        <p>Our advanced analytics and strategies ensure that your investments are always protected.</p>
+      </div>
+      <div class="about-card">
+        <i class="fas fa-exchange-alt"></i>
+        <h3>Flexibility</h3>
+        <p>We offer adaptable financial solutions tailored to meet your unique needs, ensuring that your investments remain as dynamic as you are.</p>
+      </div>
+      
+  </div>
+  <a href="CPF.html" class="know-more-btn">Learn More</a>
+</section>
+
+
+
+
+    <!-- Services Section -->
+    <section class="services">
+        <h2>Our Services</h2>
+        <div class="carousel">
+            <div class="carousel-item">
+                <img src="1.jpg" alt="Loan Service">
+                <h3>Loan Services</h3>
+                <p>Flexible loans tailored to your needs, whether personal or business, at competitive rates.</p>
+                <a href="credit.html">Learn More</a>
+            </div>
+            <div class="carousel-item">
+              <img src="4.jpg" alt="Loan Convertible">
+              <h3>Loan Convertibility</h3>
+              <p>Effortlessly transition your current REVISEMAX loans to FLEXICASH loans with just a click.</p>
+              <a href="cont.html">Learn More</a>
+          </div>
+            <div class="carousel-item">
+                <img src="2.jpg" alt="Investment Service">               
+                <h3>Investment Options</h3>
+                <p>Invest with us and watch your money grow with secure, high-return investment plans.</p>
+                <a href="explore.html">Learn More</a>
+            </div>
+            <div class="carousel-item">
+              <img src="3.jpg" alt="Financial Literacy">
+              <h3>Financial Literacy</h3>
+              <p>We offer tailored financial literacy programs to empower you with the knowledge and skills to manage your finances effectively.</p>
+              <a href=".html">Learn More</a>
+          </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-cta">
+        <h2>Need Assistance or Have Questions?</h2>
+        <p>We’re here to help. Reach out to us today for any support on loans, investments, or general inquiries.</p>
+        <a href="help.html" class="cta-btn-footer">Get Help Now</a>
+        
+      </div>
+<br><br>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+        </div>
+        <p>© 2024 <i>THE FIRST ORDER</i>. All Rights Reserved.</p>
+    </footer>
+    <script>
+      const hamburger = document.querySelector('.hamburger');
+      const mobileMenu = document.querySelector('.mobile-menu');
+  
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+      });
+    </script>
+</body>
+</html>
