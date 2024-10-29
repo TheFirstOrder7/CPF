@@ -234,6 +234,7 @@ body {
   text-align: center;
 }
 
+
   </style>
 </head>
 
@@ -328,7 +329,7 @@ body {
       const now = new Date().getTime();
       const timeLeft = endDate - now;
       countdown.textContent = timeLeft > 0
-        ? `${Math.floor(timeLeft / (1000 * 60 * 60 * 24))} Days `
+        ? `${Math.floor(timeLeft / (1000 * 60 * 60 * 24))} Days Remaining`
         : "The program has launched!";
     }, 1000);
 
@@ -343,7 +344,7 @@ body {
     function sendWhatsApp() {
       const name = document.getElementById('name').value;
       const amount = document.getElementById('amount').value;
-      const url = `https://api.whatsapp.com/send?phone=7456943225&text=Hello,%20I%20am%20${name},%20and%20I%20want%20a%20FlexiCash%20Loan%20of%20₹${amount}.`;
+      const url = `https://api.whatsapp.com/send?phone=7456943225&text=Hello,%20I%20am%20${name},%20and%20I%20wish%20to%20apply%20for%20a%20FlexiCash%20Loan%20of%20₹${amount}.%20I%20hereby%20declare%20that%20I%20have%20read,%20understood,%20and%20accepted%20all%20the%20terms%20and%20conditions%20governing%20the%20FlexiCash%20Loan.%20I%20voluntarily%20agree%20to%20enter%20into%20a%20binding%20legal%20relationship%20and%20authorize%20any%20necessary%20actions%20for%20the%20processing%20of%20my%20application.%20Thank%20you.`; 
       window.open(url, '_blank');
     }
   </script>
