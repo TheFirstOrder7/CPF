@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member Deposit Dashboard</title>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+  }
+  body {
+    background-color: #e9eff1; /* Light background color */
+    color: #333;
+    padding: 20px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center; /* Centered title */
+    color: #2c3e50; /* Darker title color */
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+  .summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2c3e50; /* Underline for summary */
+    padding-bottom: 10px;
+  }
+  .summary h2 {
+    font-size: 24px;
+    color: #2980b9; /* Summary title color */
+  }
+  .member-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .member-card {
+    padding: 15px;
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s; /* Added box-shadow transition */
+    cursor: pointer; /* Cursor pointer on hover */
+  }
+  .member-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Hover effect */
+  }
+  .member-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #2980b9; /* Member name color */
+  }
+  .member-card p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  .unpaid {
+    color: red; /* Red color for unpaid amounts */
+    font-weight: bold; /* Bold text for emphasis */
+  }
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    margin-top: 20px;
+  }
+  @media (max-width: 600px) {
+    .summary {
+      flex-direction: column; /* Stack summary items on small screens */
+      align-items: flex-start;
+    }
+    .summary h2 {
+      margin-bottom: 10px; /* Space between summary title and value */
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Dashboard Title -->
+  <h1>Mandatory Deposit Dashboard 2024</h1>
+
+ 
+ 
+  <!-- Member Cards -->
+  <div class="member-grid">
+    <div class="card member-card">
+      <h3>Rahul Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberRahulTotal">1050</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p>November: ₹100</p>
+      <p>December: ₹50</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Krish Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberKrishTotal">1000</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p>November: ₹100</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Neeraj Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberNeerajTotal">800</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p class="unpaid">October: Not Paid</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Nitin Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberNitinTotal">900</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Shubham Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberShubhamTotal">900</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Vivek Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberVivekTotal">900</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Deepak Goswami</h3>
+      <p>Total Deposited: ₹<span id="memberDeepakTotal">900</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+
+    <div class="card member-card">
+      <h3>Rohit Bora</h3>
+      <p>Total Deposited: ₹<span id="memberRohitTotal">900</span></p>
+      <p>January: ₹50</p>
+      <p>February: ₹50</p>
+      <p>March: ₹100</p>
+      <p>April: ₹100</p>
+      <p>May: ₹100</p>
+      <p>June: ₹100</p>
+      <p>July: ₹100</p>
+      <p>August: ₹100</p>
+      <p>September: ₹100</p>
+      <p>October: ₹100</p>
+      <p class="unpaid">November: Not Paid</p>
+      <p class="unpaid">December: Not Paid</p>
+    </div>
+  </div>
+
+
+  <!-- Total Collected Amount -->
+  <div class="card summary">
+    <h2>Total Deposited Amount</h2>
+    <p>₹<span id="totalDeposited">0</span></p>
+  </div>
+  
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  © 2024 Collective Prosperity Fund. All rights reserved.
+</div>
+
+<!-- JavaScript for Dynamic Calculation -->
+<script>
+   // Function to calculate totals
+   function calculateTotals() {
+    let totalDeposited = 0;
+    let memberIds = [
+      'memberRahulTotal',
+      'memberKrishTotal',
+      'memberNeerajTotal',
+      'memberNitinTotal',
+      'memberShubhamTotal',
+      'memberVivekTotal',
+      'memberDeepakTotal',
+      'memberRohitTotal'
+    ];
+
+    // Loop through each member's total and sum it up
+    memberIds.forEach(id => {
+      totalDeposited += parseInt(document.getElementById(id).innerText);
+    });
+
+    // Update the total deposited and total amount
+    document.getElementById('totalDeposited').innerText = totalDeposited;
+    document.getElementById('totalAmount').innerText = totalDeposited; // You can adjust how to calculate total amount based on your needs
+  }
+
+  // Execute calculation on page load
+  window.onload = calculateTotals;
+</script>
+
+</body>
+</html>
