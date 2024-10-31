@@ -138,32 +138,37 @@
   <script>
     // Sample RD data
     const customers = [
-        { id: 245, name: 'test', amount: 50, creationDate: '2024-10-31', tenure: 12 },
+        { id: 245, name: 'test', amount: 50, creationDate: '2024-10-30', tenure: 12 },
      
         // Add more customer data if needed
     ];
 
     const annualInterestRate = 12; // 12% annual interest
 
-    // Function to calculate accrued principal and interest
     function calculateAccruedData(customer) {
-        const currentDate = new Date();
-        const creationDate = new Date(customer.creationDate);
-        const monthsPassed = (currentDate.getFullYear() - creationDate.getFullYear()) * 12 + (currentDate.getMonth() - creationDate.getMonth());
+    const currentDate = new Date();
+    const creationDate = new Date(customer.creationDate);
 
-        // Total deposits so far, not exceeding tenure
-        const accruedPrincipal = customer.amount * Math.min(monthsPassed, customer.tenure); 
-
-        const n = Math.min(monthsPassed, customer.tenure);
-        let totalInterest = 0;
-
-        // Calculate interest for each monthly deposit using the compound interest formula
-        for (let month = 0; month < n; month++) {
-            totalInterest += customer.amount * Math.pow(1 + (annualInterestRate / 12 / 100), n - month) - customer.amount;
-        }
-
-        return { accruedPrincipal, totalInterest };
+    // Calculate months passed, counting the creation month as the first deposit
+    let monthsPassed = (currentDate.getFullYear() - creationDate.getFullYear()) * 12 + (currentDate.getMonth() - creationDate.getMonth());
+    if (currentDate.getDate() >= creationDate.getDate()) {
+        monthsPassed += 1; // Count the initial deposit on the creation date
     }
+
+    // Limit months passed to the RD's tenure
+    const n = Math.min(monthsPassed, customer.tenure);
+
+    // Total deposits so far
+    const accruedPrincipal = customer.amount * n;
+
+    // Calculate total interest for each monthly deposit
+    let totalInterest = 0;
+    for (let month = 0; month < n; month++) {
+        totalInterest += customer.amount * Math.pow(1 + (annualInterestRate / 12 / 100), n - month) - customer.amount;
+    }
+
+    return { accruedPrincipal, totalInterest };
+}
 
     // Function to update the RD table
     function updateTable() {
