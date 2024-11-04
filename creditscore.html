@@ -1,261 +1,594 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Rating Dashboard</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #0093E9;
-background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Score Dashboard</title>
+<style>
+    /* Background and Global Styles */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background:  linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%);
+        color: #333;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
 
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            width: 400px;
-            padding: 20px;
-            background-color: rgb(255, 255, 255,0.8);
-            border-radius: 20px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            transition: box-shadow 0.3s ease;
-        }
-        .container:hover {
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-            color: #555;
-        }
-        input, select {
-            width: 95%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 14px;
-            transition: border 0.3s ease;
-        }
-        input:focus, select:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-        button:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-        }
-        .hidden {
-            display: none;
-        }
-        .credit-report {
-            margin-top: 20px;
-            background-color: #e9f7ef;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .error {
-            color: red;
-            text-align: center;
-        }
-        .credit-change {
-            font-size: 1.5em;
-            margin-left: 5px;
-            font-weight: bold; /* Make the triangle and score bold */
-        }
-        .credit-up {
-            color: green;
-        }
-        .credit-down {
-            color: red;
-        }
-        .triangle {
-            display: inline-block;
-            width: 0;
-            height: 0;
-            margin-left: 5px;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-        }
-        .triangle-up {
-            border-bottom: 10px solid green; /* Triangle up */
-        }
-        .triangle-down {
-            border-top: 10px solid red; /* Triangle down */
-        }
-        .percentage-decline {
-            font-size: 1em; /* Adjusted size for better visibility */
-            font-weight: bold;
-            margin-left: 5px; /* Add some space */
-        }
-        .credit-score-note {
-            font-size: 0.85em;
-            color: #15a81d;
-            margin-top: 10px;
-        }
-        .fee-warning {
-            font-weight: bold;
-            color: orange;
-            margin-top: 5px;
-        }
-        .bar-warning {
-            font-weight: bold;
-            color: red;
-            margin-top: 5px;
-        }
-    </style>
+    .dashboard-container {
+        max-width: 1200px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease;
+    }
+
+    .dashboard-container:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Dashboard Header */
+    .dashboard-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.8em;
+        font-weight: 600;
+        color: #333;
+        margin: 0;
+        background: -webkit-linear-gradient(#3a86ff, #0056b3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .dashboard-header p {
+        font-size: 1.1em;
+        color: #666;
+        margin-top: 5px;
+    }
+
+    /* Search Bar */
+    .search-bar {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px auto;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+        border-color: #3a86ff;
+    }
+
+    /* Terms Toggle */
+    .terms-toggle {
+        margin: 15px 0;
+        color: #3a86ff;
+        font-size: 1.1em;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .terms-content {
+        display: none;
+        margin-top: 10px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #f2f5f9;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 0.9em;
+        color: #555;
+    }
+
+    /* Score Cards Layout */
+    .score-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .score-card {
+        background: linear-gradient(135deg, #f7fbff, #e8eff7);
+        border-radius: 16px;
+        padding: 25px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        display: none;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .score-card.visible {
+        display: block;
+    }
+
+    .score-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Customer Info */
+    .customer-info {
+        font-size: 1.2em;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+    }
+
+    /* Total Score Display */
+    .total-score {
+        display: flex;
+        align-items: center;
+        font-size: 3.2em;
+        font-weight: bold;
+        color: #3a86ff;
+        margin-bottom: 10px;
+        transition: color 0.3s ease;
+    }
+
+    .total-score span {
+        font-size: 0.5em;
+        color: #aaa;
+        margin-left: 5px;
+    }
+
+    /* Score Breakdown */
+    .score-breakdown {
+        margin-top: 10px;
+    }
+
+    .score-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        background: rgba(255, 255, 255, 0.75);
+        border-radius: 10px;
+        margin-bottom: 8px;
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .score-label {
+        font-size: 1em;
+        color: #333;
+        font-weight: 500;
+    }
+
+    .score-value {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #3a86ff;
+    }
+
+    /* Progress Bars */
+    .progress-bar {
+        position: relative;
+        height: 8px;
+        border-radius: 10px;
+        background: #e3e3e3;
+        margin-top: 8px;
+        overflow: hidden;
+    }
+
+    .progress {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.4s ease;
+    }
+
+    .no-default .progress { background: linear-gradient(90deg, #34a853, #66bb6a); }
+    .timeliness .progress { background: linear-gradient(90deg, #FBBC05, #fbc02d); }
+    .character .progress { background: linear-gradient(90deg, #EA4335, #ef5350); }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Client ID Form -->
-        <div id="login-section">
-            <h2>Client Login</h2>
-            <form id="loginForm">
-                <label for="clientId">Enter Client ID:</label>
-                <input type="text" id="clientId" placeholder="Client ID" required>
-                <button type="submit">Submit</button>
-            </form>
-            <div class="error hidden" id="clientError">Invalid Client ID!</div>
-        </div>
 
-        <!-- Credit Report Display -->
-        <div id="credit-report-section" class="hidden">
-            <h2>Credit Report</h2>
-            <div class="credit-report">
-                <p><strong>Client ID:</strong> <span id="clientDisplay"></span></p>
-                <p>
-                    <strong>Credit Score:</strong> 
-                    <span id="creditScore"></span>
-                    <span id="creditChange" class="credit-change"></span>
-                    <span id="percentageDecline" class="percentage-decline"></span> <!-- Percentage decline -->
-                </p>
-                <p><strong>Outstanding Loans:</strong> <span id="outstandingLoans"></span></p>
-                <p><strong>Total Credit Utilized:</strong> <span id="creditUtilized"></span></p>
-                <p><strong>Late Payments:</strong> <span id="latePayments"></span></p>
-                <p><strong>Default Status:</strong> <span id="defaultStatus"></span></p>
-                <p><strong>Loan Revisions:</strong> <span id="loanRevisions"></span></p> <!-- Loan Revisions Count -->
-                <br><br>
-                <p class="credit-score-note"><strong> * Credit score is out of 900.</strong></p>
-                <p class="fee-warning">* A credit score below 650 will incur a one-time security fee as determined by the President.</p>
-                <p class="bar-warning">* A credit score below 400 is barred from any credit.</p>
-            </div>
-        </div>
+<div class="dashboard-container">
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <h1>Credit Score Dashboard</h1>
+        <p>Enter customer name to view their credit score</p>
     </div>
 
-    <script>
-        // Sample client data
-        const clientDatabase = {
-            '1234': { 
-                creditScore: 900, 
-                previousScore: 1000, 
-                outstandingLoans: 15000, 
-                creditUtilized: 80000, 
-                latePayments: 2, 
-                defaultStatus: 'No',
-                loanRevisions: 0 // Count of loan revisions
-            },
-            '5678': { 
-                creditScore: 620, 
-                previousScore: 650, 
-                outstandingLoans: 20000, 
-                creditUtilized: 95000, 
-                latePayments: 5, 
-                defaultStatus: 'Yes',
-                loanRevisions: 1 // Example count of loan revisions
-            },
-            '5678': { 
-                creditScore: 620, 
-                previousScore: 650, 
-                outstandingLoans: 20000, 
-                creditUtilized: 95000, 
-                latePayments: 5, 
-                defaultStatus: 'Yes',
-                loanRevisions: 1 // Example count of loan revisions
-            },
-            '5678': { 
-                creditScore: 620, 
-                previousScore: 650, 
-                outstandingLoans: 20000, 
-                creditUtilized: 95000, 
-                latePayments: 5, 
-                defaultStatus: 'Yes',
-                loanRevisions: 1 // Example count of loan revisions
-            },
-            
-        };
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" class="search-input" id="searchInput" placeholder="Search by Customer Name..." oninput="searchCustomer()">
+    </div>
 
-        // Handle form submission for login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const clientId = document.getElementById('clientId').value;
-            if (clientDatabase[clientId]) {
-                // Hide login form and display credit report
-                document.getElementById('login-section').classList.add('hidden');
-                document.getElementById('credit-report-section').classList.remove('hidden');
-                
-                // Display client ID
-                document.getElementById('clientDisplay').textContent = clientId;
-                
-                // Get client data
-                const clientData = clientDatabase[clientId];
-                
-                // Display credit score
-                const creditChangeElement = document.getElementById('creditChange');
-                const percentageDeclineElement = document.getElementById('percentageDecline');
-                document.getElementById('creditScore').textContent = clientData.creditScore;
-                
-                // Show triangle for credit score change and percentage
-                if (clientData.creditScore > clientData.previousScore) {
-                    creditChangeElement.innerHTML = '<span class="triangle triangle-up"></span>'; // Triangle up
-                    creditChangeElement.classList.add('credit-up');
-                    percentageDeclineElement.textContent = ''; // No decline
-                } else if (clientData.creditScore < clientData.previousScore) {
-                    creditChangeElement.innerHTML = '<span class="triangle triangle-down"></span>'; // Triangle down
-                    creditChangeElement.classList.add('credit-down');
+    <!-- Terms and Conditions Toggle -->
+<div class="terms-toggle" onclick="toggleTerms()">Credit Rating Framework</div>
+<div class="terms-content" id="termsContent" style="display: none;">
+    <h2>Credit Rating Framework</h2>
+    <p>This Credit Rating Framework establishes a systematic rating mechanism designed to evaluate the creditworthiness of customers applying for loans. The rating scale operates on a scale of <strong>0 to 10</strong> and categorizes customers into four distinct groups based on their score, influencing their eligibility for loan amounts and terms.</p>
+    
+    <h3>Categories of Credit Scores</h3>
+    <ul>
+        <li><strong>Category 1: Score 0 to 4</strong> 
+            <p>Customers within this range are deemed ineligible for new loans, irrespective of the volume of cumulative deposits maintained. Reinstatement of eligibility may only occur through the payment of a security fee, as determined by the President on a case-by-case basis.</p>
+            <p>This category also includes new prospective customers who do not have any deposit history with us. Such customers may avail loans of up to <strong>₹1000</strong>.</p>
 
-                    // Calculate percentage decline
-                    const declinePercentage = ((clientData.previousScore - clientData.creditScore) ).toFixed(2);
-                    percentageDeclineElement.textContent = `-${declinePercentage}`; // Display percentage next to score
-                    percentageDeclineElement.classList.add('credit-down'); // Make text red for decline
-                } else {
-                    creditChangeElement.textContent = ''; // No change
-                    percentageDeclineElement.textContent = ''; // No decline
-                }
-                
-                // Display other client data
-                document.getElementById('outstandingLoans').textContent = `₹${clientData.outstandingLoans}`;
-                document.getElementById('creditUtilized').textContent = `₹${clientData.creditUtilized}`;
-                document.getElementById('latePayments').textContent = clientData.latePayments;
-                document.getElementById('defaultStatus').textContent = clientData.defaultStatus;
-                document.getElementById('loanRevisions').textContent = clientData.loanRevisions; // Display loan revisions count
-            } else {
-                // Show error message if client ID is invalid
-                document.getElementById('clientError').classList.remove('hidden');
-            }
+        </li>
+        <li><strong>Category 2: Score 5 to 6</strong>
+            <p>Customers classified within this category are recognized as having a low credit score and are eligible to receive loans up to <strong>150% of their cumulative deposits</strong>. Cumulative deposits encompass all mandatory, voluntary, fixed, or recurring deposits held with the institution, as well as the value of any stocks owned.</p>
+        </li>
+        <li><strong>Category 3: Score 7 to 9</strong>
+            <p>Customers in this range are recognized for their high credit score, qualifying them for loan amounts up to <strong>300% of their cumulative deposits</strong>, along with priority access to lending decisions.</p>
+        </li>
+        <li><strong>Category 4: Score 10</strong>
+            <p>High-value customers achieving a score of 10 are afforded a substantial leverage of <strong>500% of their cumulative deposits</strong>. Notably, the President retains the discretion to bypass these established policies in exceptional circumstances on a case-by-case basis.</p>
+        </li>
+    </ul>
+
+    <h3>Weightage Criteria for Scoring</h3>
+    <p>The overall credit rating is derived from three primary criteria, each assigned a specific weightage:</p>
+    <ul>
+        <li><strong>No Default History</strong> (50% weight, maximum of 5 points)</li>
+        <li><strong>Payment Timeliness</strong> (40% weight)</li>
+        <li><strong>General Character Assessment</strong> (10% weight)</li>
+    </ul>
+
+    <h3>No Default History</h3>
+    <p>This criterion includes three sub-categories that assess the history of payment defaults:</p>
+    <ul>
+        <li>Defaults on payments of less than ₹500 incur a <strong>3-point deduction</strong>.</li>
+        <li>Defaults on payments between ₹500 and ₹2500 result in a <strong>3-point deduction</strong>.</li>
+        <li>Defaults exceeding ₹2500 lead to a <strong>5-point deduction</strong>.</li>
+    </ul>
+    <p>In the event of a first-time default on a payment of ₹500, a deduction of 2 points is applicable if the customer declares an inability to pay or if the payment deadline has passed. For any subsequent defaults, irrespective of the amount, a <strong>5-point deduction</strong> will be enforced.</p>
+
+    <h3>Payment Timeliness</h3>
+    <p>This criterion evaluates the punctuality of payments owed to the institution:</p>
+    <ul>
+        <li>A maximum of <strong>1 point deduction</strong> applies for <strong>three late payments</strong>.</li>
+        <li>A deduction of <strong>2 points</strong> is applicable for <strong>more than three but fewer than ten late payments</strong>.</li>
+        <li>A deduction of <strong>4 points</strong> will be enforced for <strong>ten or more late payments</strong>.</li>
+    </ul>
+
+    <h3>General Character Assessment</h3>
+    <p>This assessment reflects the overall perception of the customer by bank personnel and incorporates various qualitative metrics to gauge character and trustworthiness.</p>
+
+    <p>All customer information collected as part of this credit rating policy is treated with the utmost confidentiality and is utilized solely for the purpose of evaluating creditworthiness within the guidelines established herein.</p>
+</div>
+
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Rahul Goswami">
+            <div class="customer-info">Rahul Goswami</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+   
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Krish Goswami">
+            <div class="customer-info">Krish Goswami</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+        
+   
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Shubham Goswami">
+            <div class="customer-info">Shubham Goswami</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Mrityunjay Tiwari">
+            <div class="customer-info">Mrityunjay Tiwari</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+    
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Deepak Goswami">
+            <div class="customer-info">Deepak Goswami</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+    
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Rohit Bora">
+            <div class="customer-info">Rohit Bora</div>
+            <div class="total-score">10<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">4/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+
+
+      
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Nitin Goswami">
+            <div class="customer-info">Nitin Goswami</div>
+            <div class="total-score">9<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">3/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 75%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Vivek Goswami">
+            <div class="customer-info">Vivek Goswami</div>
+            <div class="total-score">9<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">3/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 75%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        
+    <!-- Score Cards Section -->
+    <div class="score-cards">
+        <!-- Individual Customer Score Card Example -->
+        <div class="score-card" data-customer="Neeraj Goswami">
+            <div class="customer-info">Neeraj Goswami</div>
+            <div class="total-score">9<span>/10</span></div>
+            <div class="score-breakdown">
+                <div class="score-section no-default">
+                    <span class="score-label">No Default</span>
+                    <span class="score-value">5/5</span>
+                </div>
+                <div class="progress-bar no-default">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+
+                <div class="score-section timeliness">
+                    <span class="score-label">Timeliness</span>
+                    <span class="score-value">3/4</span>
+                </div>
+                <div class="progress-bar timeliness">
+                    <div class="progress" style="width: 75%;"></div>
+                </div>
+
+                <div class="score-section character">
+                    <span class="score-label">Character</span>
+                    <span class="score-value">1/1</span>
+                </div>
+                <div class="progress-bar character">
+                    <div class="progress" style="width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        
+
+<script>
+    function searchCustomer() {
+        const searchInput = document.getElementById('searchInput').value.toLowerCase();
+        const scoreCards = document.querySelectorAll('.score-card');
+        
+        scoreCards.forEach(card => {
+            const customerName = card.getAttribute('data-customer').toLowerCase();
+            card.classList.toggle('visible', customerName.includes(searchInput) && searchInput !== "");
         });
-    </script>
+    }
+
+    function toggleTerms() {
+        const termsContent = document.getElementById('termsContent');
+        termsContent.style.display = termsContent.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+
 </body>
 </html>
