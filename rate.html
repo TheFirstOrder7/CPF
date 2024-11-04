@@ -18,10 +18,8 @@
       align-items: center;
       justify-content: center;
       background-color: #FAACA8;
-background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
-
+      background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
     }
-   
 
     /* Container Styling */
     .container {
@@ -116,7 +114,7 @@ background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
 <body>
     
   <div class="container" id="ratingSection">
-    <h1>RATE US</h1> <!-- Fun Animated First Order Heading -->
+    <h1>RATE US</h1>
     <div class="stars" id="stars">
       <span class="star" data-value="1">&#9733;</span>
       <span class="star" data-value="2">&#9733;</span>
@@ -150,10 +148,15 @@ background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
 
     document.getElementById('submitBtn').addEventListener('click', () => {
       if (selectedRating > 0) {
+        const phoneNumber = '7456943225';
+        const message = `Hello, I rated ${selectedRating} stars on your website.`;
+        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        
         document.getElementById('ratingSection').style.opacity = 0;
         setTimeout(() => {
           document.getElementById('ratingSection').style.display = 'none';
           document.getElementById('thankYouMessage').style.display = 'block';
+          window.open(whatsappUrl, '_blank'); // Opens WhatsApp in a new tab
         }, 500);
       } else {
         alert('Please select a rating!');
