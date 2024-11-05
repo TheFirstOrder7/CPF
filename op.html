@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Opportunity Cost Calculator</title>
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* Body styling */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+            color: #333;
+        }
+
+        /* Calculator container styling */
+        .calculator {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            width: 100%;
+            max-width: 320px;
+            text-align: center;
+            transition: transform 0.2s ease-in-out;
+        }
+        .calculator:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Title styling */
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Input styling */
+        input, button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-top: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        /* Input focus state */
+        input:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+        }
+
+        /* Button styling */
+        button {
+            background-color: #3498db;
+            color: #fff;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        /* Result display styling */
+        #result {
+            margin-top: 1.5rem;
+            font-size: 1.125rem;
+            color: #bd0b0b;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>Opportunity Cost Calculator</h2>
+    <div>
+        <label for="capital">Unused Capital (INR):</label>
+        <input type="number" id="capital" placeholder="Enter amount">
+    </div>
+    <div>
+        <label for="tenure">Tenure (Days):</label>
+        <input type="number" id="tenure" placeholder="Enter tenure in days">
+    </div>
+    <button onclick="calculateOpportunityCost()">Calculate</button>
+    <p id="result"></p>
+</div>
+
+<script>
+    function calculateOpportunityCost() {
+        const loanRate = 0.18;      // 18% per annum
+        const costOfCapital = 0.105; // 10.5% per annum
+        const savingsRate = 0.03;    // 3% per annum
+
+        const capital = parseFloat(document.getElementById('capital').value);
+        const tenureDays = parseFloat(document.getElementById('tenure').value);
+
+        if (!isNaN(capital) && !isNaN(tenureDays) && capital > 0 && tenureDays > 0) {
+            const tenureYears = tenureDays / 365;
+
+            const lostInterest = capital * loanRate * tenureYears;
+            const depositCost = capital * costOfCapital * tenureYears;
+            const savingsInterest = capital * savingsRate * tenureYears;
+
+            const opportunityCost = (lostInterest + depositCost) - savingsInterest;
+
+            document.getElementById('result').innerText = 
+                `Opportunity Cost: INR ${opportunityCost.toFixed(2)}`;
+        } else {
+            document.getElementById('result').innerText = 
+                "Please enter valid numbers for capital and tenure.";
+        }
+    }
+</script>
+
+</body>
+</html>
