@@ -14,7 +14,7 @@
       padding: 0;
       overflow-x: hidden;
     }
-
+  
     /* Sticky Header styling */
     .header {
       display: flex;
@@ -27,46 +27,46 @@
       z-index: 1000;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
-
+  
     .header h1 {
-      font-size: 24px;
+      font-size: 2rem; /* Using rem for better scaling */
       font-weight: bold;
       letter-spacing: 2px;
     }
-
+  
     .header nav a {
       color: #fff;
       margin: 0 15px;
       text-decoration: none;
-      font-size: 16px;
+      font-size: 1rem;
       transition: color 0.3s;
     }
-
+  
     .header nav a:hover {
       color: #f39c12;
     }
-
+  
     /* Main Content */
     .main-content {
       text-align: center;
       padding: 50px 20px;
     }
-
+  
     .main-content h2 {
-      font-size: 40px;
+      font-size: 2.5rem; /* Adjust font size for responsiveness */
       font-weight: bold;
       line-height: 1.1;
       margin-bottom: 15px;
     }
-
+  
     .subtext {
-      font-size: 24px;
+      font-size: 1.5rem;
       font-weight: bold;
       color: #f39c12;
       margin-top: 20px;
       margin-bottom: 30px;
     }
-
+  
     /* Timer styling */
     .timer {
       display: flex;
@@ -75,16 +75,17 @@
       align-items: center;
       justify-content: center;
       margin-top: 30px;
+      flex-wrap: wrap; /* Allow timer to stack on small screens */
     }
-
+  
     .time-section {
       text-align: center;
     }
-
+  
     .digit {
       background: #000000;
       color: #fff;
-      font-size: 18px;
+      font-size: 1.5rem; /* Adjust for smaller screens */
       font-weight: bold;
       padding: 8px 15px;
       border-radius: 8px;
@@ -92,19 +93,19 @@
       text-align: center;
       transition: transform 0.3s ease;
     }
-
+  
     .digit:hover {
       transform: scale(1.1);
     }
-
+  
     /* Gadget video styling */
     .gadget-video {
-      width: 60%;
+      width: 100%; /* Make the video full width on mobile */
       max-width: 600px;
       margin: 30px auto;
       border-radius: 10px;
     }
-
+  
     /* Description */
     .description {
       max-width: 700px;
@@ -116,21 +117,21 @@
       background-color: rgba(0, 0, 0, 0.7);
       border-radius: 10px;
     }
-
+  
     .description a {
       color: #f39c12;
       text-decoration: none;
     }
-
+  
     .description a:hover {
       text-decoration: underline;
     }
-
+  
     /* Call to Action */
     .cta {
       margin-top: 40px;
     }
-
+  
     .invest-button {
       font-size: 1.5em;
       padding: 12px 25px;
@@ -141,11 +142,11 @@
       cursor: pointer;
       transition: background 0.3s;
     }
-
+  
     .invest-button:hover {
       background: linear-gradient(45deg, #e74c3c, #f39c12);
     }
-
+  
     /* Footer Styling */
     footer {
       background-color: #000;
@@ -153,12 +154,83 @@
       text-align: center;
       padding: 30px 0;
     }
-
+  
     footer a {
       color: #fff;
       text-decoration: none;
     }
+  
+    /* Mobile-friendly adjustments */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.5rem;
+      }
+  
+      .main-content h2 {
+        font-size: 2rem;
+      }
+  
+      .subtext {
+        font-size: 1.2rem;
+      }
+  
+      .timer {
+        font-size: 1.5rem;
+        gap: 10px;
+      }
+  
+      .description {
+        max-width: 90%;
+        font-size: 1rem;
+      }
+  
+      .cta .invest-button {
+        font-size: 1.2rem;
+        padding: 10px 20px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .header {
+        padding: 15px 20px;
+      }
+  
+      .header h1 {
+        font-size: 1.2rem;
+      }
+  
+      .header nav a {
+        font-size: 0.9rem;
+      }
+  
+      .main-content h2 {
+        font-size: 1.8rem;
+      }
+  
+      .subtext {
+        font-size: 1rem;
+      }
+  
+      .timer {
+        font-size: 1.2rem;
+      }
+  
+      .gadget-video {
+        width: 100%;
+        max-width: 100%;
+      }
+  
+      .description {
+        font-size: 0.9rem;
+      }
+  
+      .cta .invest-button {
+        font-size: 1rem;
+        padding: 8px 15px;
+      }
+    }
   </style>
+  
 </head>
 <body>
 
@@ -202,7 +274,7 @@
 
     <!-- Description -->
     <div class="description">
-      This newyear, we’re slashing our lending rate from 18% to an unbeatable 12%! It’s the biggest rate cut ever, making credit more affordable and accessible than ever before. Plus, you still have time to lock in higher returns on our Tax Saver Fixed Deposits and Recurring Deposits before the rate change. Don’t miss out on this incredible opportunity to save more and borrow for less!<a href="https://github.com/TheFirstOrder7/CPF/raw/main/aa.pdf" download>Download PDF</a>
+      This newyear, we’re slashing our lending rate from 18% to an unbeatable 12%! It’s the biggest rate cut ever, making credit more affordable and accessible than ever before. Plus, you still have time to lock in higher returns on our Tax Saver Fixed Deposits and Recurring Deposits before the rate change. Don’t miss out on this incredible opportunity to save more and borrow for less. <a href="https://github.com/TheFirstOrder7/CPF/raw/main/aa.pdf" download>Read more</a>
 
     </div>
 
