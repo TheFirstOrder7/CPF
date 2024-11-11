@@ -119,24 +119,28 @@
             margin-top: 20px;
             text-align: center;
         }
+        .blurred {
+            filter: blur(5px);
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>FLEXICASH LOAN</h1>
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Search by Loan Code">
+            <input type="text" id="searchInput" placeholder="Search by Loan Code" disabled>
         </div>
+        <button id="adminButton" class="analytics-btn" onclick="toggleAdminView()">Admin View</button>
         <div id="loanList">
             <!-- Loan details will be added dynamically here -->
         </div>
-        <button class="analytics-btn" onclick="toggleAnalytics()">Show Analytics</button>
+        <button id="analyticsButton" class="analytics-btn" onclick="toggleAnalytics()">Show Analytics</button>
         <div id="analyticsResults" class="analytics-results" style="display: none;"></div>
     </div>
 
     <script>
         const loans = [
-            { loanCode: '276', name: 'Rahul Goswami', date: '2024-09-17', amount: 379 },
+        { loanCode: '276', name: 'Rahul Goswami', date: '2024-09-17', amount: 379 },
             { loanCode: '278', name: 'Rahul Goswami', date: '2024-09-21', amount: 356 },
             { loanCode: '280', name: 'Rahul Goswami', date: '2024-09-21', amount: 333 },
             { loanCode: '282', name: 'Krish Goswami', date: '2024-10-28', amount: 100 },
@@ -150,47 +154,57 @@
         const interestRate = 18 / 100;
         const processingFeeMinimum = 5;
         const processingFeeRate = 0.5 / 100;
-
         let totalAmount = 0;
         let totalAccruedInterest = 0;
-
         const loanList = document.getElementById('loanList');
-        loans.forEach(loan => {
-            const loanElement = document.createElement('div');
-            loanElement.className = 'loan';
-            
-            const daysElapsed = Math.floor((new Date() - new Date(loan.date)) / (1000 * 60 * 60 * 24));
-            const accruedInterest = loan.amount * interestRate * (daysElapsed / 365);
-            const processingFee = Math.max(loan.amount * processingFeeRate, processingFeeMinimum);
-            const totalInterest = accruedInterest + processingFee;
-
-            totalAmount += loan.amount;
-            totalAccruedInterest += totalInterest;
-
-            loanElement.innerHTML = `
-                <div class="loan-details">
-                    <strong>${loan.name} - ${loan.loanCode}</strong>
-                    <span>Loan Date: ${loan.date}</span>
-                    <span>Loan Amount: ₹${loan.amount.toFixed(2)}</span>
-                    <span>Accrued Interest: ₹${totalInterest.toFixed(2)}</span>
-                </div>
-            `;
-            loanList.appendChild(loanElement);
-        });
-
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            document.querySelectorAll('.loan').forEach(loan => {
-                const loanCode = loan.querySelector('strong').textContent.toLowerCase();
-                loan.style.display = loanCode.includes(searchTerm) ? '' : 'none';
-            });
-        });
-
+        let isAdmin = false;
         let isAnalyticsVisible = false;
-        
+
+        function displayLoans() {
+            loanList.innerHTML = '';
+            loans.forEach(loan => {
+                const loanElement = document.createElement('div');
+                loanElement.className = 'loan';
+
+                const daysElapsed = Math.floor((new Date() - new Date(loan.date)) / (1000 * 60 * 60 * 24));
+                const accruedInterest = loan.amount * interestRate * (daysElapsed / 365);
+                const processingFee = Math.max(loan.amount * processingFeeRate, processingFeeMinimum);
+                const totalInterest = accruedInterest + processingFee;
+
+                totalAmount += loan.amount;
+                totalAccruedInterest += totalInterest;
+
+                loanElement.innerHTML = `
+                    <div class="loan-details">
+                        <strong class="${!isAdmin ? 'blurred' : ''}">${isAdmin ? loan.name : loan.name[0] + '. ' + loan.name.split(' ')[1]}</strong>
+                        <span>Loan Code: ${loan.loanCode}</span>
+                        <span>Loan Date: ${loan.date}</span>
+                        <span>Loan Amount: ₹${loan.amount.toFixed(2)}</span>
+                        <span>Accrued Interest: ₹${totalInterest.toFixed(2)}</span>
+                    </div>
+                `;
+                loanList.appendChild(loanElement);
+            });
+        }
+
+        displayLoans();
+
+        function toggleAdminView() {
+            const password = prompt('Enter admin password:');
+            if (password === '8055') {
+                isAdmin = true;
+                document.getElementById('searchInput').disabled = false; // Enable search in admin mode
+                displayLoans();
+                document.getElementById('adminButton').style.display = 'none';
+                alert('You are now in Admin View');
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
         function toggleAnalytics() {
             const analyticsResults = document.getElementById('analyticsResults');
-            const analyticsButton = document.querySelector('.analytics-btn');
+            const analyticsButton = document.getElementById('analyticsButton');
 
             if (isAnalyticsVisible) {
                 analyticsResults.style.display = 'none';
@@ -220,6 +234,14 @@
                 <h3>Percentage Gain: ${percentageGain}%</h3>
             `;
         }
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            document.querySelectorAll('.loan').forEach(loan => {
+                const loanCode = loan.querySelector('strong').textContent.toLowerCase();
+                loan.style.display = loanCode.includes(searchTerm) ? '' : 'none';
+            });
+        });
     </script>
 </body>
 </html>
