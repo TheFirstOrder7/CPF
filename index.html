@@ -475,7 +475,33 @@
                 width: 90%;
             }
         }
-    
+  /* Video Section */
+.video-section {
+    position: relative;
+    width: 100%;
+    height: 60vh; /* Adjust the height of the video section */
+    overflow: hidden;
+    cursor: pointer; /* Makes it clear it's clickable */
+}
+
+.promo-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the video */
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Ensure full video is visible */
+    z-index: -1; /* Keeps the video in the background */
+}
+
+/* Make the link span the entire video area */
+.video-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 
     </style>
 </head>
@@ -544,6 +570,15 @@
   <a href="CPF.html" class="know-more-btn">Learn More</a>
 </section>
 
+<!-- Video Section -->
+<section class="video-section">
+  <a href="a.html" class="video-link">
+      <video class="promo-video" autoplay loop muted>
+          <source src="1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+      </video>
+  </a>
+</section>
 
 
 
@@ -569,12 +604,7 @@
                 <p>Invest with us and watch your money grow with secure, high-return investment plans.</p>
                 <a href="explore.html">Learn More</a>
             </div>
-            <div class="carousel-item">
-              <img src="3.jpg" alt="update">
-              <h3>Hammering Rates</h3>
-              <p>Lock in better returns before January and enjoy lower rates soon!</p>
-              <a href="a.html">Learn More</a>
-          </div>
+            
         </div>
     </section>
 
