@@ -34,7 +34,7 @@
         }
 
         .hero h1 {
-            font-size: 4.5rem;
+            font-size: 3rem;
             font-weight: 800;
             color: #007aff;
             text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
@@ -42,7 +42,7 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: #666;
             margin-top: 15px;
         }
@@ -52,13 +52,14 @@
             width: 90%;
             max-width: 900px;
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-around;
-            gap: 30px;
+            gap: 20px;
         }
 
         .choice-bar {
-            flex: 1;
-            padding: 40px;
+            flex: 1 1 300px;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
@@ -94,22 +95,22 @@
         }
 
         .choice-bar span {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             font-weight: 700;
             margin-bottom: 15px;
             color: #333;
         }
 
         .choice-bar img {
-            width: 100px;
-            height: 80px;
+            width: 80px;
+            height: 60px;
             margin-bottom: 15px;
         }
 
         footer {
             margin-top: auto;
-            padding: 30px;
-            font-size: 0.95rem;
+            padding: 20px;
+            font-size: 0.9rem;
             color: #666;
             text-align: center;
             background: rgba(255, 255, 255, 0.6);
@@ -118,6 +119,51 @@
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
         }
 
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .choice-bar {
+                padding: 15px;
+            }
+
+            .choice-bar span {
+                font-size: 1.2rem;
+            }
+
+            .choice-bar img {
+                width: 70px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 0.9rem;
+            }
+
+            .choice-bar {
+                padding: 10px;
+            }
+
+            .choice-bar span {
+                font-size: 1rem;
+            }
+
+            .choice-bar img {
+                width: 60px;
+                height: 40px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -130,12 +176,10 @@
         <a href="fcl.html" class="choice-bar">
             <img src="https://media.istockphoto.com/id/96203609/photo/vintage-television.jpg?s=612x612&w=0&k=20&c=cwqNx4hrzS5B13W5WdyBPM9p64gyy4P3HPCjyW7RHqI=" alt="Old Link Icon">
             <span>Old FC Loan</span>
-            
         </a>
         <a href="fcl2.html" class="choice-bar">
             <img src="https://media.istockphoto.com/id/915655730/photo/black-modern-tv-with-a-picture-of-the-landscape.jpg?s=612x612&w=0&k=20&c=d7DBd7476sfPoSyB3TcpDKAxSHodjWIvS3sSNz8RDAQ=" alt="New Link Icon">
             <span>New FC Loan</span>
-            
         </a>
     </div>
 
@@ -144,7 +188,3 @@
     </footer>
 </body>
 </html>
-
-
-
-  
