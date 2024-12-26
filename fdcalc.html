@@ -203,8 +203,8 @@ const ciiSale = parseInt(document.getElementById('ciiSale').value);
             return;
         }
 
-        // Calculate maturity amount with 16% compounded annually
-        const maturityAmount = amount * Math.pow(1 + 0.16, tenure);
+        // Calculate maturity amount with 9% compounded annually
+        const maturityAmount = amount * Math.pow(1 + 0.09, tenure);
 
         // Calculate indexed amount based on CII
         const indexedAmount = (ciiSale / ciiPurchase) * amount;
@@ -243,7 +243,7 @@ const ciiSale = parseInt(document.getElementById('ciiSale').value);
             <div class="result-item">Tax Deducted: ₹${tax.toFixed(2)}</div>
             <div class="result-item"><strong>Final Maturity Amount: ₹${finalAmount.toFixed(2)}</strong></div>
             <div class="return-percentage">Return: ${returnPercentage.toFixed(2)}%</div><br>
-            <button class="btn" onclick="sendWhatsApp('${amount}', '16%', '${tenure}', '${taxBenefit ? 'Yes' : 'No'}', '${finalAmount.toFixed(2)}', '${timestamp}')">Send WhatsApp Message</button>
+            <button class="btn" onclick="sendWhatsApp('${amount}', '9%', '${tenure}', '${taxBenefit ? 'Yes' : 'No'}', '${finalAmount.toFixed(2)}', '${timestamp}')">Send WhatsApp Message</button>
         `;
     }
 
