@@ -216,11 +216,11 @@
         message += ` with zero service charge under the ${loanCode} code.`;
         calculationDiv.innerHTML = `Service Charge: Rs 0`;
     } else if (loanCode === 'OML' || subCode) {
-        interestRate = 1.5;
+        interestRate = 1;
         months = subCode ? parseInt(subCode) : 1; // Set default months for OML if no subCode
         totalInterest = Math.round(amount * (interestRate * months / 100)); // Rounding to nearest whole number
-        message += ` The interest rate is 1.5% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
-        calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1.5% per month for ${months} months)`;
+        message += ` The interest rate is 1% per 30 calendar days for ${months} months and the total interest is Rs ${totalInterest}.`;
+        calculationDiv.innerHTML = `Interest: Rs ${totalInterest} (1% per month for ${months} months)`;
     } else {
         calculationDiv.innerHTML = '';
     }
