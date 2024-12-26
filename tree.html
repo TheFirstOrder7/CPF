@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Singularity</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(to bottom right, #e3e8ff, #f5f5f7);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .hero {
+            width: 100%;
+            padding: 50px 20px;
+            background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.6), rgba(245, 245, 247, 0.8));
+            backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.01);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            color: #007aff;
+            text-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .container {
+            margin-top: 40px;
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+        }
+
+        .choice-bar {
+            flex: 1;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            color: #007aff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .choice-bar::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .choice-bar:hover::before {
+            opacity: 1;
+        }
+
+        .choice-bar:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .choice-bar span {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .choice-bar img {
+            width: 100px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 30px;
+            font-size: 0.95rem;
+            color: #666;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Singularity</h1>
+        <p>Discover the future of possibilities through streamlined solutions.</p>
+    </div>
+
+    <div class="container">
+        <a href="fcl.html" class="choice-bar">
+            <img src="https://media.istockphoto.com/id/96203609/photo/vintage-television.jpg?s=612x612&w=0&k=20&c=cwqNx4hrzS5B13W5WdyBPM9p64gyy4P3HPCjyW7RHqI=" alt="Old Link Icon">
+            <span>Old FC Loan</span>
+            
+        </a>
+        <a href="fcl2.html" class="choice-bar">
+            <img src="https://media.istockphoto.com/id/915655730/photo/black-modern-tv-with-a-picture-of-the-landscape.jpg?s=612x612&w=0&k=20&c=d7DBd7476sfPoSyB3TcpDKAxSHodjWIvS3sSNz8RDAQ=" alt="New Link Icon">
+            <span>New FC Loan</span>
+            
+        </a>
+    </div>
+
+    <footer>
+        &copy; 2024 Singularity. All rights reserved.
+    </footer>
+</body>
+</html>
+
+
+
+  
