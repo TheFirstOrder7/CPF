@@ -475,28 +475,28 @@
                 width: 90%;
             }
         }
-  /* Video Section */
-.video-section {
+  /* Image Section */
+.image-section {
     position: relative;
     width: 100%;
-    height: 60vh; /* Adjust the height of the video section */
+    height: 60vh; /* Adjust the height of the image section */
     overflow: hidden;
-    cursor: pointer; /* Makes it clear it's clickable */
+    cursor: pointer; /* Indicates the section is clickable */
 }
 
-.promo-video {
+.promo-image {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /* Center the video */
+    transform: translate(-50%, -50%); /* Center the image */
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Ensure full video is visible */
-    z-index: -1; /* Keeps the video in the background */
+    object-fit: contain; /* Ensures the entire image is visible */
+    z-index: -1; /* Keeps the image in the background */
 }
 
-/* Make the link span the entire video area */
-.video-link {
+/* Make the link span the entire image area */
+.image-link {
     display: block;
     width: 100%;
     height: 100%;
@@ -569,14 +569,10 @@
   </div>
   <a href="CPF.html" class="know-more-btn">Learn More</a>
 </section>
-
-<!-- Video Section -->
-<section class="video-section">
-  <a href=".html" class="video-link">
-      <video class="promo-video" autoplay loop muted>
-          <source src="100.jpg" type="video/mp4">
-          Your browser does not support the video tag.
-      </video>
+<!-- Image Section -->
+<section class="image-section">
+  <a href="a.html" class="image-link">
+      <img src="100.jpg" alt="Promotional Image" class="promo-image">
   </a>
 </section>
 
