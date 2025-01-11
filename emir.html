@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Reminder</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f7;
+            color: #333;
+        }
+
+        .container {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        select, input {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0071e3;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Loan Reminder</h1>
+        <form id="loanForm">
+            <label for="customerName">Customer Name</label>
+            <select id="customerName" required>
+                <option value="+917456943225">Rahul Goswami</option>
+                <option value="+919675785596">Deepak Goswami</option>
+                <option value="+917078424551">Krish Goswami</option>
+                <option value="+918445368302">Bhagwati Goswami</option>
+                <option value="+917454807688">Nitin Goswami</option>
+                <option value="+919389302191">Shubham Goswami</option>
+                <option value="+916395749586">Neeraj Goswami</option>
+                <option value="+918273292843">Rohit Bora</option>
+                <option value="+918954303763">Vivek Goswami</option>
+                <option value="+918731593998">Vishal Goswami</option>
+                <option value="+919528843823">Pawan Goswami</option>
+                <option value="+918057248202">Karan Pant</option>
+            </select>
+
+            <label for="installmentCount">Installment Count</label>
+            <input type="number" id="installmentCount" required>
+
+            <label for="loanCode">Unique Loan Code</label>
+            <input type="number" id="loanCode" required>
+
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" required>
+
+            <label for="dueDate">Due Date</label>
+            <input type="date" id="dueDate" required>
+
+            <button type="button" onclick="sendReminder()">Send Text Reminder</button>
+        </form>
+        <p class="note">Note: Please ensure all fields are filled before sending the reminder.</p>
+    </div>
+
+    <script>
+       function sendReminder() {
+    // Extract form values
+    const customerSelect = document.getElementById('customerName');
+    const customerName = customerSelect.options[customerSelect.selectedIndex].text;
+    const whatsappNumber = customerSelect.value;
+    const installmentCount = document.getElementById('installmentCount').value;
+    const loanCode = document.getElementById('loanCode').value;
+    const amount = document.getElementById('amount').value;
+    const dueDate = document.getElementById('dueDate').value;
+
+    if (!installmentCount || !loanCode || !amount || !dueDate) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    // Construct the WhatsApp message
+    const message = `Dear ${customerName}, your EMI count (${installmentCount}) for loan code (${loanCode}) of amount ₹${amount} is due on ${dueDate}. Kindly pay the EMI amount on 7456943225@jupiteraxis before the due date to avoid cancellation of the loan agreement. Please note, in case of default, the outstanding balance will be restructured as a new one month loan.`;
+
+    // Encode message for URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Open WhatsApp with the message
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+    window.open(whatsappURL, '_blank');
+}
+
+    </script>
+</body>
+</html>
