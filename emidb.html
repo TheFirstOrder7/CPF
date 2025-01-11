@@ -6,7 +6,7 @@
   <title>EMI Reminder & Ledger</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');
-    
+
     body {
       font-family: 'SF Pro Display', sans-serif;
       background: linear-gradient(135deg, #4c669f 0%, #192f6a 100%);
@@ -34,8 +34,14 @@
       margin-bottom: 20px;
     }
 
+    .table-container {
+      overflow-x: auto;
+      margin: 0 auto;
+    }
+
     table {
-      width: 50%;
+      width: 100%;
+      max-width: 800px;
       border-collapse: collapse;
       margin: 0 auto;
       animation: fadeIn 1.5s ease-in;
@@ -131,6 +137,19 @@
       cursor: pointer;
     }
 
+    #linkButton {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+
   </style>
 </head>
 <body>
@@ -165,7 +184,7 @@
     </thead>
     <tbody></tbody>
   </table>
-
+  <a href="emir.html" id="linkButton">Go to EMI Reminder Page</a>
   <script>
     // Password functionality
     const correctPassword = "8055";
@@ -216,7 +235,6 @@
       },
       // Add more loans as needed
     ];
-
     const ledgerTable = document.getElementById('ledgerTable').querySelector('tbody');
 
     loans.forEach(loan => {
