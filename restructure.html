@@ -196,8 +196,21 @@ button:hover {
         <h2>Enter Loan Code</h2>
         <input type="text" id="loanCode" placeholder="Enter loan code..." list="loanCodeSuggestions"/>
         <datalist id="loanCodeSuggestions">
-            <option value="">
-          
+            <option value="74">
+            <option value="228">
+            <option value="186">
+            <option value="187">
+            <option value="217">
+            <option value="224">
+            <option value="234">
+            <option value="221">
+            <option value="222">
+            <option value="230">
+            <option value="223">
+            <option value="237">
+            <option value="240">
+            <option value="239">
+            <option value="238">
             <!-- Add other loan codes as options here -->
         </datalist>
         <button onclick="searchLoan()">Search</button>
@@ -260,8 +273,7 @@ button:hover {
             </thead>
             <tbody>
                 <!-- Sample data; add new rows here as needed -->
-               <tr>
-   <tr>
+                <tr>
                     <td>405</td>
                     <td>OY-D12 475</td>
                     <td>Krish Goswami</td>
@@ -287,12 +299,12 @@ button:hover {
     <td>58</td>
 </tr>
   <tr>
-                    <td>416</td>
-                    <td>OML 200</td>
-                    <td>Deepak Goswami</td>
-                    <td>04/03/2025</td>
-                    <td>200</td>
-                    <td>2</td>
+     <td>416</td>
+    <td>OML 200</td>
+    <td>Deepak Goswami</td>
+    <td>04/03/2025</td>
+    <td>200</td>
+    <td>2</td>
                 </tr>
 <tr>
     <td>392</td>
@@ -339,7 +351,6 @@ button:hover {
     <td>1300</td>
     <td>79</td>
 </tr>
-
                 <!-- Add more rows as needed -->
             </tbody>
             <tfoot>
@@ -408,14 +419,14 @@ function updateInterest() {
     document.getElementById('dynamicDropdown').style.display = 'none';
 
     if (loanTerm === 'OML') {
-        newInterest = Math.round(principal * 0.01 + interest + 0.10 * (principal * 0.01 + interest));
+        newInterest = Math.round(principal * 0.015 + interest + 0.10 * (principal * 0.015 + interest));
     } else if (loanTerm === 'QD') {
         document.getElementById('dynamicDropdown').style.display = 'block';
         let options = `<option value="" disabled selected>Select tenure</option><option value="2">2</option><option value="3">3</option>`;
         document.getElementById('additionalOptions').innerHTML = options;
         document.getElementById('additionalOptions').onchange = function () {
             let multiplier = parseFloat(this.value);
-            newInterest = Math.round(principal * 0.01 * multiplier + interest + 0.10 * (principal * 0.01 * multiplier + interest));
+            newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
             document.getElementById('newInterest').innerText = newInterest.toFixed(2);
         };
     } else if (loanTerm === 'HY-D') {
@@ -424,7 +435,7 @@ function updateInterest() {
         document.getElementById('additionalOptions').innerHTML = options;
         document.getElementById('additionalOptions').onchange = function () {
             let multiplier = parseFloat(this.value);
-            newInterest = Math.round(principal * 0.01 * multiplier + interest + 0.10 * (principal * 0.01 * multiplier + interest));
+            newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
             document.getElementById('newInterest').innerText = newInterest.toFixed(2);
         };
     } else if (loanTerm === 'OY-D') {
@@ -433,7 +444,7 @@ function updateInterest() {
         document.getElementById('additionalOptions').innerHTML = options;
         document.getElementById('additionalOptions').onchange = function () {
             let multiplier = parseFloat(this.value);
-            newInterest = Math.round(principal * 0.01 * multiplier + interest + 0.10 * (principal * 0.01 * multiplier + interest));
+            newInterest = Math.round(principal * 0.015 * multiplier + interest + 0.10 * (principal * 0.015 * multiplier + interest));
             document.getElementById('newInterest').innerText = newInterest.toFixed(2);
         };
     } else {
